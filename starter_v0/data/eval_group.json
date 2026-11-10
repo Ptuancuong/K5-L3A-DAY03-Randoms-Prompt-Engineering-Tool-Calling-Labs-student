@@ -1,7 +1,256 @@
 {
   "dataset_id": "day04_v2_research_group",
   "dataset_role": "group",
-  "description": "Case do NHÓM tự viết thêm để cover thêm trường hợp. Mỗi case cần: id, phase='B', query HOẶC turns, failure_type (thuộc allowed_failure_types), và expect (tool_calls[...] hoặc no_tool=true). Nên kèm metadata.what_it_tests.",
-  "allowed_failure_types": ["wrong_tool", "wrong_arg_value", "wrong_boundary", "unnecessary_tool", "out_of_scope", "missing_info"],
-  "cases": []
+  "description": "Bộ test bổ sung độc lập gồm 10 case kiểm tra routing, arguments, clarify, xác nhận trước hành động ghi, no-tool và multiturn. Không sửa eval_base.json.",
+  "cases": [
+    {
+      "id": "G01_latest_tweets_explicit_handle",
+      "phase": "B",
+      "suite": "group",
+      "query": "Lấy 7 tweet mới nhất từ tài khoản @karpathy.",
+      "failure_type": "wrong_arg_value",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "karpathy",
+              "limit": 7
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "explicit_handle_and_limit",
+        "difficulty": "easy",
+        "what_it_tests": "Trích đúng handle và số lượng tweet từ yêu cầu."
+      }
+    },
+    {
+      "id": "G02_tweet_topic_latest",
+      "phase": "B",
+      "suite": "group",
+      "query": "Tìm các tweet mới nhất thảo luận về agentic AI.",
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "social_search",
+            "args": {
+              "query": "agentic AI",
+              "search_type": "Latest"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "social_topic_latest",
+        "difficulty": "medium",
+        "what_it_tests": "Tìm tweet theo chủ đề và nhận diện yêu cầu mới nhất."
+      }
+    },
+    {
+      "id": "G03_web_news_week",
+      "phase": "B",
+      "suite": "group",
+      "query": "Tìm tin tức về chip AI trong tuần này.",
+      "failure_type": "wrong_arg_value",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "chip AI",
+              "topic": "news",
+              "timeframe": "week"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "web_news_week",
+        "difficulty": "medium",
+        "what_it_tests": "Tách query, topic=news và timeframe=week."
+      }
+    },
+    {
+      "id": "G04_fetch_exact_url",
+      "phase": "B",
+      "suite": "group",
+      "query": "Đọc và tóm tắt https://www.example.org/research/ai-report",
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "fetch",
+            "args": {
+              "url": "https://www.example.org/research/ai-report"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "fetch_provided_url",
+        "difficulty": "easy",
+        "what_it_tests": "Có URL cụ thể thì đọc URL, không tìm kiếm URL khác."
+      }
+    },
+    {
+      "id": "G05_missing_account_clarify",
+      "phase": "B",
+      "suite": "group",
+      "query": "Cho mình xem 3 tweet mới nhất của người đó.",
+      "failure_type": "missing_info",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "text"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "missing_account",
+        "difficulty": "medium",
+        "what_it_tests": "Đại từ không có tiền ngữ xác định; hỏi tài khoản nào, không tự đoán."
+      }
+    },
+    {
+      "id": "G06_confirmation_before_send",
+      "phase": "B",
+      "suite": "group",
+      "query": "Gửi nội dung này vào Telegram ngay: Cuộc họp bắt đầu lúc 9 giờ sáng mai.",
+      "failure_type": "wrong_boundary",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "yes_no"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "confirm_before_send_complete_content",
+        "difficulty": "medium",
+        "what_it_tests": "Có nội dung nhưng vẫn phải xin xác nhận yes_no trước khi gửi."
+      }
+    },
+    {
+      "id": "G07_no_tool_simple_math",
+      "phase": "B",
+      "suite": "group",
+      "query": "Nếu mỗi ngày đọc 12 trang trong 5 ngày thì đọc được bao nhiêu trang?",
+      "failure_type": "unnecessary_tool",
+      "expect": {
+        "no_tool": true,
+        "behavior": "answer_without_tool"
+      },
+      "metadata": {
+        "skill": "simple_math_no_tool",
+        "difficulty": "easy",
+        "what_it_tests": "Phép tính đơn giản cần trả lời trực tiếp, không gọi tool."
+      }
+    },
+    {
+      "id": "G08_parallel_web_and_social",
+      "phase": "B",
+      "suite": "group",
+      "query": "Tìm tin tức về quantum computing hôm nay trên web và tìm tweet mới nhất về cùng chủ đề.",
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "quantum computing",
+              "topic": "news",
+              "timeframe": "day"
+            }
+          },
+          {
+            "name": "social_search",
+            "args": {
+              "query": "quantum computing",
+              "search_type": "Latest"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "parallel_web_social_same_topic",
+        "difficulty": "hard",
+        "what_it_tests": "Một yêu cầu cần hai nguồn độc lập; cả hai dùng cùng chủ đề."
+      }
+    },
+    {
+      "id": "G09_multiturn_topic_and_timeframe",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Tìm tin tức về AI hôm nay."
+        },
+        {
+          "role": "user",
+          "content": "Đổi chủ đề sang robot hình người."
+        },
+        {
+          "role": "user",
+          "content": "Vẫn chỉ lấy tin hôm nay nhé."
+        }
+      ],
+      "failure_type": "wrong_arg_value",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "robot hình người",
+              "topic": "news",
+              "timeframe": "day"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "multiturn_preserve_timeframe_update_topic",
+        "difficulty": "hard",
+        "what_it_tests": "Giữ timeframe từ ngữ cảnh, cập nhật chủ đề theo lượt mới."
+      }
+    },
+    {
+      "id": "G10_multiturn_cancel_send",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Gửi thông báo 'Lịch họp đã thay đổi' vào Telegram."
+        },
+        {
+          "role": "assistant",
+          "content": "Bạn xác nhận gửi thông báo này chứ?"
+        },
+        {
+          "role": "user",
+          "content": "Không, đừng gửi."
+        }
+      ],
+      "failure_type": "wrong_boundary",
+      "expect": {
+        "no_tool": true,
+        "behavior": "answer_without_tool"
+      },
+      "metadata": {
+        "skill": "multiturn_cancel_write_action",
+        "difficulty": "hard",
+        "what_it_tests": "Người dùng từ chối; tuyệt đối không gọi send hoặc tiếp tục gửi."
+      }
+    }
+  ]
 }

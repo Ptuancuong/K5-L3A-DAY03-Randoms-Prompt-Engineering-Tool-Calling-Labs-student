@@ -1,0 +1,209 @@
+{
+  "dataset_id": "football_api_tools_10",
+  "dataset_role": "group",
+  "description": "10 evaluation cases for get_match_results, get_league_standings, and get_player_stats.",
+  "cases": [
+    {
+      "id": "FB01_match_recent_by_team_id",
+      "phase": "B",
+      "suite": "group",
+      "query": "Lấy 5 trận gần nhất của đội có API-Football ID là 50.",
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "get_match_results",
+            "args": {
+              "team_id": 50,
+              "last": 5
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Match results routing and explicit team_id/last extraction."
+      }
+    },
+    {
+      "id": "FB02_match_custom_limit",
+      "phase": "B",
+      "suite": "group",
+      "query": "Cho tôi xem 3 trận gần nhất của đội có ID 33 trên API-Football.",
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "get_match_results",
+            "args": {
+              "team_id": 33,
+              "last": 3
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Match results routing with a non-default last value."
+      }
+    },
+    {
+      "id": "FB03_match_missing_team",
+      "phase": "B",
+      "suite": "group",
+      "query": "Tra cứu kết quả 5 trận gần nhất của đội bóng yêu thích của tôi.",
+      "failure_type": "missing_info",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "text"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Ask which team or its API-Football ID; do not guess a team."
+      }
+    },
+    {
+      "id": "FB04_standings_premier_league",
+      "phase": "B",
+      "suite": "group",
+      "query": "Xem bảng xếp hạng Premier League mùa 2025, league ID là 39.",
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "get_league_standings",
+            "args": {
+              "league_id": 39,
+              "season": 2025
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Standings routing and extraction of league ID and season."
+      }
+    },
+    {
+      "id": "FB05_standings_another_league",
+      "phase": "B",
+      "suite": "group",
+      "query": "Lấy bảng xếp hạng La Liga mùa 2024. API-Football league ID là 140.",
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "get_league_standings",
+            "args": {
+              "league_id": 140,
+              "season": 2024
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Standings routing with different league and season values."
+      }
+    },
+    {
+      "id": "FB06_standings_missing_season",
+      "phase": "B",
+      "suite": "group",
+      "query": "Cho tôi bảng xếp hạng Premier League, league ID là 39. Tôi chưa nói mùa giải nào.",
+      "failure_type": "missing_info",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "text"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Ask for the required season instead of assuming one."
+      }
+    },
+    {
+      "id": "FB07_player_stats_haaland",
+      "phase": "B",
+      "suite": "group",
+      "query": "Thống kê Haaland ở Premier League mùa 2025, league ID 39.",
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "get_player_stats",
+            "args": {
+              "player_name": "Haaland",
+              "league_id": 39,
+              "season": 2025
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Player stats routing and all required arguments."
+      }
+    },
+    {
+      "id": "FB08_player_stats_salah",
+      "phase": "B",
+      "suite": "group",
+      "query": "Tìm số bàn thắng và kiến tạo của Mohamed Salah tại Premier League mùa 2024, league ID 39.",
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "get_player_stats",
+            "args": {
+              "player_name": "Mohamed Salah",
+              "league_id": 39,
+              "season": 2024
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Player stats routing and preservation of full player name."
+      }
+    },
+    {
+      "id": "FB09_player_stats_missing_context",
+      "phase": "B",
+      "suite": "group",
+      "query": "Cho tôi thống kê của Haaland mùa này.",
+      "failure_type": "missing_info",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "text"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Ask for league and explicit season when required context is unavailable."
+      }
+    },
+    {
+      "id": "FB10_general_football_question_no_tool",
+      "phase": "B",
+      "suite": "group",
+      "query": "Giải thích luật việt vị trong bóng đá bằng một ví dụ đơn giản.",
+      "failure_type": "unnecessary_tool",
+      "expect": {
+        "no_tool": true,
+        "behavior": "answer_without_tool"
+      },
+      "metadata": {
+        "what_it_tests": "Answer general football knowledge directly without calling a live data tool."
+      }
+    }
+  ]
+}

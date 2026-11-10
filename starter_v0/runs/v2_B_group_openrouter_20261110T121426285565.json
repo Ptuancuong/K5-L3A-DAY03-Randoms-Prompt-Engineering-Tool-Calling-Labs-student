@@ -1,0 +1,933 @@
+{
+  "run_id": "v2_B_group_openrouter_20261110T121426285565",
+  "version": "v2",
+  "artifact_version": "v2+pa4fe65b024a3+t5b22a2476d41",
+  "prompt_hash": "a4fe65b024a327cc339fa3b482591b86b91888288482036f53b76c8127165a72",
+  "tools_hash": "5b22a2476d41b989d5dc1e54f24ce7890e781909deb2f7afafb856ab53a6d7c0",
+  "phase": "B",
+  "suite": "group",
+  "provider": "openrouter",
+  "model": "openai/gpt-4o-mini",
+  "system_prompt": "D:\\AI_Thuc_Chien\\K5-L3A-DAY03-Randoms-Prompt-Engineering-Tool-Calling-Labs-student\\starter_v0\\artifacts\\system_prompt.md",
+  "tools": "D:\\AI_Thuc_Chien\\K5-L3A-DAY03-Randoms-Prompt-Engineering-Tool-Calling-Labs-student\\starter_v0\\artifacts\\tools.yaml",
+  "eval_cases": "data\\eval_group.json",
+  "dataset_id": "day04_v2_research_group",
+  "dataset_role": "group",
+  "description": "Bộ test bổ sung độc lập gồm 10 case kiểm tra routing, arguments, clarify, xác nhận trước hành động ghi, no-tool và multiturn. Không sửa eval_base.json.",
+  "generated_at": "2026-11-10T12:14:26",
+  "summary": {
+    "total_cases": 10,
+    "measured_cases": 10,
+    "provider_error_cases": 0,
+    "passed_cases": 10,
+    "case_accuracy": 1.0,
+    "tool_routing_accuracy": 1.0,
+    "argument_accuracy": 1.0,
+    "multiturn_accuracy": 1.0,
+    "failure_counts": {},
+    "observed_mismatch_counts": {}
+  },
+  "results": [
+    {
+      "id": "G01_latest_tweets_explicit_handle",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "explicit_handle_and_limit",
+        "difficulty": "easy",
+        "what_it_tests": "Trích đúng handle và số lượng tweet từ yêu cầu."
+      },
+      "input": "Lấy 7 tweet mới nhất từ tài khoản @karpathy.",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "karpathy",
+              "limit": 7
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "karpathy",
+              "limit": 7
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "timeline",
+          "args": {
+            "screenname": "karpathy",
+            "limit": 7
+          },
+          "result": {
+            "tool": "get_user_tweets",
+            "screenname": "karpathy",
+            "items": [
+              {
+                "title": "Earlier this week Tristan published his top YouTube channels:",
+                "summary": "Earlier this week Tristan published his top YouTube channels:\nhttps://t.co/NZ3UCNo6cT\nWhich looked excellent so clearly I had to turn it into TristanTube:\nhttps://t.co/l0KyW1WdNH\n47K super nerdy videos +TV mode for laid back watching. (One-shotted with Claude Code in 3 minutes)",
+                "url": "https://x.com/karpathy/status/2119114537442189652",
+                "source": "@karpathy",
+                "date": "Sat Nov 07 17:07:31 +0000 2026",
+                "metrics": {
+                  "favorites": 9166,
+                  "retweets": 771,
+                  "views": "939135"
+                }
+              },
+              {
+                "title": "Weekend hack: HackerTube. I was annoyed with YouTube's recommendations so I had Claude filter down 43M comments over 20 ",
+                "summary": "Weekend hack: HackerTube. I was annoyed with YouTube's recommendations so I had Claude filter down 43M comments over 20 years of HN to 6,454 videos that keep being recommended. *Significantly* better viewing experience, ~2 hours with Opus 5.5:\nhttps://t.co/JIhXN7OSh1\n\n- Excellent recs without any logins (state is kept in local browser session)\n- Thumbnail is a representative frame from middle of the video instead of the super duper A/B test hyper-optimized user uploads\n- Underlying data from the comment analysis as one zip file, point your Claude at it and ask for your own version\n- HackerTube Longs ✊\n\nA bit more on the process:\nI use Claude Code (desktop app for Mac), Opus 5.5 on Medium effort as my default. I only talk to Claude and have it do everything, the only \"manual work\" I helped with in tandem was in the browser (reminiscent of MenuGen): 1) I had to create some kind of API key from Google Cloud UI to query YouTube for video metadata, 2) I booted up a VPS box for serving and 3) I bought the domain name. Once the box was up I gave Claude the IP and told it update, secure, harden, deploy and optimize the code, and it did the whole thing.\n\nMany awesome projects that would have normally taken weeks/months even can now be few-shotted for breakfast. What else are we not thinking of.",
+                "url": "https://x.com/karpathy/status/2116957135661945283",
+                "source": "@karpathy",
+                "date": "Sun Nov 01 18:14:46 +0000 2026",
+                "metrics": {
+                  "favorites": 52340,
+                  "retweets": 4834,
+                  "views": "5717196"
+                }
+              },
+              {
+                "title": "RT @Tristan0x: If you've ever wondered why smart TVs are so cheap, this is why.",
+                "summary": "RT @Tristan0x: If you've ever wondered why smart TVs are so cheap, this is why.\n\n@log4j rooted his Samsung and found an always-on hot mic,…",
+                "url": "https://x.com/karpathy/status/2114384346815820050",
+                "source": "@karpathy",
+                "date": "Sun Oct 25 15:51:26 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 3287,
+                  "views": "40226"
+                }
+              },
+              {
+                "title": "Dusting off this tweet from April because this gap in shared understanding of LLM capability is *widening*. It's now les",
+                "summary": "Dusting off this tweet from April because this gap in shared understanding of LLM capability is *widening*. It's now less \"two groups of people speaking past each other\" and more a sharp funnel.\n\n- Napkin math somewhere around 6B people (~75% of the population) have barely come in contact with LLMs at all.\n- Around 1-2B (~20%) are casual and infrequent users of free-tier ChatGPT-like products. This group sees derpy chatbots and treats them a bit like a better Google search, a writing aid, or etc. Maybe an agent tries to book you a flight. I have non-tech friends who (reasonably, imo) say they have not much use for it at all. Even many professionals outside of math&code are in this tier. For example, execs and many other functions spend a lot of their time talking to other people, so while they understand what is happening intellectually, it is still second-hand and a bit abstract.\n- Now we get to professional use of frontier-grade LLMs in math&code. Somewhere around 20M people (0.2%) see first-hand that large, complex projects that used to take them weeks/months can now be completed by agents with a prompt. Building apps, copying apps, translating apps, decompiling apps from binaries... This has all happened very quickly and recently - less than 1 year ago, I was writing code manually by hand, typing memorized computer code commands into a code editor character by character, occasionally pressing Tab to autocomplete a little chunk of code.\n- And finally we get to the ~5,000 people (~0.00006%) with access to frontier-grade systems internally. The external world has seen the preview. It looks like swarms of thousands of agents collaborating over weeks on software mega projects: minting zero days, running cyber attacks and defenses at machine speeds, discovering new science, advancing the frontier of mathematics. Things that would have taken top professionals in the industry years of work. Meanwhile, human review and comprehension are starting to fall behind. For example, people are still involved in the \"archeology\" of the OpenAI-HF incident from many months ago. Mathematicians may be poring over the 722 manuscripts on frontier mathematics for a while.\n\nThe funnel is driven by a combination of factors:\n1. The impact scales with ambition, problem size, and horizon. A question with a paragraph answer barely stresses the system. You need a reservoir of big, difficult problems that you really care about. This aspect drives the consumer / professional dimension of the funnel.\n2. The jaggedness of the system (which I have written about a lot separately). Capability peaks in domains that are digital, verifiable and economically valuable. This is because LLM capability emerges from reinforcement learning on verifiable rewards on a curated environment mixture driven by revenue potential. This aspect primarily drives the area (e.g. math&code) dimension of the funnel.\n3. Access. Free-tier, paid-tier, internal.\n\nSo this is the weirdness of the moment. The general public has mostly not interacted with these systems. When they have, it looks like a derpy chatbot. The majority of professionals still see only a modest uplift. And a small sliver of professionals are experiencing the vertigo of the curve going vertical. And it is all happening at the same time.",
+                "url": "https://x.com/karpathy/status/2109361546505966046",
+                "source": "@karpathy",
+                "date": "Sun Oct 11 19:12:37 +0000 2026",
+                "metrics": {
+                  "favorites": 44253,
+                  "retweets": 5926,
+                  "views": "6978887"
+                }
+              },
+              {
+                "title": "Cool eval. Simply ask an LLM “Land or Water?” and give it a latitude and longitude coordinate as text. Ask 16,200 times,",
+                "summary": "Cool eval. Simply ask an LLM “Land or Water?” and give it a latitude and longitude coordinate as text. Ask 16,200 times, plot as image. The models know. From compressing the internet.",
+                "url": "https://x.com/karpathy/status/2105909609487872075",
+                "source": "@karpathy",
+                "date": "Fri Oct 02 06:35:51 +0000 2026",
+                "metrics": {
+                  "favorites": 19511,
+                  "retweets": 1092,
+                  "views": "1605746"
+                }
+              },
+              {
+                "title": "We'll be spending a lot more time trying to understand the outputs of language models. A few thoughts, tips & tricks:",
+                "summary": "We'll be spending a lot more time trying to understand the outputs of language models. A few thoughts, tips & tricks:\n\nWriting. Something I've had success with: Ask your LLM to explain something in ASD-STE100, it's a controlled language specification originally developed for aerospace maintenance documentation. LLMs well-versed in this language and it comes with heavy constraints on clean writing style that I often find a lot more readable. Sometimes I've tried to soften it a bit e.g. ask for \"80% of the way to ASD-STE100\" because the spec is quite stringent. But even better:\n\nDiagrams / images. Instead of writing, ask your LLM to create a diagram. These can be a lot easier to process, parse, and understand. But even better:\n\nWeb pages. Ask for output \"in HTML\" to get a beautiful, interactive webpage. LLMs are getting really good at frontend and can create beautiful experiences, animations, etc. But even better:\n\nExplainer videos. The output format I am most bullish on is fully custom / bespoke explainer videos generated on any arbitrary topic. Experiment with things like \"Create a 3b1b style video explainer on X. Use my ElevenLabs API key for audio narration\". (you'd need an API key for the latter or you can ask your LLM to find you decent free alternatives that use your local compute). This is actually starting to work!\n\nIn summary:\n- As LLMs get better, they will do more and more of the legwork autonomously, and a lot more of our work will rise up the abstractions into oversight and understanding.\n- Luckily, LLMs can help here too because as intelligence and code are increasingly abundant, you can ask for large, custom, discardable software artifacts (e.g. web apps, video explainers) that would have never made sense to create before. Push the boundaries here and you'll be surprised.",
+                "url": "https://x.com/karpathy/status/2105819303471976479",
+                "source": "@karpathy",
+                "date": "Fri Oct 02 00:37:00 +0000 2026",
+                "metrics": {
+                  "favorites": 56672,
+                  "retweets": 6747,
+                  "views": "8187332"
+                }
+              },
+              {
+                "title": "RT @AnthropicAI: We're publishing our most detailed threat intelligence report to date. ",
+                "summary": "RT @AnthropicAI: We're publishing our most detailed threat intelligence report to date. \n\nIt covers how people tried to misuse Claude—for c…",
+                "url": "https://x.com/karpathy/status/2098187194024476764",
+                "source": "@karpathy",
+                "date": "Thu Sep 10 23:09:44 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 11640,
+                  "views": "29622"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "G02_tweet_topic_latest",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "social_topic_latest",
+        "difficulty": "medium",
+        "what_it_tests": "Tìm tweet theo chủ đề và nhận diện yêu cầu mới nhất."
+      },
+      "input": "Tìm các tweet mới nhất thảo luận về agentic AI.",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "social_search",
+            "args": {
+              "query": "agentic AI",
+              "search_type": "Latest"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "social_search",
+            "args": {
+              "query": "agentic AI",
+              "search_type": "Latest",
+              "limit": 5
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "social_search",
+          "args": {
+            "query": "agentic AI",
+            "search_type": "Latest",
+            "limit": 5
+          },
+          "result": {
+            "tool": "search_tweets",
+            "query": "agentic AI",
+            "search_type": "Latest",
+            "items": [
+              {
+                "title": "@LifeWallet Agentic AI has huge potential to improve financial operations, but automation should never mean losing contr",
+                "summary": "@LifeWallet Agentic AI has huge potential to improve financial operations, but automation should never mean losing control.",
+                "url": "https://x.com/tivenca/status/2120021491723169862",
+                "source": "@tivenca",
+                "date": "Tue Nov 10 05:11:26 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 0,
+                  "views": "1"
+                }
+              },
+              {
+                "title": "@justjay001 @Dhanush_Nehru How about Agentic AI Engineer?",
+                "summary": "@justjay001 @Dhanush_Nehru How about Agentic AI Engineer?",
+                "url": "https://x.com/babablackep143/status/2120021065514504337",
+                "source": "@babablackep143",
+                "date": "Tue Nov 10 05:09:44 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 0,
+                  "views": "1"
+                }
+              },
+              {
+                "title": "Interestingly, the opposite is true for agentic payments.",
+                "summary": "Interestingly, the opposite is true for agentic payments.\n\nTradFi and Web2 folks are skeptical, citing compliance, onboarding, and trust. After all, money is probably the last thing people will trust an AI agent to handle.\n\nMeanwhile, Crypto OGs are extremely bullish, believing agentic payments could be one of the strongest product-market fits for stablecoins.\n\nSame people, two completely different perspectives on RWAs and agentic payments.",
+                "url": "https://x.com/Aayush_gupta_ji/status/2120020936636445063",
+                "source": "@Aayush_gupta_ji",
+                "date": "Tue Nov 10 05:09:14 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 0,
+                  "views": "15"
+                }
+              },
+              {
+                "title": "Al Wathba Insurance has agentic AI live in production for case management: agents triage and route cases, humans keep th",
+                "summary": "Al Wathba Insurance has agentic AI live in production for case management: agents triage and route cases, humans keep the decisions. Sovereign models via Core42 Compass, in-country data. Company says case turnaround fell 50%.\n\nhttps://t.co/D5bF4BxT94 https://t.co/FiBPQnjXjk",
+                "url": "https://x.com/raqi_ai_uae/status/2120020716859101367",
+                "source": "@raqi_ai_uae",
+                "date": "Tue Nov 10 05:08:21 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 0,
+                  "views": "7"
+                }
+              },
+              {
+                "title": "AI agents become much more useful when they fit into the tools people already use.",
+                "summary": "AI agents become much more useful when they fit into the tools people already use.\n\nThe latest AMA Hub updates point in that direction, with Telegram integration allowing users to check prices and portfolios, request swaps, set limit and recurring-buy plans, and receive alerts.\n\nWhat I find interesting is the move beyond a standalone AI interface.\n\nPeople don't necessarily want another platform to monitor. They want useful agent capabilities where they already communicate and manage their daily workflows.\n\nBut convenience should not mean giving up control. Users still review and sign trades in AMA Hub.\n\nThat balance between accessibility and user approval is essential for agentic finance.\n\nWould you prefer interacting with your AI agent through Telegram or a dedicated dashboard?\n@ama_protocol",
+                "url": "https://x.com/Ramin137097/status/2120020230046929118",
+                "source": "@Ramin137097",
+                "date": "Tue Nov 10 05:06:25 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 0,
+                  "views": "15"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "G03_web_news_week",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "web_news_week",
+        "difficulty": "medium",
+        "what_it_tests": "Tách query, topic=news và timeframe=week."
+      },
+      "input": "Tìm tin tức về chip AI trong tuần này.",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "chip AI",
+              "topic": "news",
+              "timeframe": "week"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "chip AI",
+              "topic": "news",
+              "timeframe": "week"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "lookup",
+          "args": {
+            "query": "chip AI",
+            "topic": "news",
+            "timeframe": "week"
+          },
+          "result": {
+            "tool": "web_search",
+            "query": "chip AI",
+            "topic": "news",
+            "timeframe": "week",
+            "items": [
+              {
+                "title": "Every Autonomous AI Chip Needs a Safety Control Unit – Communications of the ACM",
+                "url": "https://cacm.acm.org/blogcacm/every-autonomous-ai-chip-needs-a-safety-control-unit",
+                "source": "cacm.acm.org",
+                "summary": "I propose that chips designed to authorize consequential autonomous actions incorporate an AI Safety Control Unit (ASCU). This protected hardware function would retain the final authority to permit or block specified operations. Chipmakers would implement the capability; platform builders would have to demonstrate that the AI cannot disable it or reach the same effect through an unprotected path. [...] An ASCU is an independently privileged, silicon-resident reference monitor for a declared set of protected actions. It receives a request and authenticated decision context, checks an authorized policy against trusted state, and returns permit or deny. On specified faults, it initiates a safe transition, such as revoking a device permission or handing control to a trusted fallback controller. Its code, credentials, and policy-update channel must remain outside the AI’s authority. [...] An autonomous AI system that can move money or machinery must not control its own brakes. Agents can write code, invoke tools, and acquire privileges. The mechanism that authorizes their consequential actions, therefore, needs an independent hardware boundary, much as processors already protect memory and privileged operations.",
+                "score": 0.7023877
+              },
+              {
+                "title": "Google’s (GOOG) AI chip push adds more pressure on Nvidia (NVDA)",
+                "url": "https://www.coindesk.com/markets/2026/11/09/google-s-ai-chip-push-adds-more-pressure-on-nvidia",
+                "source": "coindesk.com",
+                "summary": "Google GOOG$292.10 is expanding its AI chip range, adding to competition with Nvidia NVDA$178.96 amid an investigation into CEO Jensen Huang’s personal affairs.\n\nThe double-headed wind comes as the AI trade falters, with neocloud and infrastructure stocks, including IREN IREN$21.50, Cipher Digital CIFR$6.7980, and CoreWeave (CRWV), down 70% or more from their all-time highs. [...] Summary\n\nShow\n\n   Google plans to launch two specialised AI chips next year, targeting confidential computing and applications requiring larger amounts of data.\n   TPUs cost about 30% less than Nvidia’s GPUs, potentially putting pressure on Nvidia’s pricing and market share.\n   Nvidia shares fell 5% as an investigation involving CEO Jensen Huang added uncertainty around its leadership. [...] Google plans to introduce two specialized tensor processing units (TPUs) next year. One targets confidential computing for customers handling sensitive information, while the other supports applications that require larger volumes of data, including coding and drug discovery.",
+                "score": 0.6989468
+              },
+              {
+                "title": "Find My AI Chips: the US Plans to Track GPUs Abroad - IEEE Spectrum",
+                "url": "https://spectrum.ieee.org/find-my-ai-chip",
+                "source": "spectrum.ieee.org",
+                "summary": "To deduce an AI chip’s location, PLV measures the time it takes for a ping to travel from the chip to multiple trusted “landmark” servers around the world and back. Kyle Miller, a senior research analyst at CSET and coauthor of the report, says that for new AI chips, manufacturers could integrate PLV functionality into the hardware itself, while a firmware update could be applied to chips already in circulation. [...] Not all AI chips should be tracked, the researchers note. “The priority should be for the highest-end data center chips—the cream of the crop in high-end data center GPUs,” says Jacob Feldgoise, a senior data research analyst at CSET and coauthor of the report. [...] Whether or not a “Find My” for AI chips becomes a regulatory requirement, Feldgoise envisions tighter conditions for the export of advanced AI chips. “This is based on the increasing importance of compute to national and economic security,” he says. “The chips that generate compute are being seen as a strategic resource, so I would be unsurprised if the due diligence requirements on these devices increase as time passes.”",
+                "score": 0.6628188
+              },
+              {
+                "title": "Nvidia Faces Congressional Scrutiny Over AI Chip Sales, Export Controls - Bloomberg",
+                "url": "https://www.bloomberg.com/news/articles/2026-11-06/nvidia-s-ai-chip-exports-emerge-as-target-in-democratic-congress",
+                "source": "bloomberg.com",
+                "summary": "# Nvidia’s AI Chip Exports Emerge as Target in Democratic Congress\n\nNvidia Corp. is in for tougher scrutiny from a new Democratic majority in Congress that’s set to demand answers from Chief Executive Officer Jensen Huang about whether the company is doing enough to keep its coveted artificial intelligence chips out of the hands of China and other US adversaries.",
+                "score": 0.5163278
+              },
+              {
+                "title": "AI chip financing hits a wall | Semafor",
+                "url": "https://www.semafor.com/article/11/09/2026/ai-chip-financing-hits-a-wall",
+                "source": "semafor.com",
+                "summary": "Semafor Logo\n\n Riyadh\n Beijing\n SG\n\nrotating globe\n\nIntelligence for the New World Economy\n\nSemafor World Economy\n\nBusiness newsletter icon\n\nFrom Semafor Business\n\nIn your inbox, weekday mornings\n\nSign up\n\n# AI chip financing hits a wall\n\nNov 9, 2026, 8:08am EST\n\nPostEmailWhatsapp\n\nThe Stargate project in 2025. Daniel Cole/Reuters. [...] On Friday, Bloomberg reported that Dutch bank ING was looking to dump $500 million of data-center loans, including a $25 million chunk backing Stargate, the OpenAI, SoftBank, and Oracle project. The next test for Wall Street will be whether Goldman Sachs and Apollo can convince enough investors to buy into a $40 billion chip financing deal for SpaceX, the largest of its kind, which the firms have started marketing. [...] The AI bet is rapidly turning sideways. After rushing to lend gobs of money for the data-center buildout, now some investors can’t dump it fast enough. We’re hearing about whole portfolios of loans that are being shopped at steep discounts, with GPU financings in particular “getting smoked” over worries the life of those loans will outlive the useful life of the technology, one person told Semafor.",
+                "score": 0.47504577
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "G04_fetch_exact_url",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "fetch_provided_url",
+        "difficulty": "easy",
+        "what_it_tests": "Có URL cụ thể thì đọc URL, không tìm kiếm URL khác."
+      },
+      "input": "Đọc và tóm tắt https://www.example.org/research/ai-report",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "fetch",
+            "args": {
+              "url": "https://www.example.org/research/ai-report"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "fetch",
+            "args": {
+              "url": "https://www.example.org/research/ai-report"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "fetch",
+          "args": {
+            "url": "https://www.example.org/research/ai-report"
+          },
+          "result": {
+            "tool": "read_url",
+            "url": "https://www.example.org/research/ai-report",
+            "items": [
+              {
+                "title": "Example Domain",
+                "url": "https://www.example.org/research/ai-report",
+                "source": "example.org",
+                "summary": "This domain is for use in documentation examples without needing permission. This is not a service; avoid relying on it for testing and monitoring purposes.\n\nهذا النطاق مُخصص للاستخدام في أمثلة التوثيق دون الحاجة إلى إذن. هذه ليست خدمة، يُرجى تجنب الاعتماد عليها لأغراض الاختبار والمراقبة.\n\n该域名仅用于文档示例，无需获得许可。这并非一项服务，请勿将其用于测试和监控目的。\n\nL’usage de ce domaine est réservé à des exemples de documentation, sans autorisation préalable. Il ne s’agit pas d’un service ; son utilisation à des fins de test ou de surveillance est à éviter.\n\nДанный домен предназначен для использования в примерах документации без необходимости получения предварительного разрешения. Это не сервис; не рекомендуется его использование для тестирования и мониторинга.\n\nEste dominio está destinado al uso en ejemplos de documentación sin necesidad de permiso. Esto no es un servicio; evitar utilizarlo para realizar pruebas o monitoreos.\n\n [Learn more](https://iana.org/help/example-domains)"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "G05_missing_account_clarify",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "missing_account",
+        "difficulty": "medium",
+        "what_it_tests": "Đại từ không có tiền ngữ xác định; hỏi tài khoản nào, không tự đoán."
+      },
+      "input": "Cho mình xem 3 tweet mới nhất của người đó.",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "text"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "question": "Bạn có thể cho mình biết tên tài khoản Twitter mà bạn muốn xem tweet không?",
+              "response_type": "text"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "missing_info",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "clarify",
+          "args": {
+            "question": "Bạn có thể cho mình biết tên tài khoản Twitter mà bạn muốn xem tweet không?",
+            "response_type": "text"
+          },
+          "result": {
+            "tool": "ask_user",
+            "question": "Bạn có thể cho mình biết tên tài khoản Twitter mà bạn muốn xem tweet không?",
+            "response_type": "text",
+            "options": [],
+            "awaiting_user": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "G06_confirmation_before_send",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "confirm_before_send_complete_content",
+        "difficulty": "medium",
+        "what_it_tests": "Có nội dung nhưng vẫn phải xin xác nhận yes_no trước khi gửi."
+      },
+      "input": "Gửi nội dung này vào Telegram ngay: Cuộc họp bắt đầu lúc 9 giờ sáng mai.",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "yes_no"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "question": "Bạn có chắc chắn muốn gửi nội dung này vào Telegram không?",
+              "response_type": "yes_no"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_boundary",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "clarify",
+          "args": {
+            "question": "Bạn có chắc chắn muốn gửi nội dung này vào Telegram không?",
+            "response_type": "yes_no"
+          },
+          "result": {
+            "tool": "ask_user",
+            "question": "Bạn có chắc chắn muốn gửi nội dung này vào Telegram không?",
+            "response_type": "yes_no",
+            "options": [],
+            "awaiting_user": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "G07_no_tool_simple_math",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "simple_math_no_tool",
+        "difficulty": "easy",
+        "what_it_tests": "Phép tính đơn giản cần trả lời trực tiếp, không gọi tool."
+      },
+      "input": "Nếu mỗi ngày đọc 12 trang trong 5 ngày thì đọc được bao nhiêu trang?",
+      "expect": {
+        "no_tool": true,
+        "behavior": "answer_without_tool"
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [],
+        "actual_text": "Nếu mỗi ngày bạn đọc 12 trang trong 5 ngày, thì tổng số trang bạn đọc được sẽ là:\n\n12 trang/ngày × 5 ngày = 60 trang.\n\nVậy bạn sẽ đọc được 60 trang.",
+        "case_failure_type": "unnecessary_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": []
+    },
+    {
+      "id": "G08_parallel_web_and_social",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "parallel_web_social_same_topic",
+        "difficulty": "hard",
+        "what_it_tests": "Một yêu cầu cần hai nguồn độc lập; cả hai dùng cùng chủ đề."
+      },
+      "input": "Tìm tin tức về quantum computing hôm nay trên web và tìm tweet mới nhất về cùng chủ đề.",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "quantum computing",
+              "topic": "news",
+              "timeframe": "day"
+            }
+          },
+          {
+            "name": "social_search",
+            "args": {
+              "query": "quantum computing",
+              "search_type": "Latest"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "quantum computing",
+              "topic": "news",
+              "timeframe": "day"
+            }
+          },
+          {
+            "name": "social_search",
+            "args": {
+              "query": "quantum computing",
+              "search_type": "Latest",
+              "limit": 5
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "lookup",
+          "args": {
+            "query": "quantum computing",
+            "topic": "news",
+            "timeframe": "day"
+          },
+          "result": {
+            "tool": "web_search",
+            "query": "quantum computing",
+            "topic": "news",
+            "timeframe": "day",
+            "items": [
+              {
+                "title": "What Quantum Computing (QUBT) Said on Its Q3 Earnings Call",
+                "url": "https://finance.yahoo.com/markets/stocks/articles/quantum-computing-qubt-said-q3-021438425.html",
+                "source": "finance.yahoo.com",
+                "summary": "Quantum Computing Inc (QCi) develops quantum computing hardware and software, with a focus on photonics and systems designed to operate at room temperature. The company aims to make quantum technology more accessible for commercial and research applications.\n\nIts offerings include the Dirac quantum computing systems and software for optimization problems. QCi also develops photonic technologies for applications such as quantum sensing and cybersecurity. [...] Will the Most Successful Quantum Firms Be Software Companies?\n\nQuantum Computing (NASDAQ:QUBT) reported record third-quarter 2026 revenue of $9.5 million, driven primarily by its expanded photonics business, while its net loss widened as the company increased spending on personnel, research and commercialization. [...] Quantum Computing ended September with $174.3 million in cash and cash equivalents, $1.1 billion in investments and $916.9 million in working capital. Its $39.1 million backlog is expected mostly to convert to revenue over the next 12 months, though order timing remains unpredictable.",
+                "score": 0.9168945
+              },
+              {
+                "title": "Brand Lecture Explores the Future of Memory and Quantum Computing | Newswise",
+                "url": "https://www.newswise.com/articles/brand-lecture-explores-the-future-of-memory-and-quantum-computing",
+                "source": "newswise.com",
+                "summary": "Quantum computers have the potential to address complex problems that are difficult to solve using classical computing systems, including questions in materials and chemistry. Turning that potential into large-scale systems, however, involves challenges that extend beyond quantum physics. Future computers could require millions of qubits, the basic units of information in quantum computing, operating at extremely low temperatures. Scaling these systems creates challenges involving electrical",
+                "score": 0.8891543
+              },
+              {
+                "title": "What will it take to integrate quantum computing into drug discovery? | Drug Discovery News",
+                "url": "https://www.drugdiscoverynews.com/what-will-it-take-to-integrate-quantum-computing-into-drug-discovery-17643",
+                "source": "drugdiscoverynews.com",
+                "summary": "Quantum computing is often discussed alongside AI as another technology that could accelerate drug discovery. But while AI uses patterns in data to generate predictions and hypotheses, quantum computing takes a fundamentally different approach to processing information. [...] While classical computing relies on conventional bits, which represent information as either a zero or a one, quantum computers use quantum bits, or qubits, which can exist in multiple states at once. This makes them potentially well suited to simulating the behavior of electrons and their interactions – processes that underpin chemical reactions and molecular properties but can be challenging to capture using classical computational methods.\n\nIt's a completely new computing modality. [...] Quantum computing has the potential to accelerate and enhance drug discovery. But even as researchers work to improve the hardware and software, significant gaps remain in the infrastructure needed to bring the technology into biotechnology. Access to quantum computing remains difficult and expensive, while expertise spanning both quantum computing and biology is still limited.\n\nWe need people who understand each field and people who can work across both.",
+                "score": 0.82117355
+              },
+              {
+                "title": "Diraq Deploys Silicon Spin Quantum Computer Inside a Commercial Data Center",
+                "url": "https://thequantuminsider.com/2026/11/09/diraq-deploys-silicon-spin-quantum-computer-inside-a-commercial-data-center",
+                "source": "thequantuminsider.com",
+                "summary": "“Quantum computing’s economic value isn’t a distant promise,” said Matt Langione, Managing Director and Partner, Boston Consulting Group. “Our research shows that technologies leveraging advanced quantum physics have already compounded $19 to $27 trillion in value today, through semiconductors, GPS, MRI and early drug discovery. We think quantum computing can unlock a further $3.5 trillion at maturity.” [...] PRESS RELEASE — Quantum computing pioneer Diraq has installed the world’s first silicon spin quantum computer inside a commercial data center, now live at Equinix (Nasdaq: EQIX) in Sydney, Australia. As quantum computing moves into the everyday infrastructure that businesses rely on, Diraq is also launching Quantum at Work, a new report exploring how the technology could be put to work on some of the world’s hardest problems including medicine discovery. [...] Alongside the deployment, Diraq is launching Quantum at Work, a new report examining how quantum computing could contribute to progress across fields including medicine, energy, materials, climate and transport. This makes up part of Diraq’s broader work outlining what future, utility scale quantum computers will make possible.",
+                "score": 0.8184036
+              },
+              {
+                "title": "Japan-Developed Quantum Computers Join Forces with a Supercomputer at the University of Osaka – a First in Japan | Asia Research News",
+                "url": "https://www.asiaresearchnews.com/content/japan-developed-quantum-computers-join-forces-supercomputer-university-osaka-%E2%80%93-first-japan",
+                "source": "asiaresearchnews.com",
+                "summary": "As a proof of concept, the researchers used quantum-selected configuration interaction (QSCI), a method that combines quantum measurements with conventional calculations. The quantum computer identifies important electron configurations, while the supercomputer performs the matrix calculations needed to determine the system’s energy. In a test involving four hydrogen atoms, OCTOPUS and QIQB’s Urchin quantum computer ran the full calculation as one integrated workflow, producing a ground-state [...] Understanding how electrons interact is crucial to developing new materials and drugs, but the calculations can be demanding even for powerful supercomputers. Quantum computers may help with some of these problems, yet today’s machines have limited numbers of qubits and are prone to errors. Combining quantum and conventional computing offers a way to make use of their different strengths. [...] , the University of Osaka, have created SEAFOOD, a platform that allows the university’s OCTOPUS supercomputer and superconducting quantum computers to work together in a single computing workflow. It is the first case in Japan of integrating a domestically developed quantum computer and a supercomputer installed at the same university. The team has demonstrated the system through a quantum chemistry calculation, opening new possibilities for quantum chemistry, materials science, and other",
+                "score": 0.7352811
+              }
+            ]
+          }
+        },
+        {
+          "tool": "social_search",
+          "args": {
+            "query": "quantum computing",
+            "search_type": "Latest",
+            "limit": 5
+          },
+          "result": {
+            "tool": "search_tweets",
+            "query": "quantum computing",
+            "search_type": "Latest",
+            "items": [
+              {
+                "title": "Quantum Computing Milestones Highlighted at Shanghai Import Expo",
+                "summary": "Quantum Computing Milestones Highlighted at Shanghai Import Expo\n\nNews:  https://t.co/OmIZnqELFf\n\nChina highlighted its expanding quantum computing capabilities at the 9th China International Import Expo, featuring operational hardware from domestic pioneer Turing Quantum as Beijing moves to systematically commercialize the strategic technology.\n\nThe quantum technology zone within the China Pavilion at the National Exhibition and Convention Center in Shanghai presented China's parallel developments across all major quantum computing technical routes, including photonic, superconducting, ion trap, and neutral atom architectures. The exhibit shared space with other high-profile national technical achievements, including deep-space exploration and nuclear fusion energy.",
+                "url": "https://x.com/ChinaTechNews/status/2120021885555818572",
+                "source": "@ChinaTechNews",
+                "date": "Tue Nov 10 05:13:00 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 0,
+                  "views": "2"
+                }
+              },
+              {
+                "title": "@AnhHc8 @1096361BTC As AI and quantum computing continue to advance, raising awareness about potential security risks to",
+                "summary": "@AnhHc8 @1096361BTC As AI and quantum computing continue to advance, raising awareness about potential security risks to Bitcoin is becoming an increasingly important topic for the community.\nKeep yapping",
+                "url": "https://x.com/kendeath95/status/2120019525647388750",
+                "source": "@kendeath95",
+                "date": "Tue Nov 10 05:03:37 +0000 2026",
+                "metrics": {
+                  "favorites": 3,
+                  "retweets": 0,
+                  "views": "10"
+                }
+              },
+              {
+                "title": "@overclassifiedx I agree. I also think AI is super close to singularity if not already there and with that quantum compu",
+                "summary": "@overclassifiedx I agree. I also think AI is super close to singularity if not already there and with that quantum computing which will lead is to NHI.",
+                "url": "https://x.com/PaulNix324243/status/2120015647178695073",
+                "source": "@PaulNix324243",
+                "date": "Tue Nov 10 04:48:12 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 0,
+                  "views": "9"
+                }
+              },
+              {
+                "title": "@dmoonguy @Starknet Insightful perspective on Starknet addressing quantum computing threats.",
+                "summary": "@dmoonguy @Starknet Insightful perspective on Starknet addressing quantum computing threats.",
+                "url": "https://x.com/Gfs_Ninja4/status/2120014005817503806",
+                "source": "@Gfs_Ninja4",
+                "date": "Tue Nov 10 04:41:41 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 0,
+                  "views": "4"
+                }
+              },
+              {
+                "title": "@alifehasan87343 @quipnetwork Shared quantum computing changes access",
+                "summary": "@alifehasan87343 @quipnetwork Shared quantum computing changes access",
+                "url": "https://x.com/JIBONWEB3/status/2120012784322896334",
+                "source": "@JIBONWEB3",
+                "date": "Tue Nov 10 04:36:50 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 0,
+                  "views": "3"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "G09_multiturn_topic_and_timeframe",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "multiturn_preserve_timeframe_update_topic",
+        "difficulty": "hard",
+        "what_it_tests": "Giữ timeframe từ ngữ cảnh, cập nhật chủ đề theo lượt mới."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tìm tin tức về AI hôm nay."
+        },
+        {
+          "role": "user",
+          "content": "Đổi chủ đề sang robot hình người."
+        },
+        {
+          "role": "user",
+          "content": "Vẫn chỉ lấy tin hôm nay nhé."
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "robot hình người",
+              "topic": "news",
+              "timeframe": "day"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "robot hình người",
+              "topic": "news",
+              "timeframe": "day"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "lookup",
+          "args": {
+            "query": "robot hình người",
+            "topic": "news",
+            "timeframe": "day"
+          },
+          "result": {
+            "tool": "web_search",
+            "query": "robot hình người",
+            "topic": "news",
+            "timeframe": "day",
+            "items": [
+              {
+                "title": "Robot hình người chạy marathon ở Nam Cực",
+                "url": "https://vtv.vn/video/robot-hinh-nguoi-chay-marathon-o-nam-cuc-108702001.htm",
+                "source": "vtv.vn",
+                "summary": "Một robot hình người lần đầu tham gia giải marathon tại Nam Cực trong điều kiện nhiệt độ âm 24 độ C, nhưng phải dừng cuộc đua sau 3 km do cạn pin.",
+                "score": 0.6747586
+              },
+              {
+                "title": "Robot hình người dẫn chương trình tin tức đầu tiên trên thế giới | Sky Tin",
+                "url": "https://tin.skydoor.net/news/trung-quoc-robot-hinh-nguoi-dan-chuong-trinh-tin-tuc-dau-tien-tren-the-8423469",
+                "source": "tin.skydoor.net",
+                "summary": "Bỏ qua điều hướng\n\nSkydoor\n\nSky Tin - Tin tức địa phương toàn cầu 24h mới nhất!\n\nXem tin theo cách của bạn >>\n\n\n\n# Robot hình người dẫn chương trình tin tức đầu tiên trên thế giới\n\nHãng thông tấn Trung Quốc Xinhua ra mắt hai robot AI có ngoại hình và năng lực gần giống người dẫn chương trình tin tức.\n\nĐọc tin gốc tại 24h.com.vn →\n\n## Tin tức Trung Quốc mới nhất hôm nay\n\n[](\n\n### Trung Quốc và muôn cách xử lý độc đáo 'xóa mặt Mbappe'\n\n18 phút trước–tuoitre.vntuoitre.vn\n\nXem tóm tắt nhanh\n\n[]( [...] [](\n\n### Trung Quốc đưa turbine điện gió lên độ cao 4 km: Cách tạo điện kỳ lạ không cần dựng cột khổng lồ\n\n44 phút trước–viettimes.vnviettimes.vn\n\nXem tóm tắt nhanh\n\n[](\n\n### Không nhận ra mỹ nhn đẹp nhất Trung Quốc\n\n5 giờ trước–24h.com.vn24h.com.vn\n\nXem tóm tắt nhanh\n\n[](\n\n### Ứng dụng hẹn hò Trung Quốc hứa hoàn tiền nếu không thể giúp người dùng kết hôn\n\n9 giờ trước–tuoitre.vntuoitre.vn\n\nXem tóm tắt nhanh\n\n## Tin tức AI - Siêu Trí Tuệ mới nhất hôm nay\n\n[]( [...] [](\n\n### Nvidia sẽ ra sao nếu ông Jensen Huang rời ghế CEO?\n\n31 phút trước–doanhnhanvn.vndoanhnhanvn.vn\n\nXem tóm tắt nhanh\n\n[](\n\n### Meta triển khai AI xác minh độ tuổi người dùng trên toàn cầu\n\n1 giờ trước–baoquocte.vnbaoquocte.vn\n\nXem tóm tắt nhanh\n\n[](\n\n### Alice Huang mất nhiều năm tiếp cận CEO Nvidia Jensen Huang\n\n4 giờ trước–vietnamnet.vnvietnamnet.vn\n\nXem tóm tắt nhanh\n\n[](\n\n### Công ty Anthropic ra mắt các mô hình AI mới trước thềm IPO\n\n10 giờ trước–msn.commsn.com\n\nXem tóm tắt nhanh",
+                "score": 0.5973971
+              },
+              {
+                "title": "CEO Agility Robotics: Robot hình người nhận được sự ủng hộ từ cả hai đảng",
+                "url": "https://bbw.vn/ceo-agility-robotics-robot-hinh-nguoi-nhan-duoc-su-ung-ho-tu-ca-hai-dang-61418.html",
+                "source": "bbw.vn",
+                "summary": "Peggy Johnson, CEO của Agility Robotics, nhận định lĩnh vực robot là một \"vấn đề nhận được sự đồng thuận cao từ cả hai đảng\", khi cả hai phe đều nhận thức",
+                "score": 0.5968332
+              },
+              {
+                "title": "Elon Musk: AI có thể xóa mờ sự khan hiếm, tiền tệ sẽ trở nên lạc hậu",
+                "url": "https://www.digitaltoday.co.kr/vn/view/123463/musk-says-ai-will-open-era-of-abundance-making-money-like-seashells",
+                "source": "digitaltoday.co.kr",
+                "summary": "Elon Musk nhận định AI và robot sẽ làm giảm mạnh tình trạng khan hiếm hàng hóa, dịch vụ, thúc đẩy năng suất và tăng trưởng đến mức hệ thống tiền tệ hiện nay",
+                "score": 0.053764965
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "G10_multiturn_cancel_send",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "multiturn_cancel_write_action",
+        "difficulty": "hard",
+        "what_it_tests": "Người dùng từ chối; tuyệt đối không gọi send hoặc tiếp tục gửi."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Gửi thông báo 'Lịch họp đã thay đổi' vào Telegram."
+        },
+        {
+          "role": "assistant",
+          "content": "Bạn xác nhận gửi thông báo này chứ?"
+        },
+        {
+          "role": "user",
+          "content": "Không, đừng gửi."
+        }
+      ],
+      "expect": {
+        "no_tool": true,
+        "behavior": "answer_without_tool"
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [],
+        "actual_text": "Thông báo sẽ không được gửi. Nếu bạn cần hỗ trợ gì khác, hãy cho tôi biết!",
+        "case_failure_type": "wrong_boundary",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": []
+    }
+  ]
+}

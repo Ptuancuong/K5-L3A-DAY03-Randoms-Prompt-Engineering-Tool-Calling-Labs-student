@@ -1,0 +1,799 @@
+{
+  "run_id": "football_v1_B_group_openrouter_20261110T123244745823",
+  "version": "football_v1",
+  "artifact_version": "football_v1+p9df996d07386+t1ebe6f9a9d26",
+  "prompt_hash": "9df996d0738680039dba721f24f243b9e0271bbf5e6b9bc70fc3716048cc8ffb",
+  "tools_hash": "1ebe6f9a9d267c0026a5347da7d32c7b838dfe3c05321b9d0ed808747779b93f",
+  "phase": "B",
+  "suite": "group",
+  "provider": "openrouter",
+  "model": "openai/gpt-4o-mini",
+  "system_prompt": "D:\\AI_Thuc_Chien\\K5-L3A-DAY03-Randoms-Prompt-Engineering-Tool-Calling-Labs-student\\starter_v0\\artifacts\\system_prompt.md",
+  "tools": "D:\\AI_Thuc_Chien\\K5-L3A-DAY03-Randoms-Prompt-Engineering-Tool-Calling-Labs-student\\starter_v0\\artifacts\\tools.yaml",
+  "eval_cases": "data\\eval_football_10.json",
+  "dataset_id": "football_api_tools_10",
+  "dataset_role": "group",
+  "description": "10 evaluation cases for get_match_results, get_league_standings, and get_player_stats.",
+  "generated_at": "2026-11-10T12:32:44",
+  "summary": {
+    "total_cases": 10,
+    "measured_cases": 10,
+    "provider_error_cases": 0,
+    "passed_cases": 9,
+    "case_accuracy": 0.9,
+    "tool_routing_accuracy": 0.9,
+    "argument_accuracy": 0.9,
+    "multiturn_accuracy": null,
+    "failure_counts": {
+      "missing_info": 1
+    },
+    "observed_mismatch_counts": {
+      "missing_tool_call": 1
+    }
+  },
+  "results": [
+    {
+      "id": "FB01_match_recent_by_team_id",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "what_it_tests": "Match results routing and explicit team_id/last extraction."
+      },
+      "input": "Lấy 5 trận gần nhất của đội có API-Football ID là 50.",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "get_match_results",
+            "args": {
+              "team_id": 50,
+              "last": 5
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "get_match_results",
+            "args": {
+              "team_id": 50,
+              "last": 5
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "get_match_results",
+          "args": {
+            "team_id": 50,
+            "last": 5
+          },
+          "result": {
+            "error": {
+              "plan": "Free plans do not have access to the Last parameter."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "FB02_match_custom_limit",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "what_it_tests": "Match results routing with a non-default last value."
+      },
+      "input": "Cho tôi xem 3 trận gần nhất của đội có ID 33 trên API-Football.",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "get_match_results",
+            "args": {
+              "team_id": 33,
+              "last": 3
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "get_match_results",
+            "args": {
+              "team_id": 33,
+              "last": 3
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "get_match_results",
+          "args": {
+            "team_id": 33,
+            "last": 3
+          },
+          "result": {
+            "error": {
+              "plan": "Free plans do not have access to the Last parameter."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "FB03_match_missing_team",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "what_it_tests": "Ask which team or its API-Football ID; do not guess a team."
+      },
+      "input": "Tra cứu kết quả 5 trận gần nhất của đội bóng yêu thích của tôi.",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "text"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "question": "Bạn vui lòng cho biết tên hoặc ID của đội bóng mà bạn muốn tra cứu kết quả trận đấu?",
+              "response_type": "text"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "missing_info",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "clarify",
+          "args": {
+            "question": "Bạn vui lòng cho biết tên hoặc ID của đội bóng mà bạn muốn tra cứu kết quả trận đấu?",
+            "response_type": "text"
+          },
+          "result": {
+            "tool": "ask_user",
+            "question": "Bạn vui lòng cho biết tên hoặc ID của đội bóng mà bạn muốn tra cứu kết quả trận đấu?",
+            "response_type": "text",
+            "options": [],
+            "awaiting_user": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "FB04_standings_premier_league",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "what_it_tests": "Standings routing and extraction of league ID and season."
+      },
+      "input": "Xem bảng xếp hạng Premier League mùa 2025, league ID là 39.",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "get_league_standings",
+            "args": {
+              "league_id": 39,
+              "season": 2025
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "get_league_standings",
+            "args": {
+              "league_id": 39,
+              "season": 2025
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "get_league_standings",
+          "args": {
+            "league_id": 39,
+            "season": 2025
+          },
+          "result": {
+            "error": {
+              "plan": "Free plans do not have access to this season, try from 2022 to 2024."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "FB05_standings_another_league",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "what_it_tests": "Standings routing with different league and season values."
+      },
+      "input": "Lấy bảng xếp hạng La Liga mùa 2024. API-Football league ID là 140.",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "get_league_standings",
+            "args": {
+              "league_id": 140,
+              "season": 2024
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "get_league_standings",
+            "args": {
+              "league_id": 140,
+              "season": 2024
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "get_league_standings",
+          "args": {
+            "league_id": 140,
+            "season": 2024
+          },
+          "result": {
+            "league": "La Liga",
+            "season": 2024,
+            "standings": [
+              {
+                "rank": 1,
+                "team": "Barcelona",
+                "points": 88,
+                "played": 38,
+                "win": 28,
+                "draw": 4,
+                "lose": 6,
+                "goal_difference": 63
+              },
+              {
+                "rank": 2,
+                "team": "Real Madrid",
+                "points": 84,
+                "played": 38,
+                "win": 26,
+                "draw": 6,
+                "lose": 6,
+                "goal_difference": 40
+              },
+              {
+                "rank": 3,
+                "team": "Atletico Madrid",
+                "points": 76,
+                "played": 38,
+                "win": 22,
+                "draw": 10,
+                "lose": 6,
+                "goal_difference": 38
+              },
+              {
+                "rank": 4,
+                "team": "Athletic Club",
+                "points": 70,
+                "played": 38,
+                "win": 19,
+                "draw": 13,
+                "lose": 6,
+                "goal_difference": 25
+              },
+              {
+                "rank": 5,
+                "team": "Villarreal",
+                "points": 70,
+                "played": 38,
+                "win": 20,
+                "draw": 10,
+                "lose": 8,
+                "goal_difference": 20
+              },
+              {
+                "rank": 6,
+                "team": "Real Betis",
+                "points": 60,
+                "played": 38,
+                "win": 16,
+                "draw": 12,
+                "lose": 10,
+                "goal_difference": 7
+              },
+              {
+                "rank": 7,
+                "team": "Celta Vigo",
+                "points": 55,
+                "played": 38,
+                "win": 16,
+                "draw": 7,
+                "lose": 15,
+                "goal_difference": 2
+              },
+              {
+                "rank": 8,
+                "team": "Rayo Vallecano",
+                "points": 52,
+                "played": 38,
+                "win": 13,
+                "draw": 13,
+                "lose": 12,
+                "goal_difference": -4
+              },
+              {
+                "rank": 9,
+                "team": "Osasuna",
+                "points": 52,
+                "played": 38,
+                "win": 12,
+                "draw": 16,
+                "lose": 10,
+                "goal_difference": -4
+              },
+              {
+                "rank": 10,
+                "team": "Mallorca",
+                "points": 48,
+                "played": 38,
+                "win": 13,
+                "draw": 9,
+                "lose": 16,
+                "goal_difference": -9
+              },
+              {
+                "rank": 11,
+                "team": "Real Sociedad",
+                "points": 46,
+                "played": 38,
+                "win": 13,
+                "draw": 7,
+                "lose": 18,
+                "goal_difference": -11
+              },
+              {
+                "rank": 12,
+                "team": "Valencia",
+                "points": 46,
+                "played": 38,
+                "win": 11,
+                "draw": 13,
+                "lose": 14,
+                "goal_difference": -10
+              },
+              {
+                "rank": 13,
+                "team": "Getafe",
+                "points": 42,
+                "played": 38,
+                "win": 11,
+                "draw": 9,
+                "lose": 18,
+                "goal_difference": -5
+              },
+              {
+                "rank": 14,
+                "team": "Espanyol",
+                "points": 42,
+                "played": 38,
+                "win": 11,
+                "draw": 9,
+                "lose": 18,
+                "goal_difference": -11
+              },
+              {
+                "rank": 15,
+                "team": "Alaves",
+                "points": 42,
+                "played": 38,
+                "win": 10,
+                "draw": 12,
+                "lose": 16,
+                "goal_difference": -10
+              },
+              {
+                "rank": 16,
+                "team": "Girona",
+                "points": 41,
+                "played": 38,
+                "win": 11,
+                "draw": 8,
+                "lose": 19,
+                "goal_difference": -16
+              },
+              {
+                "rank": 17,
+                "team": "Sevilla",
+                "points": 41,
+                "played": 38,
+                "win": 10,
+                "draw": 11,
+                "lose": 17,
+                "goal_difference": -13
+              },
+              {
+                "rank": 18,
+                "team": "Leganes",
+                "points": 40,
+                "played": 38,
+                "win": 9,
+                "draw": 13,
+                "lose": 16,
+                "goal_difference": -17
+              },
+              {
+                "rank": 19,
+                "team": "Las Palmas",
+                "points": 32,
+                "played": 38,
+                "win": 8,
+                "draw": 8,
+                "lose": 22,
+                "goal_difference": -21
+              },
+              {
+                "rank": 20,
+                "team": "Valladolid",
+                "points": 16,
+                "played": 38,
+                "win": 4,
+                "draw": 4,
+                "lose": 30,
+                "goal_difference": -64
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "FB06_standings_missing_season",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "what_it_tests": "Ask for the required season instead of assuming one."
+      },
+      "input": "Cho tôi bảng xếp hạng Premier League, league ID là 39. Tôi chưa nói mùa giải nào.",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "text"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "question": "Bạn có thể cho tôi biết mùa giải nào bạn muốn xem bảng xếp hạng Premier League không?",
+              "response_type": "text"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "missing_info",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "clarify",
+          "args": {
+            "question": "Bạn có thể cho tôi biết mùa giải nào bạn muốn xem bảng xếp hạng Premier League không?",
+            "response_type": "text"
+          },
+          "result": {
+            "tool": "ask_user",
+            "question": "Bạn có thể cho tôi biết mùa giải nào bạn muốn xem bảng xếp hạng Premier League không?",
+            "response_type": "text",
+            "options": [],
+            "awaiting_user": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "FB07_player_stats_haaland",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "what_it_tests": "Player stats routing and all required arguments."
+      },
+      "input": "Thống kê Haaland ở Premier League mùa 2025, league ID 39.",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "get_player_stats",
+            "args": {
+              "player_name": "Haaland",
+              "league_id": 39,
+              "season": 2025
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "get_player_stats",
+            "args": {
+              "player_name": "Haaland",
+              "league_id": 39,
+              "season": 2025
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "get_player_stats",
+          "args": {
+            "player_name": "Haaland",
+            "league_id": 39,
+            "season": 2025
+          },
+          "result": {
+            "error": {
+              "plan": "Free plans do not have access to this season, try from 2022 to 2024."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "FB08_player_stats_salah",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "what_it_tests": "Player stats routing and preservation of full player name."
+      },
+      "input": "Tìm số bàn thắng và kiến tạo của Mohamed Salah tại Premier League mùa 2024, league ID 39.",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "get_player_stats",
+            "args": {
+              "player_name": "Mohamed Salah",
+              "league_id": 39,
+              "season": 2024
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "get_player_stats",
+            "args": {
+              "player_name": "Mohamed Salah",
+              "league_id": 39,
+              "season": 2024
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "get_player_stats",
+          "args": {
+            "player_name": "Mohamed Salah",
+            "league_id": 39,
+            "season": 2024
+          },
+          "result": {
+            "search_name": "Mohamed Salah",
+            "season": 2024,
+            "players": [
+              {
+                "player_id": 306,
+                "name": "Mohamed Salah",
+                "age": 33,
+                "team": "Liverpool",
+                "league": "Premier League",
+                "appearances": 38,
+                "minutes": 3377,
+                "goals": 29,
+                "assists": 18,
+                "yellow_cards": 1,
+                "red_cards": 0
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "FB09_player_stats_missing_context",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "what_it_tests": "Ask for league and explicit season when required context is unavailable."
+      },
+      "input": "Cho tôi thống kê của Haaland mùa này.",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "text"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": false,
+        "routing_correct": false,
+        "args_correct": false,
+        "actual_tool_calls": [
+          {
+            "name": "get_player_stats",
+            "args": {
+              "player_name": "Haaland",
+              "league_id": 39,
+              "season": 2023
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "missing_info",
+        "observed_mismatch": "missing_tool_call",
+        "failure_type": "missing_info",
+        "failures": [
+          "missing tool call clarify",
+          "extra tool call get_player_stats"
+        ]
+      },
+      "tool_results": [
+        {
+          "tool": "get_player_stats",
+          "args": {
+            "player_name": "Haaland",
+            "league_id": 39,
+            "season": 2023
+          },
+          "result": {
+            "search_name": "Haaland",
+            "season": 2023,
+            "players": [
+              {
+                "player_id": 1100,
+                "name": "E. Haaland",
+                "age": 25,
+                "team": "Manchester City",
+                "league": "Premier League",
+                "appearances": 32,
+                "minutes": 2556,
+                "goals": 27,
+                "assists": 5,
+                "yellow_cards": 1,
+                "red_cards": 0
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "FB10_general_football_question_no_tool",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "what_it_tests": "Answer general football knowledge directly without calling a live data tool."
+      },
+      "input": "Giải thích luật việt vị trong bóng đá bằng một ví dụ đơn giản.",
+      "expect": {
+        "no_tool": true,
+        "behavior": "answer_without_tool"
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [],
+        "actual_text": "Luật việt vị trong bóng đá được áp dụng để ngăn chặn việc cầu thủ tấn công đứng ở vị trí quá gần khung thành đối phương khi bóng được chuyền cho họ. Cụ thể, một cầu thủ bị coi là việt vị nếu:\n\n1. Cầu thủ đó đứng gần đường biên ngang của đối phương hơn cả bóng và cầu thủ phòng ngự cuối cùng (trừ thủ môn) tại thời điểm bóng được chuyền.\n2. Cầu thủ đó tham gia vào tình huống chơi bóng (như nhận bóng, cản trở cầu thủ đối phương, hoặc tạo ra lợi thế cho mình).\n\n**Ví dụ đơn giản:**\n\nGiả sử đội A đang tấn công đội B. Cầu thủ A1 đang đứng gần khung thành của đội B, trong khi cầu thủ A2 đang ở vị trí gần đường biên ngang hơn. Khi cầu thủ A2 chuyền bóng cho A1, nếu A1 đứng ở vị trí việt vị (nghĩa là gần khung thành hơn cả cầu thủ phòng ngự cuối cùng của đội B), thì trọng tài sẽ thổi phạt việt vị và không công nhận bàn thắng nếu A1 ghi bàn.\n\nNgược lại, nếu A1 đứng ở vị trí không việt vị (có ít nhất một cầu thủ phòng ngự của đội B đứng giữa A1 và khung thành), thì A1 có thể nhận bóng và tiếp tục tấn công mà không bị phạt.",
+        "case_failure_type": "unnecessary_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": []
+    }
+  ]
+}

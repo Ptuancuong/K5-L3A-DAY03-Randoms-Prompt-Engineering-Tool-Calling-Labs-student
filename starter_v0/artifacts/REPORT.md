@@ -55,13 +55,15 @@ Fill from `artifacts/version_log.csv` and `runs/*.json`.
 | Version | Changed Artifact | Hypothesis | Metric Before | Metric After | Run File |
 |---|---|---|---:|---:|---|
 | v0 | baseline | Establish baseline performance before making changes | ___ | 70%  | v0_B_base_openrouter_20261110T102529804245.json |
-| v1 |  |  |  |  |  |
+| v1 | sytem_prompt.md  | Bổ sung quy tắc làm rõ thông tin, xác nhận trước khi gửi và lựa chọn tool chính xác sẽ giúp cải thiện độ chính xác.	 | 70% | 95% | v1_B_base_openrouter_20261110T113119459836.json |
 | v2 |  |  |  |  |  |
 | v3 |  |  |  |  |  |
 
 ## B2. Failure Analysis
 
 Use actual failures from `results[*].result.failures`.
+
+v0:
 
 | Case ID | Failure Type | Actual Tool Calls | What Failed | Fix |
 |---|---|---|---|---|
@@ -71,6 +73,12 @@ Use actual failures from `results[*].result.failures`.
 | R12 | wrong_boundary | send(text="Bản tin này") | Hệ thống gọi send khi chưa hỏi và nhận được xác nhận từ người dùng. | Fix |
 | R13 | wrong_arg_value | lookup(query="AI news", timeframe="day"); social_search(query="AI", search_type="Latest", limit=5) | Hệ thống chọn đúng hai công cụ nhưng truyền tham số cho lookup chưa chính xác: query phải là "AI" và còn thiếu topic="news". | Fix |
 | R14 | out_of_scope | send | Người dùng yêu cầu viết hàm Python tính Fibonacci nhưng hệ thống vẫn gọi công cụ send, dù đây là yêu cầu có thể trả lời trực tiếp. | Fix |
+
+v1:
+
+| Case ID | Failure Type | Actual Tool Calls | What Failed | Fix |
+|---|---|---|---|---|
+| R12 | wrong_arg_value | clarify(response_type="text") | Người dùng yêu cầu gửi nội dung. Hệ thống đã gọi công cụ clarify để hỏi xác nhận, nhưng sử dụng response_type="text" thay vì response_type="yes_no" | Fix |
 
 ## B3. Team Eval Cases
 
