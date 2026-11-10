@@ -124,9 +124,11 @@ tools:
         max_chars: {type: integer, default: 8000, description: "Số ký tự"}
       required: [arxiv_url]
 
+
   - name: get_match_results
     description: >
-      Get recent football match results for a team using API-Football.
+      Get recent completed football match results for a team using API-Football.
+      Uses date filters instead of the API-restricted last parameter.
       Use when the user asks for recent scores or match results of a specific team.
       Requires the API-Football team ID. Do not guess team IDs.
     parameters:
@@ -135,34 +137,36 @@ tools:
         team_id:
           type: integer
           description: API-Football ID of the team.
-        last:
+        limit:
           type: integer
           default: 5
-          description: Number of recent matches to retrieve, from 1 to 20.
+          description: Number of recent completed matches to retrieve, from 1 to 20.
+        days_back:
+          type: integer
+          default: 365
+          description: Number of past days to search, from 1 to 730.
       required: [team_id]
+
+
 
   - name: get_league_standings
     description: >
-      Get the standings table of a football league for a specific season.
-      Use when the user asks for league rankings, points, wins, draws, or losses.
-      Requires the API-Football league ID and season year.
+      Get the standings table of a football league for the automatically
+      detected current season. The user only needs to provide the league ID.
+      The tool determines the season internally.
     parameters:
       type: object
       properties:
         league_id:
           type: integer
           description: API-Football ID of the league.
-        season:
-          type: integer
-          description: Season start year, for example 2025 for the 2025-2026 season.
-      required: [league_id, season]
+      required: [league_id]
 
   - name: get_player_stats
     description: >
-      Search football player statistics in a specific league and season.
-      Use when the user asks about a player's goals, assists, appearances, or cards.
-      Requires player name, API-Football league ID, and season.
-      Do not invent missing league or season values.
+      Search football player statistics for the automatically detected
+      current season. The user provides a player name. League ID is optional:
+      provide it only when the user specifies a league.
     parameters:
       type: object
       properties:
@@ -171,8 +175,5 @@ tools:
           description: Player name, at least 3 characters.
         league_id:
           type: integer
-          description: API-Football ID of the league.
-        season:
-          type: integer
-          description: Season start year, for example 2025 for the 2025-2026 season.
-      required: [player_name, league_id, season]
+          description: Optional API-Football league ID to narrow the search.
+      required: [player_name]

@@ -15,7 +15,7 @@
             "name": "get_match_results",
             "args": {
               "team_id": 50,
-              "last": 5
+              "limit": 5
             }
           }
         ]
@@ -36,7 +36,7 @@
             "name": "get_match_results",
             "args": {
               "team_id": 33,
-              "last": 3
+              "limit": 3
             }
           }
         ]
