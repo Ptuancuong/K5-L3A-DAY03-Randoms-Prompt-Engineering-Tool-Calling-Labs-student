@@ -1,0 +1,524 @@
+{
+  "session_id": "v3_openai_20261110T121803670651",
+  "version": "v3",
+  "provider": "openai",
+  "model": "gemini-3.6-flash",
+  "artifact_version": "v3+ped5d8fb73988+t7bded518b2a4",
+  "prompt_hash": "ed5d8fb739884a6182840de3e9ac6a54e0aeabf7766e3ea4dd32fdcda1d57f70",
+  "tools_hash": "7bded518b2a43d09f4742b0ba42e278e40878492dbc7d33a8f3fc335a4ab1f7e",
+  "started_at": "2026-11-10T12:18:03",
+  "turns": [
+    {
+      "turn_index": 1,
+      "started_at": "2026-11-10T12:18:50",
+      "user": "Giá Bitcoin hiện tại đang là bao nhiêu USD?",
+      "status": "answered",
+      "assistant_text": "Hiện tại tôi không thể tra cứu giá Bitcoin theo thời gian thực do hệ thống tìm kiếm đang gặp sự cố kết nối. \n\nBạn vui lòng kiểm tra trực tiếp trên các trang theo dõi thị trường uy tín như [CoinMarketCap](https://coinmarketcap.com), [CoinGecko](https://www.coingecko.com) hoặc các sàn giao dịch (Binance, Coinbase,...) để có giá chính xác nhất.",
+      "rounds": [
+        {
+          "round": 1,
+          "assistant_text": null,
+          "tool_calls": [
+            {
+              "name": "lookup",
+              "args": {
+                "query": "Bitcoin price USD current",
+                "timeframe": "day",
+                "topic": "general"
+              }
+            }
+          ],
+          "tool_results": [
+            {
+              "tool": "lookup",
+              "args": {
+                "query": "Bitcoin price USD current",
+                "timeframe": "day",
+                "topic": "general"
+              },
+              "result": {
+                "tool": "web_search",
+                "error": "RuntimeError",
+                "message": "Missing TAVILY_API_KEY env var"
+              }
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "assistant_text": "Hiện tại tôi không thể tra cứu giá Bitcoin theo thời gian thực do hệ thống tìm kiếm đang gặp sự cố kết nối. \n\nBạn vui lòng kiểm tra trực tiếp trên các trang theo dõi thị trường uy tín như [CoinMarketCap](https://coinmarketcap.com), [CoinGecko](https://www.coingecko.com) hoặc các sàn giao dịch (Binance, Coinbase,...) để có giá chính xác nhất.",
+          "tool_calls": [],
+          "tool_results": []
+        }
+      ],
+      "tool_events": [
+        {
+          "tool": "lookup",
+          "args": {
+            "query": "Bitcoin price USD current",
+            "timeframe": "day",
+            "topic": "general"
+          },
+          "result": {
+            "tool": "web_search",
+            "error": "RuntimeError",
+            "message": "Missing TAVILY_API_KEY env var"
+          }
+        }
+      ],
+      "ended_at": "2026-11-10T12:18:59"
+    },
+    {
+      "turn_index": 2,
+      "started_at": "2026-11-10T12:19:31",
+      "user": "tìm paper mới nhất về uav trong viễn thông",
+      "status": "answered",
+      "assistant_text": "Dưới đây là một số bài báo khoa học (paper) mới nhất trên arXiv nghiên cứu về ứng dụng của **UAV trong lĩnh vực viễn thông và truyền thông không dây**:\n\n---\n\n### 1. **5G Aero: A Prototyping Platform for Evaluating Aerial 5G Communications**\n* **Tác giả:** Matteo Bordin, Madhukara S. Holla, Sakthivel Velumani, Salvatore D'Oro, Tommaso Melodia  \n* **Ngày công bố:** Tháng 6/2025  \n* **Tóm tắt:** Nghiên cứu phát triển nền tảng mẫu thử nghiệm 5G Aero nhằm đánh giá khả năng truyền thông 5G thực tế trên UAV kích thước nhỏ. Bài báo thử nghiệm độ trễ dòng dữ liệu điều khiển (C2) và video trong môi trường truyền thẳng (LoS) và bị che khuất (NLoS), đồng thời chứng minh module 5G chỉ làm giảm 1% thời lượng pin của drone thương mại.\n* **Liên kết:** [arXiv:2506.08386v1](http://arxiv.org/abs/2506.08386v1) | [PDF](https://arxiv.org/pdf/2506.08386v1)\n\n---\n\n### 2. **Empirical Line-of-Sight Probability Modeling for UAVs in Random Urban Layouts**\n* **Tác giả:** Abdul Saboor, Zhuangzhuang Cui, Evgenii Vinogradov, Sofie Pollin  \n* **Ngày công bố:** Tháng 1/2025  \n* **Tóm tắt:** Giới thiệu công cụ mô phỏng Urban LoS Simulator (ULS) để tính toán xác suất đường truyền thẳng (Probability of Line-of-Sight - PLoS) cho UAV trong các quy hoạch đô thị ngẫu nhiên theo tiêu chuẩn ITU, giúp đánh giá và thiết kế hệ thống viễn thông thời gian thực với độ trễ thấp chính xác hơn so với mô hình lưới Manhattan truyền thống.\n* **Liên kết:** [arXiv:2501.14389v1](http://arxiv.org/abs/2501.14389v1) | [PDF](https://arxiv.org/pdf/2501.14389v1)\n\n---\n\n### 3. **Enhancing UAV Path Planning Efficiency Through Accelerated Learning**\n* **Tác giả:** Joseanne Viana, Boris Galkin, Lester Ho, Holger Claussen  \n* **Ngày công bố:** Tháng 1/2025  \n* **Tóm tắt:** Đề xuất thuật toán tối ưu hóa đường bay (path planning) cho các trạm chuyển tiếp viễn thông bằng UAV (wireless communication relays) sử dụng Deep Reinforcement Learning (DRL) cải tiến. Bằng cách kết hợp PCA và PER vào thuật toán TD3, nhóm tác giả giảm thời gian hội tụ xuống 4 lần và tiết kiệm tài nguyên bộ nhớ lưu trữ bản đồ địa hình.\n* **Liên kết:** [arXiv:2501.10141v1](http://arxiv.org/abs/2501.10141v1) | [PDF](https://arxiv.org/pdf/2501.10141v1)\n\n---\n\n### 4. **A Tutorial on Non-Terrestrial Networks: Towards Global and Ubiquitous 6G Connectivity**\n* **Tác giả:** Muhammad Ali Jamshed, Aryan Kaushik, Sanaullah Manzoor, et al.  \n* **Ngày công bố:** Tháng 12/2024  \n* **Tóm tắt:** Bài báo tổng quan chi tiết về Mạng phi mặt đất (Non-Terrestrial Networks - NTN) hướng tới kết nối 6G toàn cầu, phân tích sự hội tụ giữa vệ tinh LEO, UAV và mạng mặt đất, ứng dụng AI/DRL trong tối ưu hóa quỹ đạo UAV, beamforming MIMO và công nghệ bề mặt phản xạ thông minh (RIS).\n* **Liên kết:** [arXiv:2412.16611v1](http://arxiv.org/abs/2412.16611v1) | [PDF](https://arxiv.org/pdf/2412.16611v1)\n\n---\n\n### 5. **Prototyping O-RAN Enabled UAV Experimentation for the AERPAW Testbed**\n* **Tác giả:** Joshua Moore, Aly Sabri Abdalla, Charles Ueltschey, Vuk Marojevic  \n* **Ngày công bố:** Tháng 11/2024  \n* **Tóm tắt:** Tích hợp kiến trúc Open Radio Access Network (O-RAN) với UAV trên nền tảng thử nghiệm AERPAW, sử dụng bộ điều khiển RAN thông minh FlexRIC để tối ưu hóa truyền thông mạng di động thời gian thực cho UAV thông qua Digital Twin và Generative AI.\n* **Liên kết:** [arXiv:2411.04027v1](http://arxiv.org/abs/2411.04027v1) | [PDF](https://arxiv.org/pdf/2411.04027v1)\n\n---\n*Nếu bạn muốn tìm hiểu sâu hoặc cần trích xuất nội dung chi tiết của bài báo nào ở trên, hãy cho tôi biết nhé!*",
+      "rounds": [
+        {
+          "round": 1,
+          "assistant_text": null,
+          "tool_calls": [
+            {
+              "name": "papers",
+              "args": {
+                "max_results": 5,
+                "query": "UAV telecommunications wireless communications",
+                "sort_by": "submittedDate"
+              }
+            }
+          ],
+          "tool_results": [
+            {
+              "tool": "papers",
+              "args": {
+                "max_results": 5,
+                "query": "UAV telecommunications wireless communications",
+                "sort_by": "submittedDate"
+              },
+              "result": {
+                "tool": "arxiv_search",
+                "query": "UAV telecommunications wireless communications",
+                "api_query": "all:UAV AND all:telecommunications AND all:wireless AND all:communications",
+                "total_results": 12,
+                "items": [
+                  {
+                    "arxiv_id": "2506.08386v1",
+                    "title": "5G Aero: A Prototyping Platform for Evaluating Aerial 5G Communications",
+                    "summary": "The application of small-factor, 5G-enabled Unmanned Aerial Vehicles (UAVs) has recently gained significant interest in various aerial and Industry 4.0 applications. However, ensuring reliable, high-throughput, and low-latency 5G communication in aerial applications remains a critical and underexplored problem. This paper presents the 5th generation (5G) Aero, a compact UAV optimized for 5G connectivity, aimed at fulfilling stringent 3rd Generation Partnership Project (3GPP) requirements. We conduct a set of experiments in an indoor environment, evaluating the UAV's ability to establish high-throughput, low-latency communications in both Line-of-Sight (LoS) and Non-Line-of-Sight (NLoS) conditions. Our findings demonstrate that the 5G Aero meets the required 3GPP standards for Command and Control (C2) packets latency in both LoS and NLoS, and video latency in LoS communications and it maintains acceptable latency levels for video transmission in NLoS conditions. Additionally, we show that the 5G module installed on the UAV introduces a negligible 1% decrease in flight time, showing that 5G technologies can be integrated into commercial off-the-shelf UAVs with minimal impact on battery lifetime. This paper contributes to the literature by demonstrating the practical capabilities of current 5G networks to support advanced UAV operations in telecommunications, offering insights into potential enhancements and optimizations for UAV performance in 5G networks",
+                    "authors": [
+                      "Matteo Bordin",
+                      "Madhukara S. Holla",
+                      "Sakthivel Velumani",
+                      "Salvatore D'Oro",
+                      "Tommaso Melodia"
+                    ],
+                    "published": "2025-06-10T02:53:15Z",
+                    "updated": "2025-06-10T02:53:15Z",
+                    "url": "http://arxiv.org/abs/2506.08386v1",
+                    "pdf_url": "https://arxiv.org/pdf/2506.08386v1",
+                    "source": "arxiv.org",
+                    "primary_category": "cs.NI",
+                    "categories": [
+                      "cs.NI",
+                      "eess.SP"
+                    ]
+                  },
+                  {
+                    "arxiv_id": "2501.14389v1",
+                    "title": "Empirical Line-of-Sight Probability Modeling for UAVs in Random Urban Layouts",
+                    "summary": "Accurate Probability of Line-of-Sight (PLoS) modeling is important in evaluating the performance of Unmanned Aerial Vehicle (UAV)-based communication systems in urban environments, where real-time communication and low latency are often major requirements. Existing PLoS models often rely on simplified Manhattan grid layouts using International Telecommunication Union (ITU)-defined built-up parameters, which may not reflect the randomness of real cities. Therefore, this paper introduces the Urban LoS Simulator (ULS) to model PLoS for three random city layouts with varying building sizes and shapes constructed using ITU built-up parameters. Based on the ULS simulated data, we obtained the empirical PLoS for four standard urban environments across three different city layouts. Finally, we analyze how well Manhattan grid-based models replicate PLoS results from random and real-world layouts, providing insights into their applicability for time-critical communication systems in urban IoT networks.",
+                    "authors": [
+                      "Abdul Saboor",
+                      "Zhuangzhuang Cui",
+                      "Evgenii Vinogradov",
+                      "Sofie Pollin"
+                    ],
+                    "published": "2025-01-24T10:42:22Z",
+                    "updated": "2025-01-24T10:42:22Z",
+                    "url": "http://arxiv.org/abs/2501.14389v1",
+                    "pdf_url": "https://arxiv.org/pdf/2501.14389v1",
+                    "source": "arxiv.org",
+                    "primary_category": "cs.NI",
+                    "categories": [
+                      "cs.NI"
+                    ]
+                  },
+                  {
+                    "arxiv_id": "2501.10141v1",
+                    "title": "Enhancing UAV Path Planning Efficiency Through Accelerated Learning",
+                    "summary": "Unmanned Aerial Vehicles (UAVs) are increasingly essential in various fields such as surveillance, reconnaissance, and telecommunications. This study aims to develop a learning algorithm for the path planning of UAV wireless communication relays, which can reduce storage requirements and accelerate Deep Reinforcement Learning (DRL) convergence. Assuming the system possesses terrain maps of the area and can estimate user locations using localization algorithms or direct GPS reporting, it can input these parameters into the learning algorithms to achieve optimized path planning performance. However, higher resolution terrain maps are necessary to extract topological information such as terrain height, object distances, and signal blockages. This requirement increases memory and storage demands on UAVs while also lengthening convergence times in DRL algorithms. Similarly, defining the telecommunication coverage map in UAV wireless communication relays using these terrain maps and user position estimations demands higher memory and storage utilization for the learning path planning algorithms. Our approach reduces path planning training time by applying a dimensionality reduction technique based on Principal Component Analysis (PCA), sample combination, Prioritized Experience Replay (PER), and the combination of Mean Squared Error (MSE) and Mean Absolute Error (MAE) loss calculations in the coverage map estimates, thereby enhancing a Twin Delayed Deep Deterministic Policy Gradient (TD3) algorithm. The proposed solution reduces the convergence episodes needed for basic training by approximately four times compared to the traditional TD3.",
+                    "authors": [
+                      "Joseanne Viana",
+                      "Boris Galkin",
+                      "Lester Ho",
+                      "Holger Claussen"
+                    ],
+                    "published": "2025-01-17T12:05:24Z",
+                    "updated": "2025-01-17T12:05:24Z",
+                    "url": "http://arxiv.org/abs/2501.10141v1",
+                    "pdf_url": "https://arxiv.org/pdf/2501.10141v1",
+                    "source": "arxiv.org",
+                    "primary_category": "cs.LG",
+                    "categories": [
+                      "cs.LG",
+                      "cs.AI"
+                    ]
+                  },
+                  {
+                    "arxiv_id": "2412.16611v1",
+                    "title": "A Tutorial on Non-Terrestrial Networks: Towards Global and Ubiquitous 6G Connectivity",
+                    "summary": "The International Mobile Telecommunications (IMT)-2030 framework recently adopted by the International Telecommunication Union Radiocommunication Sector (ITU-R) envisions 6G networks to deliver intelligent, seamless connectivity that supports reliable, sustainable, and resilient communications. Recent developments in the 3rd Generation Partnership Project (3GPP) Releases 17-19, particularly within the Radio Access Network (RAN)4 working group addressing satellite and cellular spectrum sharing and RAN2 enhancing New Radio (NR)/IoT for NTN, highlight the critical role NTN is set to play in the evolution of 6G standards. The integration of advanced signal processing, edge and cloud computing, and Deep Reinforcement Learning (DRL) for Low Earth Orbit (LEO) satellites and aerial platforms, such as Uncrewed Aerial Vehicles (UAV) and high-, medium-, and low-altitude platform stations, has revolutionized the convergence of space, aerial, and Terrestrial Networks (TN). Artificial Intelligence (AI)-powered deployments for NTN and NTN-IoT, combined with Next Generation Multiple Access (NGMA) technologies, have dramatically reshaped global connectivity. This tutorial paper provides a comprehensive exploration of emerging NTN-based 6G wireless networks, covering vision, alignment with 5G-Advanced and 6G standards, key principles, trends, challenges, real-world applications, and novel problem solving frameworks. It examines essential enabling technologies like AI for NTN (LEO satellites and aerial platforms), DRL, edge computing for NTN, AI for NTN trajectory optimization, Reconfigurable Intelligent Surfaces (RIS)-enhanced NTN, and robust Multiple-Input-Multiple-Output (MIMO) beamforming. Furthermore, it addresses interference management through NGMA, including Rate-Splitting Multiple Access (RSMA) for NTN, and the use of aerial platforms for access, relay, and fronthaul/backhaul connectivity.",
+                    "authors": [
+                      "Muhammad Ali Jamshed",
+                      "Aryan Kaushik",
+                      "Sanaullah Manzoor",
+                      "Muhammad Zeeshan Shakir",
+                      "Jaehyup Seong",
+                      "Mesut Toka",
+                      "Wonjae Shin",
+                      "Malte Schellmann"
+                    ],
+                    "published": "2024-12-21T12:54:59Z",
+                    "updated": "2024-12-21T12:54:59Z",
+                    "url": "http://arxiv.org/abs/2412.16611v1",
+                    "pdf_url": "https://arxiv.org/pdf/2412.16611v1",
+                    "source": "arxiv.org",
+                    "primary_category": "eess.SP",
+                    "categories": [
+                      "eess.SP",
+                      "cs.IT"
+                    ]
+                  },
+                  {
+                    "arxiv_id": "2411.04027v1",
+                    "title": "Prototyping O-RAN Enabled UAV Experimentation for the AERPAW Testbed",
+                    "summary": "The Open Radio Access Network (O-RAN) architecture is reshaping the telecommunications landscape by enhancing network flexibility, openness, and intelligence. This paper establishes the requirements, evaluates the design tradeoffs, and introduces a scalable architecture and prototype of an open-source O-RAN experimentation platform within the Aerial Experimentation and Research Platform for Advanced Wireless (AERPAW), an at scale testbed that integrates unmanned aerial vehicles (UAVs) with advanced wireless network technologies, offering experimentation in both outdoor testbed and emulation via a custom digital twin (DT). Through a series of aerial experiments, we evaluate FlexRIC, an open-source RAN Intelligent Controller, within the AERPAW hardware-software platform for network data monitoring, providing valuable insights into the proposed integration and revealing opportunities for leveraging O-RAN to create custom service based optimizations for cellular connected UAVs. We discuss the challenges and potential use cases of this integration and demonstrate the use of a generative artificial intelligence model for generating realistic data based on collected real-world data to support AERPAW's DT.",
+                    "authors": [
+                      "Joshua Moore",
+                      "Aly Sabri Abdalla",
+                      "Charles Ueltschey",
+                      "Vuk Marojevic"
+                    ],
+                    "published": "2024-11-06T16:21:19Z",
+                    "updated": "2024-11-06T16:21:19Z",
+                    "url": "http://arxiv.org/abs/2411.04027v1",
+                    "pdf_url": "https://arxiv.org/pdf/2411.04027v1",
+                    "source": "arxiv.org",
+                    "primary_category": "cs.NI",
+                    "categories": [
+                      "cs.NI",
+                      "cs.AR",
+                      "eess.SY"
+                    ]
+                  }
+                ],
+                "rate_limit_note": "arXiv may return 429 if called too frequently; this tool waits at least 3 seconds between requests in-process."
+              }
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "assistant_text": "Dưới đây là một số bài báo khoa học (paper) mới nhất trên arXiv nghiên cứu về ứng dụng của **UAV trong lĩnh vực viễn thông và truyền thông không dây**:\n\n---\n\n### 1. **5G Aero: A Prototyping Platform for Evaluating Aerial 5G Communications**\n* **Tác giả:** Matteo Bordin, Madhukara S. Holla, Sakthivel Velumani, Salvatore D'Oro, Tommaso Melodia  \n* **Ngày công bố:** Tháng 6/2025  \n* **Tóm tắt:** Nghiên cứu phát triển nền tảng mẫu thử nghiệm 5G Aero nhằm đánh giá khả năng truyền thông 5G thực tế trên UAV kích thước nhỏ. Bài báo thử nghiệm độ trễ dòng dữ liệu điều khiển (C2) và video trong môi trường truyền thẳng (LoS) và bị che khuất (NLoS), đồng thời chứng minh module 5G chỉ làm giảm 1% thời lượng pin của drone thương mại.\n* **Liên kết:** [arXiv:2506.08386v1](http://arxiv.org/abs/2506.08386v1) | [PDF](https://arxiv.org/pdf/2506.08386v1)\n\n---\n\n### 2. **Empirical Line-of-Sight Probability Modeling for UAVs in Random Urban Layouts**\n* **Tác giả:** Abdul Saboor, Zhuangzhuang Cui, Evgenii Vinogradov, Sofie Pollin  \n* **Ngày công bố:** Tháng 1/2025  \n* **Tóm tắt:** Giới thiệu công cụ mô phỏng Urban LoS Simulator (ULS) để tính toán xác suất đường truyền thẳng (Probability of Line-of-Sight - PLoS) cho UAV trong các quy hoạch đô thị ngẫu nhiên theo tiêu chuẩn ITU, giúp đánh giá và thiết kế hệ thống viễn thông thời gian thực với độ trễ thấp chính xác hơn so với mô hình lưới Manhattan truyền thống.\n* **Liên kết:** [arXiv:2501.14389v1](http://arxiv.org/abs/2501.14389v1) | [PDF](https://arxiv.org/pdf/2501.14389v1)\n\n---\n\n### 3. **Enhancing UAV Path Planning Efficiency Through Accelerated Learning**\n* **Tác giả:** Joseanne Viana, Boris Galkin, Lester Ho, Holger Claussen  \n* **Ngày công bố:** Tháng 1/2025  \n* **Tóm tắt:** Đề xuất thuật toán tối ưu hóa đường bay (path planning) cho các trạm chuyển tiếp viễn thông bằng UAV (wireless communication relays) sử dụng Deep Reinforcement Learning (DRL) cải tiến. Bằng cách kết hợp PCA và PER vào thuật toán TD3, nhóm tác giả giảm thời gian hội tụ xuống 4 lần và tiết kiệm tài nguyên bộ nhớ lưu trữ bản đồ địa hình.\n* **Liên kết:** [arXiv:2501.10141v1](http://arxiv.org/abs/2501.10141v1) | [PDF](https://arxiv.org/pdf/2501.10141v1)\n\n---\n\n### 4. **A Tutorial on Non-Terrestrial Networks: Towards Global and Ubiquitous 6G Connectivity**\n* **Tác giả:** Muhammad Ali Jamshed, Aryan Kaushik, Sanaullah Manzoor, et al.  \n* **Ngày công bố:** Tháng 12/2024  \n* **Tóm tắt:** Bài báo tổng quan chi tiết về Mạng phi mặt đất (Non-Terrestrial Networks - NTN) hướng tới kết nối 6G toàn cầu, phân tích sự hội tụ giữa vệ tinh LEO, UAV và mạng mặt đất, ứng dụng AI/DRL trong tối ưu hóa quỹ đạo UAV, beamforming MIMO và công nghệ bề mặt phản xạ thông minh (RIS).\n* **Liên kết:** [arXiv:2412.16611v1](http://arxiv.org/abs/2412.16611v1) | [PDF](https://arxiv.org/pdf/2412.16611v1)\n\n---\n\n### 5. **Prototyping O-RAN Enabled UAV Experimentation for the AERPAW Testbed**\n* **Tác giả:** Joshua Moore, Aly Sabri Abdalla, Charles Ueltschey, Vuk Marojevic  \n* **Ngày công bố:** Tháng 11/2024  \n* **Tóm tắt:** Tích hợp kiến trúc Open Radio Access Network (O-RAN) với UAV trên nền tảng thử nghiệm AERPAW, sử dụng bộ điều khiển RAN thông minh FlexRIC để tối ưu hóa truyền thông mạng di động thời gian thực cho UAV thông qua Digital Twin và Generative AI.\n* **Liên kết:** [arXiv:2411.04027v1](http://arxiv.org/abs/2411.04027v1) | [PDF](https://arxiv.org/pdf/2411.04027v1)\n\n---\n*Nếu bạn muốn tìm hiểu sâu hoặc cần trích xuất nội dung chi tiết của bài báo nào ở trên, hãy cho tôi biết nhé!*",
+          "tool_calls": [],
+          "tool_results": []
+        }
+      ],
+      "tool_events": [
+        {
+          "tool": "papers",
+          "args": {
+            "max_results": 5,
+            "query": "UAV telecommunications wireless communications",
+            "sort_by": "submittedDate"
+          },
+          "result": {
+            "tool": "arxiv_search",
+            "query": "UAV telecommunications wireless communications",
+            "api_query": "all:UAV AND all:telecommunications AND all:wireless AND all:communications",
+            "total_results": 12,
+            "items": [
+              {
+                "arxiv_id": "2506.08386v1",
+                "title": "5G Aero: A Prototyping Platform for Evaluating Aerial 5G Communications",
+                "summary": "The application of small-factor, 5G-enabled Unmanned Aerial Vehicles (UAVs) has recently gained significant interest in various aerial and Industry 4.0 applications. However, ensuring reliable, high-throughput, and low-latency 5G communication in aerial applications remains a critical and underexplored problem. This paper presents the 5th generation (5G) Aero, a compact UAV optimized for 5G connectivity, aimed at fulfilling stringent 3rd Generation Partnership Project (3GPP) requirements. We conduct a set of experiments in an indoor environment, evaluating the UAV's ability to establish high-throughput, low-latency communications in both Line-of-Sight (LoS) and Non-Line-of-Sight (NLoS) conditions. Our findings demonstrate that the 5G Aero meets the required 3GPP standards for Command and Control (C2) packets latency in both LoS and NLoS, and video latency in LoS communications and it maintains acceptable latency levels for video transmission in NLoS conditions. Additionally, we show that the 5G module installed on the UAV introduces a negligible 1% decrease in flight time, showing that 5G technologies can be integrated into commercial off-the-shelf UAVs with minimal impact on battery lifetime. This paper contributes to the literature by demonstrating the practical capabilities of current 5G networks to support advanced UAV operations in telecommunications, offering insights into potential enhancements and optimizations for UAV performance in 5G networks",
+                "authors": [
+                  "Matteo Bordin",
+                  "Madhukara S. Holla",
+                  "Sakthivel Velumani",
+                  "Salvatore D'Oro",
+                  "Tommaso Melodia"
+                ],
+                "published": "2025-06-10T02:53:15Z",
+                "updated": "2025-06-10T02:53:15Z",
+                "url": "http://arxiv.org/abs/2506.08386v1",
+                "pdf_url": "https://arxiv.org/pdf/2506.08386v1",
+                "source": "arxiv.org",
+                "primary_category": "cs.NI",
+                "categories": [
+                  "cs.NI",
+                  "eess.SP"
+                ]
+              },
+              {
+                "arxiv_id": "2501.14389v1",
+                "title": "Empirical Line-of-Sight Probability Modeling for UAVs in Random Urban Layouts",
+                "summary": "Accurate Probability of Line-of-Sight (PLoS) modeling is important in evaluating the performance of Unmanned Aerial Vehicle (UAV)-based communication systems in urban environments, where real-time communication and low latency are often major requirements. Existing PLoS models often rely on simplified Manhattan grid layouts using International Telecommunication Union (ITU)-defined built-up parameters, which may not reflect the randomness of real cities. Therefore, this paper introduces the Urban LoS Simulator (ULS) to model PLoS for three random city layouts with varying building sizes and shapes constructed using ITU built-up parameters. Based on the ULS simulated data, we obtained the empirical PLoS for four standard urban environments across three different city layouts. Finally, we analyze how well Manhattan grid-based models replicate PLoS results from random and real-world layouts, providing insights into their applicability for time-critical communication systems in urban IoT networks.",
+                "authors": [
+                  "Abdul Saboor",
+                  "Zhuangzhuang Cui",
+                  "Evgenii Vinogradov",
+                  "Sofie Pollin"
+                ],
+                "published": "2025-01-24T10:42:22Z",
+                "updated": "2025-01-24T10:42:22Z",
+                "url": "http://arxiv.org/abs/2501.14389v1",
+                "pdf_url": "https://arxiv.org/pdf/2501.14389v1",
+                "source": "arxiv.org",
+                "primary_category": "cs.NI",
+                "categories": [
+                  "cs.NI"
+                ]
+              },
+              {
+                "arxiv_id": "2501.10141v1",
+                "title": "Enhancing UAV Path Planning Efficiency Through Accelerated Learning",
+                "summary": "Unmanned Aerial Vehicles (UAVs) are increasingly essential in various fields such as surveillance, reconnaissance, and telecommunications. This study aims to develop a learning algorithm for the path planning of UAV wireless communication relays, which can reduce storage requirements and accelerate Deep Reinforcement Learning (DRL) convergence. Assuming the system possesses terrain maps of the area and can estimate user locations using localization algorithms or direct GPS reporting, it can input these parameters into the learning algorithms to achieve optimized path planning performance. However, higher resolution terrain maps are necessary to extract topological information such as terrain height, object distances, and signal blockages. This requirement increases memory and storage demands on UAVs while also lengthening convergence times in DRL algorithms. Similarly, defining the telecommunication coverage map in UAV wireless communication relays using these terrain maps and user position estimations demands higher memory and storage utilization for the learning path planning algorithms. Our approach reduces path planning training time by applying a dimensionality reduction technique based on Principal Component Analysis (PCA), sample combination, Prioritized Experience Replay (PER), and the combination of Mean Squared Error (MSE) and Mean Absolute Error (MAE) loss calculations in the coverage map estimates, thereby enhancing a Twin Delayed Deep Deterministic Policy Gradient (TD3) algorithm. The proposed solution reduces the convergence episodes needed for basic training by approximately four times compared to the traditional TD3.",
+                "authors": [
+                  "Joseanne Viana",
+                  "Boris Galkin",
+                  "Lester Ho",
+                  "Holger Claussen"
+                ],
+                "published": "2025-01-17T12:05:24Z",
+                "updated": "2025-01-17T12:05:24Z",
+                "url": "http://arxiv.org/abs/2501.10141v1",
+                "pdf_url": "https://arxiv.org/pdf/2501.10141v1",
+                "source": "arxiv.org",
+                "primary_category": "cs.LG",
+                "categories": [
+                  "cs.LG",
+                  "cs.AI"
+                ]
+              },
+              {
+                "arxiv_id": "2412.16611v1",
+                "title": "A Tutorial on Non-Terrestrial Networks: Towards Global and Ubiquitous 6G Connectivity",
+                "summary": "The International Mobile Telecommunications (IMT)-2030 framework recently adopted by the International Telecommunication Union Radiocommunication Sector (ITU-R) envisions 6G networks to deliver intelligent, seamless connectivity that supports reliable, sustainable, and resilient communications. Recent developments in the 3rd Generation Partnership Project (3GPP) Releases 17-19, particularly within the Radio Access Network (RAN)4 working group addressing satellite and cellular spectrum sharing and RAN2 enhancing New Radio (NR)/IoT for NTN, highlight the critical role NTN is set to play in the evolution of 6G standards. The integration of advanced signal processing, edge and cloud computing, and Deep Reinforcement Learning (DRL) for Low Earth Orbit (LEO) satellites and aerial platforms, such as Uncrewed Aerial Vehicles (UAV) and high-, medium-, and low-altitude platform stations, has revolutionized the convergence of space, aerial, and Terrestrial Networks (TN). Artificial Intelligence (AI)-powered deployments for NTN and NTN-IoT, combined with Next Generation Multiple Access (NGMA) technologies, have dramatically reshaped global connectivity. This tutorial paper provides a comprehensive exploration of emerging NTN-based 6G wireless networks, covering vision, alignment with 5G-Advanced and 6G standards, key principles, trends, challenges, real-world applications, and novel problem solving frameworks. It examines essential enabling technologies like AI for NTN (LEO satellites and aerial platforms), DRL, edge computing for NTN, AI for NTN trajectory optimization, Reconfigurable Intelligent Surfaces (RIS)-enhanced NTN, and robust Multiple-Input-Multiple-Output (MIMO) beamforming. Furthermore, it addresses interference management through NGMA, including Rate-Splitting Multiple Access (RSMA) for NTN, and the use of aerial platforms for access, relay, and fronthaul/backhaul connectivity.",
+                "authors": [
+                  "Muhammad Ali Jamshed",
+                  "Aryan Kaushik",
+                  "Sanaullah Manzoor",
+                  "Muhammad Zeeshan Shakir",
+                  "Jaehyup Seong",
+                  "Mesut Toka",
+                  "Wonjae Shin",
+                  "Malte Schellmann"
+                ],
+                "published": "2024-12-21T12:54:59Z",
+                "updated": "2024-12-21T12:54:59Z",
+                "url": "http://arxiv.org/abs/2412.16611v1",
+                "pdf_url": "https://arxiv.org/pdf/2412.16611v1",
+                "source": "arxiv.org",
+                "primary_category": "eess.SP",
+                "categories": [
+                  "eess.SP",
+                  "cs.IT"
+                ]
+              },
+              {
+                "arxiv_id": "2411.04027v1",
+                "title": "Prototyping O-RAN Enabled UAV Experimentation for the AERPAW Testbed",
+                "summary": "The Open Radio Access Network (O-RAN) architecture is reshaping the telecommunications landscape by enhancing network flexibility, openness, and intelligence. This paper establishes the requirements, evaluates the design tradeoffs, and introduces a scalable architecture and prototype of an open-source O-RAN experimentation platform within the Aerial Experimentation and Research Platform for Advanced Wireless (AERPAW), an at scale testbed that integrates unmanned aerial vehicles (UAVs) with advanced wireless network technologies, offering experimentation in both outdoor testbed and emulation via a custom digital twin (DT). Through a series of aerial experiments, we evaluate FlexRIC, an open-source RAN Intelligent Controller, within the AERPAW hardware-software platform for network data monitoring, providing valuable insights into the proposed integration and revealing opportunities for leveraging O-RAN to create custom service based optimizations for cellular connected UAVs. We discuss the challenges and potential use cases of this integration and demonstrate the use of a generative artificial intelligence model for generating realistic data based on collected real-world data to support AERPAW's DT.",
+                "authors": [
+                  "Joshua Moore",
+                  "Aly Sabri Abdalla",
+                  "Charles Ueltschey",
+                  "Vuk Marojevic"
+                ],
+                "published": "2024-11-06T16:21:19Z",
+                "updated": "2024-11-06T16:21:19Z",
+                "url": "http://arxiv.org/abs/2411.04027v1",
+                "pdf_url": "https://arxiv.org/pdf/2411.04027v1",
+                "source": "arxiv.org",
+                "primary_category": "cs.NI",
+                "categories": [
+                  "cs.NI",
+                  "cs.AR",
+                  "eess.SY"
+                ]
+              }
+            ],
+            "rate_limit_note": "arXiv may return 429 if called too frequently; this tool waits at least 3 seconds between requests in-process."
+          }
+        }
+      ],
+      "ended_at": "2026-11-10T12:19:48"
+    },
+    {
+      "turn_index": 3,
+      "started_at": "2026-11-10T12:20:10",
+      "user": "Tweet mới nhất của Sam Altman là gì?\nLấy 2 bài đăng gần nhất của Elon Musk\n\n\n  \n\n  \n\n  \n\n  ",
+      "status": "answered",
+      "assistant_text": "Dưới đây là các bài đăng mới nhất từ **Sam Altman** (@sama) và **Elon Musk** (@elonmusk):\n\n---\n\n### **1. Sam Altman (@sama)**\n* **Nội dung:** Retweet bài đăng của @fouadmatin:\n  > *\"Today’s GPT-6 Cyber release is a meaningful step for defenders: stronger vulnerability research and better alignment. We’ve…\"*\n* **Thời gian:** 05/11/2026\n* **Liên kết:** [Xem bài viết trên X](https://x.com/sama/status/2118471941002842341)\n\n---\n\n### **2. Elon Musk (@elonmusk) – 2 bài đăng gần nhất**\n1. **Bài đăng 1:** Retweet bài đăng của @MegynKellyShow:\n   > *\".@MegynKelly on the absolute double standard in the Russell Brand sentencing: “If you needed any further proof that thi…”\"*\n   * **Thời gian:** 10/11/2026\n   * **Liên kết:** [Xem bài viết trên X](https://x.com/elonmusk/status/2119996001490768028)\n\n2. **Bài đăng 2:** Retweet bài đăng của @firesidealpha:\n   > *\"JUST IN: Memphis Mayor reveals SpaceX data center taxes more than doubled to $54 million, after $25 million last year ma…”\"*\n   * **Thời gian:** 10/11/2026\n   * **Liên kết:** [Xem bài viết trên X](https://x.com/elonmusk/status/2119993726898774521)",
+      "rounds": [
+        {
+          "round": 1,
+          "assistant_text": null,
+          "tool_calls": [
+            {
+              "name": "timeline",
+              "args": {
+                "limit": 1,
+                "screenname": "sama"
+              }
+            },
+            {
+              "name": "timeline",
+              "args": {
+                "limit": 2,
+                "screenname": "elonmusk"
+              }
+            }
+          ],
+          "tool_results": [
+            {
+              "tool": "timeline",
+              "args": {
+                "limit": 1,
+                "screenname": "sama"
+              },
+              "result": {
+                "tool": "get_user_tweets",
+                "screenname": "sama",
+                "items": [
+                  {
+                    "title": "RT @fouadmatin: Today’s GPT-6 Cyber release is a meaningful step for defenders: stronger vulnerability research and bett",
+                    "summary": "RT @fouadmatin: Today’s GPT-6 Cyber release is a meaningful step for defenders: stronger vulnerability research and better alignment. We’ve…",
+                    "url": "https://x.com/sama/status/2118471941002842341",
+                    "source": "@sama",
+                    "date": "Thu Nov 05 22:34:04 +0000 2026",
+                    "metrics": {
+                      "favorites": 0,
+                      "retweets": 53,
+                      "views": "47395"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "tool": "timeline",
+              "args": {
+                "limit": 2,
+                "screenname": "elonmusk"
+              },
+              "result": {
+                "tool": "get_user_tweets",
+                "screenname": "elonmusk",
+                "items": [
+                  {
+                    "title": "RT @MegynKellyShow: .@MegynKelly on the absolute double standard in the Russell Brand sentencing: “If you needed any fur",
+                    "summary": "RT @MegynKellyShow: .@MegynKelly on the absolute double standard in the Russell Brand sentencing: “If you needed any further proof that thi…",
+                    "url": "https://x.com/elonmusk/status/2119996001490768028",
+                    "source": "@elonmusk",
+                    "date": "Tue Nov 10 03:30:09 +0000 2026",
+                    "metrics": {
+                      "favorites": 0,
+                      "retweets": 1029,
+                      "views": "438737"
+                    }
+                  },
+                  {
+                    "title": "RT @firesidealpha: JUST IN: Memphis Mayor reveals SpaceX data center taxes more than doubled to $54 million, after $25 m",
+                    "summary": "RT @firesidealpha: JUST IN: Memphis Mayor reveals SpaceX data center taxes more than doubled to $54 million, after $25 million last year ma…",
+                    "url": "https://x.com/elonmusk/status/2119993726898774521",
+                    "source": "@elonmusk",
+                    "date": "Tue Nov 10 03:21:06 +0000 2026",
+                    "metrics": {
+                      "favorites": 0,
+                      "retweets": 302,
+                      "views": "395586"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "assistant_text": "Dưới đây là các bài đăng mới nhất từ **Sam Altman** (@sama) và **Elon Musk** (@elonmusk):\n\n---\n\n### **1. Sam Altman (@sama)**\n* **Nội dung:** Retweet bài đăng của @fouadmatin:\n  > *\"Today’s GPT-6 Cyber release is a meaningful step for defenders: stronger vulnerability research and better alignment. We’ve…\"*\n* **Thời gian:** 05/11/2026\n* **Liên kết:** [Xem bài viết trên X](https://x.com/sama/status/2118471941002842341)\n\n---\n\n### **2. Elon Musk (@elonmusk) – 2 bài đăng gần nhất**\n1. **Bài đăng 1:** Retweet bài đăng của @MegynKellyShow:\n   > *\".@MegynKelly on the absolute double standard in the Russell Brand sentencing: “If you needed any further proof that thi…”\"*\n   * **Thời gian:** 10/11/2026\n   * **Liên kết:** [Xem bài viết trên X](https://x.com/elonmusk/status/2119996001490768028)\n\n2. **Bài đăng 2:** Retweet bài đăng của @firesidealpha:\n   > *\"JUST IN: Memphis Mayor reveals SpaceX data center taxes more than doubled to $54 million, after $25 million last year ma…”\"*\n   * **Thời gian:** 10/11/2026\n   * **Liên kết:** [Xem bài viết trên X](https://x.com/elonmusk/status/2119993726898774521)",
+          "tool_calls": [],
+          "tool_results": []
+        }
+      ],
+      "tool_events": [
+        {
+          "tool": "timeline",
+          "args": {
+            "limit": 1,
+            "screenname": "sama"
+          },
+          "result": {
+            "tool": "get_user_tweets",
+            "screenname": "sama",
+            "items": [
+              {
+                "title": "RT @fouadmatin: Today’s GPT-6 Cyber release is a meaningful step for defenders: stronger vulnerability research and bett",
+                "summary": "RT @fouadmatin: Today’s GPT-6 Cyber release is a meaningful step for defenders: stronger vulnerability research and better alignment. We’ve…",
+                "url": "https://x.com/sama/status/2118471941002842341",
+                "source": "@sama",
+                "date": "Thu Nov 05 22:34:04 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 53,
+                  "views": "47395"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "tool": "timeline",
+          "args": {
+            "limit": 2,
+            "screenname": "elonmusk"
+          },
+          "result": {
+            "tool": "get_user_tweets",
+            "screenname": "elonmusk",
+            "items": [
+              {
+                "title": "RT @MegynKellyShow: .@MegynKelly on the absolute double standard in the Russell Brand sentencing: “If you needed any fur",
+                "summary": "RT @MegynKellyShow: .@MegynKelly on the absolute double standard in the Russell Brand sentencing: “If you needed any further proof that thi…",
+                "url": "https://x.com/elonmusk/status/2119996001490768028",
+                "source": "@elonmusk",
+                "date": "Tue Nov 10 03:30:09 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 1029,
+                  "views": "438737"
+                }
+              },
+              {
+                "title": "RT @firesidealpha: JUST IN: Memphis Mayor reveals SpaceX data center taxes more than doubled to $54 million, after $25 m",
+                "summary": "RT @firesidealpha: JUST IN: Memphis Mayor reveals SpaceX data center taxes more than doubled to $54 million, after $25 million last year ma…",
+                "url": "https://x.com/elonmusk/status/2119993726898774521",
+                "source": "@elonmusk",
+                "date": "Tue Nov 10 03:21:06 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 302,
+                  "views": "395586"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "ended_at": "2026-11-10T12:20:25"
+    }
+  ]
+}

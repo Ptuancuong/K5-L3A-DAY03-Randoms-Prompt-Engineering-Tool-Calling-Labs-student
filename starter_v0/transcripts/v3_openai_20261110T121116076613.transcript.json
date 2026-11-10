@@ -1,0 +1,766 @@
+{
+  "session_id": "v3_openai_20261110T121116076613",
+  "version": "v3",
+  "provider": "openai",
+  "model": "gemini-3.6-flash",
+  "artifact_version": "v3+ped5d8fb73988+t7bded518b2a4",
+  "prompt_hash": "ed5d8fb739884a6182840de3e9ac6a54e0aeabf7766e3ea4dd32fdcda1d57f70",
+  "tools_hash": "7bded518b2a43d09f4742b0ba42e278e40878492dbc7d33a8f3fc335a4ab1f7e",
+  "started_at": "2026-11-10T12:11:16",
+  "turns": [
+    {
+      "turn_index": 1,
+      "started_at": "2026-11-10T12:13:36",
+      "user": "tìm thông tin gần đây vè viettel",
+      "status": "answered",
+      "assistant_text": "Dưới đây là một số thông tin và thảo luận gần đây liên quan đến Viettel được ghi nhận:\n\n1. **Chuỗi cung ứng & Đối tác công nghiệp**:\n   - Theo thông tin thảo luận trong ngành, hai doanh nghiệp OEM tư nhân lớn tại Việt Nam là Bình Minh Precision và CNCTech (cả hai đều tham gia Diễn đàn Hàng không Vũ trụ Việt Nam) hiện là các nhà cung cấp cho Viettel và VinFast trong lĩnh vực gia công cơ khí chính xác và công nghệ cao. *(Nguồn: [X/@49Sqd66428](https://x.com/49Sqd66428/status/2120021006693855360))*\n\n2. **Dịch vụ tài chính số Viettel Money**:\n   - Người dùng trên mạng xã hội chủ yếu thảo luận và hỗ trợ nhau về các thao tác dịch vụ như quản lý và tất toán khoản vay trực tiếp trên ứng dụng Viettel Money hoặc liên hệ tổng đài hỗ trợ. *(Nguồn: [X/@NanoGemz_HM](https://x.com/NanoGemz_HM/status/2120020039550300214), [X/@manhbao6](https://x.com/manhbao6/status/2120019739573620739))*\n\n*(Lưu ý: Tính năng tìm kiếm tin tức báo chí trực tiếp tạm thời gặp sự cố kết nối, các thông tin trên được tổng hợp từ nguồn dữ liệu mạng xã hội gần nhất).*",
+      "rounds": [
+        {
+          "round": 1,
+          "assistant_text": null,
+          "tool_calls": [
+            {
+              "name": "lookup",
+              "args": {
+                "query": "Viettel",
+                "timeframe": "week",
+                "topic": "news"
+              }
+            }
+          ],
+          "tool_results": [
+            {
+              "tool": "lookup",
+              "args": {
+                "query": "Viettel",
+                "timeframe": "week",
+                "topic": "news"
+              },
+              "result": {
+                "tool": "web_search",
+                "error": "RuntimeError",
+                "message": "Missing TAVILY_API_KEY env var"
+              }
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "assistant_text": null,
+          "tool_calls": [
+            {
+              "name": "social_search",
+              "args": {
+                "query": "Viettel",
+                "search_type": "Latest"
+              }
+            }
+          ],
+          "tool_results": [
+            {
+              "tool": "social_search",
+              "args": {
+                "query": "Viettel",
+                "search_type": "Latest"
+              },
+              "result": {
+                "tool": "search_tweets",
+                "query": "Viettel",
+                "search_type": "Latest",
+                "items": [
+                  {
+                    "title": "Binh Minh Precision and CNCTech probably are the two largest OEM private companies of Vietnam. Both companies have over ",
+                    "summary": "Binh Minh Precision and CNCTech probably are the two largest OEM private companies of Vietnam. Both companies have over 400 CNC machineries with Binh Minh having 23 5-axis machines. Both are suppliers of Viettel and Vinfast and both attended the 2026 Vietnam Aerospace forum",
+                    "url": "https://x.com/49Sqd66428/status/2120021006693855360",
+                    "source": "@49Sqd66428",
+                    "date": "Tue Nov 10 05:09:30 +0000 2026",
+                    "metrics": {
+                      "favorites": 0,
+                      "retweets": 0,
+                      "views": "3"
+                    }
+                  },
+                  {
+                    "title": "@CoiiBlum03 Bạn thử vào mục khoản vay trong app để tìm phần tất toán hoặc liên hệ tổng đài Viettel Money cho chắc nhé",
+                    "summary": "@CoiiBlum03 Bạn thử vào mục khoản vay trong app để tìm phần tất toán hoặc liên hệ tổng đài Viettel Money cho chắc nhé",
+                    "url": "https://x.com/NanoGemz_HM/status/2120020039550300214",
+                    "source": "@NanoGemz_HM",
+                    "date": "Tue Nov 10 05:05:40 +0000 2026",
+                    "metrics": {
+                      "favorites": 0,
+                      "retweets": 0,
+                      "views": null
+                    }
+                  },
+                  {
+                    "title": "@CoiiBlum03 Bạn thử vào mục khoản vay trong app để tất toán, không được thì liên hệ tổng đài Viettel Money nhé.",
+                    "summary": "@CoiiBlum03 Bạn thử vào mục khoản vay trong app để tất toán, không được thì liên hệ tổng đài Viettel Money nhé.",
+                    "url": "https://x.com/manhbao6/status/2120019739573620739",
+                    "source": "@manhbao6",
+                    "date": "Tue Nov 10 05:04:28 +0000 2026",
+                    "metrics": {
+                      "favorites": 0,
+                      "retweets": 0,
+                      "views": "1"
+                    }
+                  },
+                  {
+                    "title": "@CoiiBlum03 Bạn hãy vào ứng dụng Viettel Money để thực hiện nhé.",
+                    "summary": "@CoiiBlum03 Bạn hãy vào ứng dụng Viettel Money để thực hiện nhé.",
+                    "url": "https://x.com/TrieuTiger/status/2120016766000894433",
+                    "source": "@TrieuTiger",
+                    "date": "Tue Nov 10 04:52:39 +0000 2026",
+                    "metrics": {
+                      "favorites": 1,
+                      "retweets": 0,
+                      "views": "6"
+                    }
+                  },
+                  {
+                    "title": "@CoiiBlum03 Thử vào mục Khoản vay xem có nút tất toán không, không thì gọi tổng đài Viettel Money hỏi cho nhanh.",
+                    "summary": "@CoiiBlum03 Thử vào mục Khoản vay xem có nút tất toán không, không thì gọi tổng đài Viettel Money hỏi cho nhanh.",
+                    "url": "https://x.com/isacc0099/status/2120009850226921790",
+                    "source": "@isacc0099",
+                    "date": "Tue Nov 10 04:25:10 +0000 2026",
+                    "metrics": {
+                      "favorites": 0,
+                      "retweets": 0,
+                      "views": "7"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "round": 3,
+          "assistant_text": "Dưới đây là một số thông tin và thảo luận gần đây liên quan đến Viettel được ghi nhận:\n\n1. **Chuỗi cung ứng & Đối tác công nghiệp**:\n   - Theo thông tin thảo luận trong ngành, hai doanh nghiệp OEM tư nhân lớn tại Việt Nam là Bình Minh Precision và CNCTech (cả hai đều tham gia Diễn đàn Hàng không Vũ trụ Việt Nam) hiện là các nhà cung cấp cho Viettel và VinFast trong lĩnh vực gia công cơ khí chính xác và công nghệ cao. *(Nguồn: [X/@49Sqd66428](https://x.com/49Sqd66428/status/2120021006693855360))*\n\n2. **Dịch vụ tài chính số Viettel Money**:\n   - Người dùng trên mạng xã hội chủ yếu thảo luận và hỗ trợ nhau về các thao tác dịch vụ như quản lý và tất toán khoản vay trực tiếp trên ứng dụng Viettel Money hoặc liên hệ tổng đài hỗ trợ. *(Nguồn: [X/@NanoGemz_HM](https://x.com/NanoGemz_HM/status/2120020039550300214), [X/@manhbao6](https://x.com/manhbao6/status/2120019739573620739))*\n\n*(Lưu ý: Tính năng tìm kiếm tin tức báo chí trực tiếp tạm thời gặp sự cố kết nối, các thông tin trên được tổng hợp từ nguồn dữ liệu mạng xã hội gần nhất).*",
+          "tool_calls": [],
+          "tool_results": []
+        }
+      ],
+      "tool_events": [
+        {
+          "tool": "lookup",
+          "args": {
+            "query": "Viettel",
+            "timeframe": "week",
+            "topic": "news"
+          },
+          "result": {
+            "tool": "web_search",
+            "error": "RuntimeError",
+            "message": "Missing TAVILY_API_KEY env var"
+          }
+        },
+        {
+          "tool": "social_search",
+          "args": {
+            "query": "Viettel",
+            "search_type": "Latest"
+          },
+          "result": {
+            "tool": "search_tweets",
+            "query": "Viettel",
+            "search_type": "Latest",
+            "items": [
+              {
+                "title": "Binh Minh Precision and CNCTech probably are the two largest OEM private companies of Vietnam. Both companies have over ",
+                "summary": "Binh Minh Precision and CNCTech probably are the two largest OEM private companies of Vietnam. Both companies have over 400 CNC machineries with Binh Minh having 23 5-axis machines. Both are suppliers of Viettel and Vinfast and both attended the 2026 Vietnam Aerospace forum",
+                "url": "https://x.com/49Sqd66428/status/2120021006693855360",
+                "source": "@49Sqd66428",
+                "date": "Tue Nov 10 05:09:30 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 0,
+                  "views": "3"
+                }
+              },
+              {
+                "title": "@CoiiBlum03 Bạn thử vào mục khoản vay trong app để tìm phần tất toán hoặc liên hệ tổng đài Viettel Money cho chắc nhé",
+                "summary": "@CoiiBlum03 Bạn thử vào mục khoản vay trong app để tìm phần tất toán hoặc liên hệ tổng đài Viettel Money cho chắc nhé",
+                "url": "https://x.com/NanoGemz_HM/status/2120020039550300214",
+                "source": "@NanoGemz_HM",
+                "date": "Tue Nov 10 05:05:40 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 0,
+                  "views": null
+                }
+              },
+              {
+                "title": "@CoiiBlum03 Bạn thử vào mục khoản vay trong app để tất toán, không được thì liên hệ tổng đài Viettel Money nhé.",
+                "summary": "@CoiiBlum03 Bạn thử vào mục khoản vay trong app để tất toán, không được thì liên hệ tổng đài Viettel Money nhé.",
+                "url": "https://x.com/manhbao6/status/2120019739573620739",
+                "source": "@manhbao6",
+                "date": "Tue Nov 10 05:04:28 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 0,
+                  "views": "1"
+                }
+              },
+              {
+                "title": "@CoiiBlum03 Bạn hãy vào ứng dụng Viettel Money để thực hiện nhé.",
+                "summary": "@CoiiBlum03 Bạn hãy vào ứng dụng Viettel Money để thực hiện nhé.",
+                "url": "https://x.com/TrieuTiger/status/2120016766000894433",
+                "source": "@TrieuTiger",
+                "date": "Tue Nov 10 04:52:39 +0000 2026",
+                "metrics": {
+                  "favorites": 1,
+                  "retweets": 0,
+                  "views": "6"
+                }
+              },
+              {
+                "title": "@CoiiBlum03 Thử vào mục Khoản vay xem có nút tất toán không, không thì gọi tổng đài Viettel Money hỏi cho nhanh.",
+                "summary": "@CoiiBlum03 Thử vào mục Khoản vay xem có nút tất toán không, không thì gọi tổng đài Viettel Money hỏi cho nhanh.",
+                "url": "https://x.com/isacc0099/status/2120009850226921790",
+                "source": "@isacc0099",
+                "date": "Tue Nov 10 04:25:10 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 0,
+                  "views": "7"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "ended_at": "2026-11-10T12:13:51"
+    },
+    {
+      "turn_index": 2,
+      "started_at": "2026-11-10T12:14:29",
+      "user": "tweet mới của Doanl Trunp",
+      "status": "answered",
+      "assistant_text": "Dưới đây là các bài đăng (tweet/retweet) gần đây nhất từ tài khoản của Donald Trump ([@realDonaldTrump](https://x.com/realDonaldTrump)):\n\n1. **Kêu gọi cử tri bang Alabama**:\n   - *Nội dung*: Kêu gọi người dân Alabama đi bầu cử và bày tỏ sự ủng hộ toàn diện đối với các ứng viên (\"They have my Complete and Total Endorsement...\").\n   - *Nguồn*: [X/@realDonaldTrump (Alabama)](https://x.com/realDonaldTrump/status/2117719664008851609)\n\n2. **Kêu gọi cử tri bang Alaska**:\n   - *Nội dung*: Kêu gọi cử tri Alaska bỏ phiếu ủng hộ các ứng viên được ông hậu thuẫn.\n   - *Nguồn*: [X/@realDonaldTrump (Alaska)](https://x.com/realDonaldTrump/status/2117719653078220972)\n\n3. **Kêu gọi cử tri bang Arizona**:\n   - *Nội dung*: Thông điệp kêu gọi cử tri Arizona tham gia bỏ phiếu.\n   - *Nguồn*: [X/@realDonaldTrump (Arizona)](https://x.com/realDonaldTrump/status/2117719643515412550)\n\n4. **Kêu gọi cử tri bang Arkansas**:\n   - *Nội dung*: Thông điệp kêu gọi cử tri Arkansas tham gia bỏ phiếu.\n   - *Nguồn*: [X/@realDonaldTrump (Arkansas)](https://x.com/realDonaldTrump/status/2117719632958439666)\n\n5. **Kêu gọi cử tri bang California**:\n   - *Nội dung*: Thông điệp kêu gọi cử tri California tham gia bỏ phiếu.\n   - *Nguồn*: [X/@realDonaldTrump (California)](https://x.com/realDonaldTrump/status/2117719622057173270)",
+      "rounds": [
+        {
+          "round": 1,
+          "assistant_text": null,
+          "tool_calls": [
+            {
+              "name": "timeline",
+              "args": {
+                "limit": 5,
+                "screenname": "realDonaldTrump"
+              }
+            }
+          ],
+          "tool_results": [
+            {
+              "tool": "timeline",
+              "args": {
+                "limit": 5,
+                "screenname": "realDonaldTrump"
+              },
+              "result": {
+                "tool": "get_user_tweets",
+                "screenname": "realDonaldTrump",
+                "items": [
+                  {
+                    "title": "RT @realDonaldTrump: TO THE GREAT PEOPLE OF ALABAMA, GET OUT AND VOTE for these Great Patriots! They have my Complete an",
+                    "summary": "RT @realDonaldTrump: TO THE GREAT PEOPLE OF ALABAMA, GET OUT AND VOTE for these Great Patriots! They have my Complete and Total Endorsement…",
+                    "url": "https://x.com/realDonaldTrump/status/2117719664008851609",
+                    "source": "@realDonaldTrump",
+                    "date": "Tue Nov 03 20:44:47 +0000 2026",
+                    "metrics": {
+                      "favorites": 0,
+                      "retweets": 2834,
+                      "views": "2"
+                    }
+                  },
+                  {
+                    "title": "RT @realDonaldTrump: TO THE GREAT PEOPLE OF ALASKA, GET OUT AND VOTE for these Great Patriots! They have my Complete and",
+                    "summary": "RT @realDonaldTrump: TO THE GREAT PEOPLE OF ALASKA, GET OUT AND VOTE for these Great Patriots! They have my Complete and Total Endorsement…",
+                    "url": "https://x.com/realDonaldTrump/status/2117719653078220972",
+                    "source": "@realDonaldTrump",
+                    "date": "Tue Nov 03 20:44:45 +0000 2026",
+                    "metrics": {
+                      "favorites": 0,
+                      "retweets": 5520,
+                      "views": "4"
+                    }
+                  },
+                  {
+                    "title": "RT @realDonaldTrump: TO THE GREAT PEOPLE OF ARIZONA, GET OUT AND VOTE for these Great Patriots! They have my Complete an",
+                    "summary": "RT @realDonaldTrump: TO THE GREAT PEOPLE OF ARIZONA, GET OUT AND VOTE for these Great Patriots! They have my Complete and Total Endorsement…",
+                    "url": "https://x.com/realDonaldTrump/status/2117719643515412550",
+                    "source": "@realDonaldTrump",
+                    "date": "Tue Nov 03 20:44:42 +0000 2026",
+                    "metrics": {
+                      "favorites": 0,
+                      "retweets": 3804,
+                      "views": "3"
+                    }
+                  },
+                  {
+                    "title": "RT @realDonaldTrump: TO THE GREAT PEOPLE OF ARKANSAS, GET OUT AND VOTE for these Great Patriots! They have my Complete a",
+                    "summary": "RT @realDonaldTrump: TO THE GREAT PEOPLE OF ARKANSAS, GET OUT AND VOTE for these Great Patriots! They have my Complete and Total Endorsemen…",
+                    "url": "https://x.com/realDonaldTrump/status/2117719632958439666",
+                    "source": "@realDonaldTrump",
+                    "date": "Tue Nov 03 20:44:40 +0000 2026",
+                    "metrics": {
+                      "favorites": 0,
+                      "retweets": 1929,
+                      "views": "12"
+                    }
+                  },
+                  {
+                    "title": "RT @realDonaldTrump: TO THE GREAT PEOPLE OF CALIFORNIA, GET OUT AND VOTE for these Great Patriots! They have my Complete",
+                    "summary": "RT @realDonaldTrump: TO THE GREAT PEOPLE OF CALIFORNIA, GET OUT AND VOTE for these Great Patriots! They have my Complete and Total Endorsem…",
+                    "url": "https://x.com/realDonaldTrump/status/2117719622057173270",
+                    "source": "@realDonaldTrump",
+                    "date": "Tue Nov 03 20:44:37 +0000 2026",
+                    "metrics": {
+                      "favorites": 0,
+                      "retweets": 7559,
+                      "views": "5"
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "assistant_text": "Dưới đây là các bài đăng (tweet/retweet) gần đây nhất từ tài khoản của Donald Trump ([@realDonaldTrump](https://x.com/realDonaldTrump)):\n\n1. **Kêu gọi cử tri bang Alabama**:\n   - *Nội dung*: Kêu gọi người dân Alabama đi bầu cử và bày tỏ sự ủng hộ toàn diện đối với các ứng viên (\"They have my Complete and Total Endorsement...\").\n   - *Nguồn*: [X/@realDonaldTrump (Alabama)](https://x.com/realDonaldTrump/status/2117719664008851609)\n\n2. **Kêu gọi cử tri bang Alaska**:\n   - *Nội dung*: Kêu gọi cử tri Alaska bỏ phiếu ủng hộ các ứng viên được ông hậu thuẫn.\n   - *Nguồn*: [X/@realDonaldTrump (Alaska)](https://x.com/realDonaldTrump/status/2117719653078220972)\n\n3. **Kêu gọi cử tri bang Arizona**:\n   - *Nội dung*: Thông điệp kêu gọi cử tri Arizona tham gia bỏ phiếu.\n   - *Nguồn*: [X/@realDonaldTrump (Arizona)](https://x.com/realDonaldTrump/status/2117719643515412550)\n\n4. **Kêu gọi cử tri bang Arkansas**:\n   - *Nội dung*: Thông điệp kêu gọi cử tri Arkansas tham gia bỏ phiếu.\n   - *Nguồn*: [X/@realDonaldTrump (Arkansas)](https://x.com/realDonaldTrump/status/2117719632958439666)\n\n5. **Kêu gọi cử tri bang California**:\n   - *Nội dung*: Thông điệp kêu gọi cử tri California tham gia bỏ phiếu.\n   - *Nguồn*: [X/@realDonaldTrump (California)](https://x.com/realDonaldTrump/status/2117719622057173270)",
+          "tool_calls": [],
+          "tool_results": []
+        }
+      ],
+      "tool_events": [
+        {
+          "tool": "timeline",
+          "args": {
+            "limit": 5,
+            "screenname": "realDonaldTrump"
+          },
+          "result": {
+            "tool": "get_user_tweets",
+            "screenname": "realDonaldTrump",
+            "items": [
+              {
+                "title": "RT @realDonaldTrump: TO THE GREAT PEOPLE OF ALABAMA, GET OUT AND VOTE for these Great Patriots! They have my Complete an",
+                "summary": "RT @realDonaldTrump: TO THE GREAT PEOPLE OF ALABAMA, GET OUT AND VOTE for these Great Patriots! They have my Complete and Total Endorsement…",
+                "url": "https://x.com/realDonaldTrump/status/2117719664008851609",
+                "source": "@realDonaldTrump",
+                "date": "Tue Nov 03 20:44:47 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 2834,
+                  "views": "2"
+                }
+              },
+              {
+                "title": "RT @realDonaldTrump: TO THE GREAT PEOPLE OF ALASKA, GET OUT AND VOTE for these Great Patriots! They have my Complete and",
+                "summary": "RT @realDonaldTrump: TO THE GREAT PEOPLE OF ALASKA, GET OUT AND VOTE for these Great Patriots! They have my Complete and Total Endorsement…",
+                "url": "https://x.com/realDonaldTrump/status/2117719653078220972",
+                "source": "@realDonaldTrump",
+                "date": "Tue Nov 03 20:44:45 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 5520,
+                  "views": "4"
+                }
+              },
+              {
+                "title": "RT @realDonaldTrump: TO THE GREAT PEOPLE OF ARIZONA, GET OUT AND VOTE for these Great Patriots! They have my Complete an",
+                "summary": "RT @realDonaldTrump: TO THE GREAT PEOPLE OF ARIZONA, GET OUT AND VOTE for these Great Patriots! They have my Complete and Total Endorsement…",
+                "url": "https://x.com/realDonaldTrump/status/2117719643515412550",
+                "source": "@realDonaldTrump",
+                "date": "Tue Nov 03 20:44:42 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 3804,
+                  "views": "3"
+                }
+              },
+              {
+                "title": "RT @realDonaldTrump: TO THE GREAT PEOPLE OF ARKANSAS, GET OUT AND VOTE for these Great Patriots! They have my Complete a",
+                "summary": "RT @realDonaldTrump: TO THE GREAT PEOPLE OF ARKANSAS, GET OUT AND VOTE for these Great Patriots! They have my Complete and Total Endorsemen…",
+                "url": "https://x.com/realDonaldTrump/status/2117719632958439666",
+                "source": "@realDonaldTrump",
+                "date": "Tue Nov 03 20:44:40 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 1929,
+                  "views": "12"
+                }
+              },
+              {
+                "title": "RT @realDonaldTrump: TO THE GREAT PEOPLE OF CALIFORNIA, GET OUT AND VOTE for these Great Patriots! They have my Complete",
+                "summary": "RT @realDonaldTrump: TO THE GREAT PEOPLE OF CALIFORNIA, GET OUT AND VOTE for these Great Patriots! They have my Complete and Total Endorsem…",
+                "url": "https://x.com/realDonaldTrump/status/2117719622057173270",
+                "source": "@realDonaldTrump",
+                "date": "Tue Nov 03 20:44:37 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 7559,
+                  "views": "5"
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "ended_at": "2026-11-10T12:14:42"
+    },
+    {
+      "turn_index": 3,
+      "started_at": "2026-11-10T12:15:25",
+      "user": "tìm bài báo về uav trên arxiv mới gần đây",
+      "status": "answered",
+      "assistant_text": "Dưới đây là một số bài báo khoa học mới nhất về **UAV** (Unmanned Aerial Vehicle) vừa được đăng tải trên arXiv:\n\n---\n\n### 1. [Bistatic UAV-Based 3D SAR Imaging Using Integrated Sensing and Communications Transceivers](http://arxiv.org/abs/2611.11956v1)\n- **Tác giả:** Akanksha Sneh, Krishna Ayyagari, Vivaswan Nawani, Shobha Sundar Ram\n- **Lĩnh vực:** Xử lý tín hiệu (*eess.SP*)\n- **Tóm tắt:** Đề xuất mô hình SAR đa tĩnh (bistatic) dựa trên UAV kết hợp cảm biến và truyền thông (ISAC) sử dụng dạng sóng IEEE 802.11ad. Phương pháp này tận dụng các gói tin truyền thông giữa UAV phát ISAC chính và UAV thu thụ động để đồng bộ thời gian/tần số, bù chuyển động và định vị 3D mục tiêu phức tạp trên địa hình dốc mà không cần hạ tầng phụ trợ.\n- **Liên kết PDF:** [2611.11956v1.pdf](https://arxiv.org/pdf/2611.11956v1)\n\n---\n\n### 2. [Correctness Metric Matters: NWD-Based Calibration Loss for Tiny Person Detection in UAV Infrared Imagery](http://arxiv.org/abs/2611.11735v1)\n- **Tác giả:** Tian Zhang, Zhirong Su\n- **Lĩnh vực:** Thị giác máy tính (*cs.CV*)\n- **Tóm tắt:** Nghiên cứu bài toán phát hiện người kích thước siêu nhỏ (chiếm dưới 0.1% ảnh) trong ảnh hồng ngoại chụp từ UAV. Nhóm tác giả đề xuất thay thế hàm mất mát dựa trên IoU thông thường bằng hàm chuẩn hóa khoảng cách Wasserstein (NWD), giúp cải thiện độ tin cậy và hiệu chuẩn phát hiện (LaECE) trên bộ dữ liệu HIT-UAV mà không làm giảm mAP.\n- **Liên kết PDF:** [2611.11735v1.pdf](https://arxiv.org/pdf/2611.11735v1)\n\n---\n\n### 3. [Concurrent Learning-Based Inertial Parameter Estimation and Control of Quadrotors](http://arxiv.org/abs/2611.11555v1)\n- **Tác giả:** Sandesh Thapa, He Bai\n- **Lĩnh vực:** Hệ thống điều khiển & Robot (*eess.SY, cs.RO*)\n- **Tóm tắt:** Đề xuất bộ điều khiển hình học dựa trên học đồng thời tích phân (ICL) nhằm ước lượng trực tuyến khối lượng, độ lệch trọng tâm (CoM offset) và toàn bộ ma trận quán tính của UAV quadrotor khi mang tải hoặc bị rung lắc/dịch chuyển cảm biến, giúp bám quỹ đạo chính xác mà không cần dùng gia tốc kế hay đạo hàm số.\n- **Liên kết PDF:** [2611.11555v1.pdf](https://arxiv.org/pdf/2611.11555v1)\n\n---\n\n### 4. [FLAVOR: Beyond Memory Limits: A Hierarchical Spatio-Temporal Map Representation for Large-Scale 3D Autonomous Exploration](http://arxiv.org/abs/2611.11489v1)\n- **Tác giả:** Yizhe Zhang, Jianping Li, Yilun Gao, Liangliang Yin, Pengfei Wan, Bisheng Yang\n- **Lĩnh vực:** Robot (*cs.RO*)\n- **Tóm tắt:** Giới thiệu kiến trúc bản đồ không gian - thời gian phân cấp FLAVOR cho UAV tự hành thám hiểm môi trường quy mô lớn. FLAVOR giới hạn bản đồ số liệu dày đặc ở phạm vi cục bộ xung quanh robot và dùng đồ thị topo thưa cho bối cảnh toàn cục, giúp giảm từ 94% đến 99% dung lượng bộ nhớ bản đồ và rút ngắn 31–41% thời gian thám hiểm.\n- **Liên kết PDF:** [2611.11489v1.pdf](https://arxiv.org/pdf/2611.11489v1)\n\n---\n\n### 5. [Missed Interferers in Ray-Traced Radio Maps: A Digital-Twin and Stochastic Geometry Study of Aerial Coverage](http://arxiv.org/abs/2611.10867v1)\n- **Tác giả:** Saad Masrur, Ismail Guvenc\n- **Lĩnh vực:** Mạng viễn thông & Xử lý tín hiệu (*eess.SP, cs.PF*)\n- **Tóm tắt:** Đánh giá độ phủ sóng di động mặt đất đối với UAV bay ở độ cao 40–300m qua mô hình Digital Twin (bản sao số) của thành phố Raleigh. Nhóm tác giả phát hiện ra lỗi đánh giá sai tỷ số SINR trong các thuật toán ray-tracing Monte Carlo và đề xuất mô hình hình học ngẫu nhiên kết hợp thuật toán xác định LOS để tối ưu hóa hành lang bay an toàn cho UAV kết nối mạng tế bào.\n- **Liên kết PDF:** [2611.10867v1.pdf](https://arxiv.org/pdf/2611.10867v1)",
+      "rounds": [
+        {
+          "round": 1,
+          "assistant_text": null,
+          "tool_calls": [
+            {
+              "name": "papers",
+              "args": {
+                "max_results": 5,
+                "query": "UAV",
+                "sort_by": "submittedDate"
+              }
+            }
+          ],
+          "tool_results": [
+            {
+              "tool": "papers",
+              "args": {
+                "max_results": 5,
+                "query": "UAV",
+                "sort_by": "submittedDate"
+              },
+              "result": {
+                "tool": "arxiv_search",
+                "query": "UAV",
+                "api_query": "all:UAV",
+                "total_results": 7076,
+                "items": [
+                  {
+                    "arxiv_id": "2611.11956v1",
+                    "title": "Bistatic UAV-Based 3D SAR Imaging Using Integrated Sensing and Communications Transceivers",
+                    "summary": "Integrated sensing and communication (ISAC) frameworks enable autonomous systems to jointly perform radar sensing and wireless communication using common spectral and hardware resources. Prior art on ISAC-enabled UAV for SAR focused on monostatic configurations for two-dimensional target imaging. In this work, we propose a bistatic UAV tomographic SAR framework in which the IEEE~802.11ad waveform, RF hardware, and spectral resources are jointly utilized for communication and radar sensing for three-dimensional (3D) localization of complex targets. Specifically, we demonstrate how communication packets transmitted from a master ISAC transceiver UAV to a passive receiver UAV are exploited for timing and frequency synchronization, motion compensation, and 3D localization of targets, without requiring auxiliary infrastructure on the passive receiver for these tasks. We evaluate the proposed framework for localizing automotive targets over elevated terrain, with Monte Carlo simulations modeling synchronization and platform motion errors. The results demonstrate improved localization accuracy compared with conventional InSAR-based localization. The interplay between radar and communication performances are further evaluated using diverse modulation schemes.",
+                    "authors": [
+                      "Akanksha Sneh",
+                      "Krishna Ayyagari",
+                      "Vivaswan Nawani",
+                      "Shobha Sundar Ram"
+                    ],
+                    "published": "2026-11-09T06:19:54Z",
+                    "updated": "2026-11-09T06:19:54Z",
+                    "url": "http://arxiv.org/abs/2611.11956v1",
+                    "pdf_url": "https://arxiv.org/pdf/2611.11956v1",
+                    "source": "arxiv.org",
+                    "primary_category": "eess.SP",
+                    "categories": [
+                      "eess.SP"
+                    ]
+                  },
+                  {
+                    "arxiv_id": "2611.11735v1",
+                    "title": "Correctness Metric Matters: NWD-Based Calibration Loss for Tiny Person Detection in UAV Infrared Imagery",
+                    "summary": "Detection calibration aligns predicted confidence with empirical correctness. Existing calibration losses inherit their correctness definition from box regression, specifically IoU against a hard threshold. We show that this target is geometrically ill-posed for tiny objects in UAV infrared imagery, where persons occupy less than 0.1\\% of the image. The same pixel error is penalized more heavily as the target shrinks, so binary prediction calibration (BPC) actively suppresses confidences that should be high. On HIT-UAV, BPC with an IoU target degrades image-level localization-aware ECE (LaECE) from 0.0689 to 0.0761, 0.0649 to 0.0733, and 0.0653 to 0.0682 across Low, Mid, and High signal-to-clutter ratio (SCR) groups. We replace the IoU target with a continuous, scale-invariant normalized Wasserstein distance (NWD). The NWD target reduces LaECE\\(_{\\mathrm{NWD}}\\) relative to BPC+IoU on all three groups (\\(p<10^{-7}\\)) with mAP neutral (0.9356 vs.\\ 0.9347), and an independent center-offset anchor confirms that the gain is a genuine geometric correction. The improvement holds across a broad plateau of calibration weights. The NWD formulation requires no inference-time mapping layer. If a validation-fitted isotonic map is applied on top of it, calibration is lowered further, and the two corrections act on different components of the same error. The metric-level remedy has a measurable boundary. Target-background thermal pairing in the training distribution and detection-level aggregation under per-image detection-count heterogeneity lie outside it. Both are quantified independently of the NWD target.",
+                    "authors": [
+                      "Tian Zhang",
+                      "Zhirong Su"
+                    ],
+                    "published": "2026-11-09T01:19:22Z",
+                    "updated": "2026-11-09T01:19:22Z",
+                    "url": "http://arxiv.org/abs/2611.11735v1",
+                    "pdf_url": "https://arxiv.org/pdf/2611.11735v1",
+                    "source": "arxiv.org",
+                    "primary_category": "cs.CV",
+                    "categories": [
+                      "cs.CV"
+                    ]
+                  },
+                  {
+                    "arxiv_id": "2611.11555v1",
+                    "title": "Concurrent Learning-Based Inertial Parameter Estimation and Control of Quadrotors",
+                    "summary": "In this letter, we consider trajectory tracking control and inertial parameter estimation of a quadrotor UAV whose center of mass (CoM) does not coincide with its geometric center. Onboard payloads like an IMU, a camera, or a battery are not necessarily placed at its geometric center. Moreover, during the flight these sensors might move because of external disturbances and cause a CoM offset. Thus, these events and equipment introduce an offset and cause the inertia matrix to be non-diagonal. We develop an integral concurrent learning (ICL)-based geometric controller that estimates the mass, the CoM offset, and the full inertia matrix online, without an accelerometer or numerical derivatives, and tracks a given trajectory corrected by the offset estimated online. We prove that the estimated parameters converge to their true values under a finite excitation condition. We validate the effectiveness of the proposed algorithm using a simulation example.",
+                    "authors": [
+                      "Sandesh Thapa",
+                      "He Bai"
+                    ],
+                    "published": "2026-11-08T18:58:19Z",
+                    "updated": "2026-11-08T18:58:19Z",
+                    "url": "http://arxiv.org/abs/2611.11555v1",
+                    "pdf_url": "https://arxiv.org/pdf/2611.11555v1",
+                    "source": "arxiv.org",
+                    "primary_category": "eess.SY",
+                    "categories": [
+                      "eess.SY",
+                      "cs.RO"
+                    ]
+                  },
+                  {
+                    "arxiv_id": "2611.11489v1",
+                    "title": "Beyond Memory Limits: A Hierarchical Spatio-Temporal Map Representation for Large-Scale 3D Autonomous Exploration",
+                    "summary": "Autonomous UAV exploration is increasingly used for large-scale surveying and inspection in inaccessible or disaster-affected environments, where onboard memory and computational resources are often severely constrained. Most existing UAV exploration systems maintain globally queryable geometric map representations for motion planning and exploration decision-making, causing memory consumption and spatial-query costs to increase with the explored area. Robot-centric local mapping bounds dense-map memory and computation but discards global task context needed for long-horizon exploration.We present FLAVOR, a hierarchical spatio-temporal framework that confines dense metric geometry to a robot-centric local map while retaining compact global observation and task context. At the observation level, lightweight LiDAR-keyframe visibility records preserve ray-wise evidence for frontier reasoning. At the task level, unresolved frontiers beyond the local-map extent are retained as compact pending tasks associated with odometry anchors. A sparse topological graph connects these anchors through retained routes for future revisits.Upon returning to a task region, FLAVOR reconstructs the frontier and exploration viewpoint from observations, while the topological route is instantiated and validated against the current local map before execution. Dense-map capacity remains fixed as exploration expands, with exploration-dependent memory growth confined to compact observation and task context.FLAVOR achieves 31.98--41.88% shorter exploration time and a 94--99% smaller map memory footprint than the best baseline that completes all three simulated scenes. In real-world deployments, it reduces this footprint by 92.67% in the forest and 62.42% at the construction site relative to an explicit point-cloud ikd-tree while preserving long-term task continuity under constrained onboard resources.",
+                    "authors": [
+                      "Yizhe Zhang",
+                      "Jianping Li",
+                      "Yilun Gao",
+                      "Liangliang Yin",
+                      "Pengfei Wan",
+                      "Bisheng Yang"
+                    ],
+                    "published": "2026-11-08T16:31:02Z",
+                    "updated": "2026-11-08T16:31:02Z",
+                    "url": "http://arxiv.org/abs/2611.11489v1",
+                    "pdf_url": "https://arxiv.org/pdf/2611.11489v1",
+                    "source": "arxiv.org",
+                    "primary_category": "cs.RO",
+                    "categories": [
+                      "cs.RO"
+                    ]
+                  },
+                  {
+                    "arxiv_id": "2611.10867v1",
+                    "title": "Missed Interferers in Ray-Traced Radio Maps: A Digital-Twin and Stochastic Geometry Study of Aerial Coverage",
+                    "summary": "Ray-traced digital twins are increasingly used to plan where cellular-connected uncrewed aerial vehicles (UAVs) can fly. In this paper, we build a Sionna RT digital twin around Raleigh, NC, with 18,591 buildings and two overlapping sub-1 GHz operator networks, and study the downlink signal-to-interference-plus-noise ratio (SINR) of UAVs at 40-300 m. We show that the Monte Carlo radio-map solver of Sionna RT misses distant line-of-sight (LOS) interferers on aerial planes. With $10^7$ rays per sector and 5 m cells, it therefore underestimates the coverage at low SINR thresholds and overestimates it at high thresholds, by up to 26 percentage points at $\\pm$2 dB and 50-100 m. Using a LOS-aware deterministic engine validated with Sionna's path solver, we then develop a stochastic geometry model with strongest-sector association and own-site leakage that matches the engine without fitting. The analysis shows that the interference grows logarithmically with the modeled network radius, so a twin that omits distant LOS sites overestimates the coverage, and that altitude mainly reduces the coverage at high SINR thresholds. Finally, selecting the better of two operators raises the minimum SINR along the best corridor by 1.0-3.9 dB up to 100 m.",
+                    "authors": [
+                      "Saad Masrur",
+                      "Ismail Guvenc"
+                    ],
+                    "published": "2026-11-07T17:35:08Z",
+                    "updated": "2026-11-07T17:35:08Z",
+                    "url": "http://arxiv.org/abs/2611.10867v1",
+                    "pdf_url": "https://arxiv.org/pdf/2611.10867v1",
+                    "source": "arxiv.org",
+                    "primary_category": "eess.SP",
+                    "categories": [
+                      "eess.SP",
+                      "cs.PF"
+                    ]
+                  }
+                ],
+                "rate_limit_note": "arXiv may return 429 if called too frequently; this tool waits at least 3 seconds between requests in-process."
+              }
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "assistant_text": "Dưới đây là một số bài báo khoa học mới nhất về **UAV** (Unmanned Aerial Vehicle) vừa được đăng tải trên arXiv:\n\n---\n\n### 1. [Bistatic UAV-Based 3D SAR Imaging Using Integrated Sensing and Communications Transceivers](http://arxiv.org/abs/2611.11956v1)\n- **Tác giả:** Akanksha Sneh, Krishna Ayyagari, Vivaswan Nawani, Shobha Sundar Ram\n- **Lĩnh vực:** Xử lý tín hiệu (*eess.SP*)\n- **Tóm tắt:** Đề xuất mô hình SAR đa tĩnh (bistatic) dựa trên UAV kết hợp cảm biến và truyền thông (ISAC) sử dụng dạng sóng IEEE 802.11ad. Phương pháp này tận dụng các gói tin truyền thông giữa UAV phát ISAC chính và UAV thu thụ động để đồng bộ thời gian/tần số, bù chuyển động và định vị 3D mục tiêu phức tạp trên địa hình dốc mà không cần hạ tầng phụ trợ.\n- **Liên kết PDF:** [2611.11956v1.pdf](https://arxiv.org/pdf/2611.11956v1)\n\n---\n\n### 2. [Correctness Metric Matters: NWD-Based Calibration Loss for Tiny Person Detection in UAV Infrared Imagery](http://arxiv.org/abs/2611.11735v1)\n- **Tác giả:** Tian Zhang, Zhirong Su\n- **Lĩnh vực:** Thị giác máy tính (*cs.CV*)\n- **Tóm tắt:** Nghiên cứu bài toán phát hiện người kích thước siêu nhỏ (chiếm dưới 0.1% ảnh) trong ảnh hồng ngoại chụp từ UAV. Nhóm tác giả đề xuất thay thế hàm mất mát dựa trên IoU thông thường bằng hàm chuẩn hóa khoảng cách Wasserstein (NWD), giúp cải thiện độ tin cậy và hiệu chuẩn phát hiện (LaECE) trên bộ dữ liệu HIT-UAV mà không làm giảm mAP.\n- **Liên kết PDF:** [2611.11735v1.pdf](https://arxiv.org/pdf/2611.11735v1)\n\n---\n\n### 3. [Concurrent Learning-Based Inertial Parameter Estimation and Control of Quadrotors](http://arxiv.org/abs/2611.11555v1)\n- **Tác giả:** Sandesh Thapa, He Bai\n- **Lĩnh vực:** Hệ thống điều khiển & Robot (*eess.SY, cs.RO*)\n- **Tóm tắt:** Đề xuất bộ điều khiển hình học dựa trên học đồng thời tích phân (ICL) nhằm ước lượng trực tuyến khối lượng, độ lệch trọng tâm (CoM offset) và toàn bộ ma trận quán tính của UAV quadrotor khi mang tải hoặc bị rung lắc/dịch chuyển cảm biến, giúp bám quỹ đạo chính xác mà không cần dùng gia tốc kế hay đạo hàm số.\n- **Liên kết PDF:** [2611.11555v1.pdf](https://arxiv.org/pdf/2611.11555v1)\n\n---\n\n### 4. [FLAVOR: Beyond Memory Limits: A Hierarchical Spatio-Temporal Map Representation for Large-Scale 3D Autonomous Exploration](http://arxiv.org/abs/2611.11489v1)\n- **Tác giả:** Yizhe Zhang, Jianping Li, Yilun Gao, Liangliang Yin, Pengfei Wan, Bisheng Yang\n- **Lĩnh vực:** Robot (*cs.RO*)\n- **Tóm tắt:** Giới thiệu kiến trúc bản đồ không gian - thời gian phân cấp FLAVOR cho UAV tự hành thám hiểm môi trường quy mô lớn. FLAVOR giới hạn bản đồ số liệu dày đặc ở phạm vi cục bộ xung quanh robot và dùng đồ thị topo thưa cho bối cảnh toàn cục, giúp giảm từ 94% đến 99% dung lượng bộ nhớ bản đồ và rút ngắn 31–41% thời gian thám hiểm.\n- **Liên kết PDF:** [2611.11489v1.pdf](https://arxiv.org/pdf/2611.11489v1)\n\n---\n\n### 5. [Missed Interferers in Ray-Traced Radio Maps: A Digital-Twin and Stochastic Geometry Study of Aerial Coverage](http://arxiv.org/abs/2611.10867v1)\n- **Tác giả:** Saad Masrur, Ismail Guvenc\n- **Lĩnh vực:** Mạng viễn thông & Xử lý tín hiệu (*eess.SP, cs.PF*)\n- **Tóm tắt:** Đánh giá độ phủ sóng di động mặt đất đối với UAV bay ở độ cao 40–300m qua mô hình Digital Twin (bản sao số) của thành phố Raleigh. Nhóm tác giả phát hiện ra lỗi đánh giá sai tỷ số SINR trong các thuật toán ray-tracing Monte Carlo và đề xuất mô hình hình học ngẫu nhiên kết hợp thuật toán xác định LOS để tối ưu hóa hành lang bay an toàn cho UAV kết nối mạng tế bào.\n- **Liên kết PDF:** [2611.10867v1.pdf](https://arxiv.org/pdf/2611.10867v1)",
+          "tool_calls": [],
+          "tool_results": []
+        }
+      ],
+      "tool_events": [
+        {
+          "tool": "papers",
+          "args": {
+            "max_results": 5,
+            "query": "UAV",
+            "sort_by": "submittedDate"
+          },
+          "result": {
+            "tool": "arxiv_search",
+            "query": "UAV",
+            "api_query": "all:UAV",
+            "total_results": 7076,
+            "items": [
+              {
+                "arxiv_id": "2611.11956v1",
+                "title": "Bistatic UAV-Based 3D SAR Imaging Using Integrated Sensing and Communications Transceivers",
+                "summary": "Integrated sensing and communication (ISAC) frameworks enable autonomous systems to jointly perform radar sensing and wireless communication using common spectral and hardware resources. Prior art on ISAC-enabled UAV for SAR focused on monostatic configurations for two-dimensional target imaging. In this work, we propose a bistatic UAV tomographic SAR framework in which the IEEE~802.11ad waveform, RF hardware, and spectral resources are jointly utilized for communication and radar sensing for three-dimensional (3D) localization of complex targets. Specifically, we demonstrate how communication packets transmitted from a master ISAC transceiver UAV to a passive receiver UAV are exploited for timing and frequency synchronization, motion compensation, and 3D localization of targets, without requiring auxiliary infrastructure on the passive receiver for these tasks. We evaluate the proposed framework for localizing automotive targets over elevated terrain, with Monte Carlo simulations modeling synchronization and platform motion errors. The results demonstrate improved localization accuracy compared with conventional InSAR-based localization. The interplay between radar and communication performances are further evaluated using diverse modulation schemes.",
+                "authors": [
+                  "Akanksha Sneh",
+                  "Krishna Ayyagari",
+                  "Vivaswan Nawani",
+                  "Shobha Sundar Ram"
+                ],
+                "published": "2026-11-09T06:19:54Z",
+                "updated": "2026-11-09T06:19:54Z",
+                "url": "http://arxiv.org/abs/2611.11956v1",
+                "pdf_url": "https://arxiv.org/pdf/2611.11956v1",
+                "source": "arxiv.org",
+                "primary_category": "eess.SP",
+                "categories": [
+                  "eess.SP"
+                ]
+              },
+              {
+                "arxiv_id": "2611.11735v1",
+                "title": "Correctness Metric Matters: NWD-Based Calibration Loss for Tiny Person Detection in UAV Infrared Imagery",
+                "summary": "Detection calibration aligns predicted confidence with empirical correctness. Existing calibration losses inherit their correctness definition from box regression, specifically IoU against a hard threshold. We show that this target is geometrically ill-posed for tiny objects in UAV infrared imagery, where persons occupy less than 0.1\\% of the image. The same pixel error is penalized more heavily as the target shrinks, so binary prediction calibration (BPC) actively suppresses confidences that should be high. On HIT-UAV, BPC with an IoU target degrades image-level localization-aware ECE (LaECE) from 0.0689 to 0.0761, 0.0649 to 0.0733, and 0.0653 to 0.0682 across Low, Mid, and High signal-to-clutter ratio (SCR) groups. We replace the IoU target with a continuous, scale-invariant normalized Wasserstein distance (NWD). The NWD target reduces LaECE\\(_{\\mathrm{NWD}}\\) relative to BPC+IoU on all three groups (\\(p<10^{-7}\\)) with mAP neutral (0.9356 vs.\\ 0.9347), and an independent center-offset anchor confirms that the gain is a genuine geometric correction. The improvement holds across a broad plateau of calibration weights. The NWD formulation requires no inference-time mapping layer. If a validation-fitted isotonic map is applied on top of it, calibration is lowered further, and the two corrections act on different components of the same error. The metric-level remedy has a measurable boundary. Target-background thermal pairing in the training distribution and detection-level aggregation under per-image detection-count heterogeneity lie outside it. Both are quantified independently of the NWD target.",
+                "authors": [
+                  "Tian Zhang",
+                  "Zhirong Su"
+                ],
+                "published": "2026-11-09T01:19:22Z",
+                "updated": "2026-11-09T01:19:22Z",
+                "url": "http://arxiv.org/abs/2611.11735v1",
+                "pdf_url": "https://arxiv.org/pdf/2611.11735v1",
+                "source": "arxiv.org",
+                "primary_category": "cs.CV",
+                "categories": [
+                  "cs.CV"
+                ]
+              },
+              {
+                "arxiv_id": "2611.11555v1",
+                "title": "Concurrent Learning-Based Inertial Parameter Estimation and Control of Quadrotors",
+                "summary": "In this letter, we consider trajectory tracking control and inertial parameter estimation of a quadrotor UAV whose center of mass (CoM) does not coincide with its geometric center. Onboard payloads like an IMU, a camera, or a battery are not necessarily placed at its geometric center. Moreover, during the flight these sensors might move because of external disturbances and cause a CoM offset. Thus, these events and equipment introduce an offset and cause the inertia matrix to be non-diagonal. We develop an integral concurrent learning (ICL)-based geometric controller that estimates the mass, the CoM offset, and the full inertia matrix online, without an accelerometer or numerical derivatives, and tracks a given trajectory corrected by the offset estimated online. We prove that the estimated parameters converge to their true values under a finite excitation condition. We validate the effectiveness of the proposed algorithm using a simulation example.",
+                "authors": [
+                  "Sandesh Thapa",
+                  "He Bai"
+                ],
+                "published": "2026-11-08T18:58:19Z",
+                "updated": "2026-11-08T18:58:19Z",
+                "url": "http://arxiv.org/abs/2611.11555v1",
+                "pdf_url": "https://arxiv.org/pdf/2611.11555v1",
+                "source": "arxiv.org",
+                "primary_category": "eess.SY",
+                "categories": [
+                  "eess.SY",
+                  "cs.RO"
+                ]
+              },
+              {
+                "arxiv_id": "2611.11489v1",
+                "title": "Beyond Memory Limits: A Hierarchical Spatio-Temporal Map Representation for Large-Scale 3D Autonomous Exploration",
+                "summary": "Autonomous UAV exploration is increasingly used for large-scale surveying and inspection in inaccessible or disaster-affected environments, where onboard memory and computational resources are often severely constrained. Most existing UAV exploration systems maintain globally queryable geometric map representations for motion planning and exploration decision-making, causing memory consumption and spatial-query costs to increase with the explored area. Robot-centric local mapping bounds dense-map memory and computation but discards global task context needed for long-horizon exploration.We present FLAVOR, a hierarchical spatio-temporal framework that confines dense metric geometry to a robot-centric local map while retaining compact global observation and task context. At the observation level, lightweight LiDAR-keyframe visibility records preserve ray-wise evidence for frontier reasoning. At the task level, unresolved frontiers beyond the local-map extent are retained as compact pending tasks associated with odometry anchors. A sparse topological graph connects these anchors through retained routes for future revisits.Upon returning to a task region, FLAVOR reconstructs the frontier and exploration viewpoint from observations, while the topological route is instantiated and validated against the current local map before execution. Dense-map capacity remains fixed as exploration expands, with exploration-dependent memory growth confined to compact observation and task context.FLAVOR achieves 31.98--41.88% shorter exploration time and a 94--99% smaller map memory footprint than the best baseline that completes all three simulated scenes. In real-world deployments, it reduces this footprint by 92.67% in the forest and 62.42% at the construction site relative to an explicit point-cloud ikd-tree while preserving long-term task continuity under constrained onboard resources.",
+                "authors": [
+                  "Yizhe Zhang",
+                  "Jianping Li",
+                  "Yilun Gao",
+                  "Liangliang Yin",
+                  "Pengfei Wan",
+                  "Bisheng Yang"
+                ],
+                "published": "2026-11-08T16:31:02Z",
+                "updated": "2026-11-08T16:31:02Z",
+                "url": "http://arxiv.org/abs/2611.11489v1",
+                "pdf_url": "https://arxiv.org/pdf/2611.11489v1",
+                "source": "arxiv.org",
+                "primary_category": "cs.RO",
+                "categories": [
+                  "cs.RO"
+                ]
+              },
+              {
+                "arxiv_id": "2611.10867v1",
+                "title": "Missed Interferers in Ray-Traced Radio Maps: A Digital-Twin and Stochastic Geometry Study of Aerial Coverage",
+                "summary": "Ray-traced digital twins are increasingly used to plan where cellular-connected uncrewed aerial vehicles (UAVs) can fly. In this paper, we build a Sionna RT digital twin around Raleigh, NC, with 18,591 buildings and two overlapping sub-1 GHz operator networks, and study the downlink signal-to-interference-plus-noise ratio (SINR) of UAVs at 40-300 m. We show that the Monte Carlo radio-map solver of Sionna RT misses distant line-of-sight (LOS) interferers on aerial planes. With $10^7$ rays per sector and 5 m cells, it therefore underestimates the coverage at low SINR thresholds and overestimates it at high thresholds, by up to 26 percentage points at $\\pm$2 dB and 50-100 m. Using a LOS-aware deterministic engine validated with Sionna's path solver, we then develop a stochastic geometry model with strongest-sector association and own-site leakage that matches the engine without fitting. The analysis shows that the interference grows logarithmically with the modeled network radius, so a twin that omits distant LOS sites overestimates the coverage, and that altitude mainly reduces the coverage at high SINR thresholds. Finally, selecting the better of two operators raises the minimum SINR along the best corridor by 1.0-3.9 dB up to 100 m.",
+                "authors": [
+                  "Saad Masrur",
+                  "Ismail Guvenc"
+                ],
+                "published": "2026-11-07T17:35:08Z",
+                "updated": "2026-11-07T17:35:08Z",
+                "url": "http://arxiv.org/abs/2611.10867v1",
+                "pdf_url": "https://arxiv.org/pdf/2611.10867v1",
+                "source": "arxiv.org",
+                "primary_category": "eess.SP",
+                "categories": [
+                  "eess.SP",
+                  "cs.PF"
+                ]
+              }
+            ],
+            "rate_limit_note": "arXiv may return 429 if called too frequently; this tool waits at least 3 seconds between requests in-process."
+          }
+        }
+      ],
+      "ended_at": "2026-11-10T12:15:41"
+    },
+    {
+      "turn_index": 4,
+      "started_at": "2026-11-10T12:15:48",
+      "user": "đọc nội dung chi tiết bài 1",
+      "status": "answered",
+      "assistant_text": "Dưới đây là tóm tắt chi tiết nội dung bài báo khoa học thứ nhất:\n\n---\n\n### **Bistatic UAV-Based 3D SAR Imaging Using Integrated Sensing and Communications Transceivers**\n- **Mã định danh:** [arXiv:2611.11956v1](https://arxiv.org/abs/2611.11956v1)\n- **Tác giả:** Akanksha Sneh, Krishna Ayyagari, Vivaswan Nawani (Học viện CNTT Indraprastha Delhi - IIITD, Ấn Độ) và Shobha Sundar Ram (Đại học University College London - UCL, Anh Quốc).\n\n---\n\n### 1. Bối cảnh & Vấn đề đặt ra\n- **Hạn chế của UAV-SAR hiện nay:** Radar khẩu độ tổng hợp đơn tĩnh (Monostatic SAR) trên UAV chủ yếu chỉ tạo được ảnh 2D (theo hướng cự ly và phương ngang cự ly). Để tái tạo không gian 3D, cần cấu hình đa tĩnh (bistatic/multistatic) hoặc chụp cắt lớp SAR (TomoSAR).\n- **Thách thức cốt lõi:** Khi tách riêng trạm phát và trạm thu trên các UAV di động khác nhau, việc **đồng bộ hóa thời gian, tần số và pha** giữa các UAV là cực kỳ khó khăn. Các giải pháp truyền thống đòi hỏi phần cứng phức tạp/đắt đỏ (đồng hồ nguyên tử, bộ phát beacon chuyên dụng) hoặc thuật toán bù trừ lỗi rất nhạy cảm với nhiễu SNR thấp.\n\n---\n\n### 2. Ý tưởng & Đóng góp chính của bài báo\n- **Tích hợp cảm biến và truyền thông (ISAC - Integrated Sensing and Communications):** Nhóm tác giả đề xuất mô hình SAR cắt lớp bistatic trên UAV, sử dụng chung dạng sóng truyền thông tiêu chuẩn **IEEE 802.11ad (tần số sóng milimet - mmWave)**, phần cứng RF và tài nguyên phổ tần để cùng lúc thực hiện truyền thông dữ liệu và đo đạc radar định vị 3D.\n- **Tận dụng gói tin truyền thông để đồng bộ:**\n  - UAV chính (Master ISAC Transceiver) phát tín hiệu vừa để truyền dữ liệu vừa làm tín hiệu radar thăm dò.\n  - UAV phụ (Passive Receiver) nhận trực tiếp các gói tin truyền thông này (đường truyền tầm nhìn thẳng - LoS) để **tự đồng bộ thời gian và tần số**, đồng thời dùng nó làm tín hiệu tham chiếu để **bù chuyển động (motion compensation)** và xử lý tín hiệu phản xạ từ mục tiêu về máy thu.\n  - **Không cần phần cứng phụ trợ:** UAV phụ không cần gắn thêm các thiết bị đồng bộ hoặc trạm mặt đất phức tạp.\n\n---\n\n### 3. Kết quả đánh giá\n- **Kịch bản thử nghiệm:** Mô phỏng Monte Carlo để định vị 3D các mục tiêu phức tạp (như xe ô tô) di chuyển/nằm trên địa hình dốc gồ ghề, có tính đến các sai số dịch chuyển của UAV và sai số đồng bộ thực tế.\n- **Hiệu quả:**\n  - Đạt độ chính xác định vị 3D cao hơn rõ rệt so với các phương pháp định vị InSAR truyền thống.\n  - Phân tích và đánh giá sự đánh đổi (trade-off) giữa hiệu năng truyền thông dữ liệu và độ nét/chính xác radar dưới các sơ đồ điều chế khác nhau.",
+      "rounds": [
+        {
+          "round": 1,
+          "assistant_text": null,
+          "tool_calls": [
+            {
+              "name": "paper_text",
+              "args": {
+                "arxiv_url": "2611.11956v1",
+                "max_chars": 8000,
+                "max_pages": 5
+              }
+            }
+          ],
+          "tool_results": [
+            {
+              "tool": "paper_text",
+              "args": {
+                "arxiv_url": "2611.11956v1",
+                "max_chars": 8000,
+                "max_pages": 5
+              },
+              "result": {
+                "tool": "get_arxiv_paper_text",
+                "arxiv_id": "2611.11956v1",
+                "url": "https://arxiv.org/abs/2611.11956v1",
+                "pdf_url": "https://arxiv.org/pdf/2611.11956v1.pdf",
+                "pdf_path": "C:\\Users\\Admin\\Downloads\\K5-L3A-DAY03-Randoms-Prompt-Engineering-Tool-Calling-Labs-student\\starter_v0\\arxiv_papers\\2611.11956v1.pdf",
+                "txt_path": "C:\\Users\\Admin\\Downloads\\K5-L3A-DAY03-Randoms-Prompt-Engineering-Tool-Calling-Labs-student\\starter_v0\\arxiv_papers\\2611.11956v1.txt",
+                "page_count": 13,
+                "pages_read": 5,
+                "chars_returned": 8000,
+                "items": [
+                  {
+                    "title": "arXiv paper 2611.11956v1",
+                    "url": "https://arxiv.org/abs/2611.11956v1",
+                    "source": "arxiv.org",
+                    "summary": "1\nBistatic UA V-Based 3D SAR Imaging Using\nIntegrated Sensing and Communications\nTransceivers\nAkanksha Sneh,Member IEEE, Krishna Ayyagari ∗, Vivaswan Nawani∗, Shobha Sundar Ram,Senior\nMember IEEE.\nAbstract—Integrated sensing and communication (ISAC)\nframeworks enable autonomous systems to jointly perform radar\nsensing and wireless communication using common spectral\nand hardware resources. Prior art on ISAC-enabled Unmanned\nAerial Vehicles (UA V) for Synthetic Aperture Radar (SAR)\nfocused on monostatic configurations for two-dimensional target\nimaging. In this work, we propose a bistatic UA V tomographic\nSAR framework in which the IEEE 802.11ad waveform,\nRF hardware, and spectral resources are jointly utilized for\ncommunication and radar sensing for three-dimensional (3D)\nlocalization of complex targets. Specifically, we demonstrate\nhow communication packets transmitted from a master ISAC\ntransceiver UA V to a passive receiver UA V are exploited for\ntiming and frequency synchronization, motion compensation,\nand 3D localization of targets, without requiring auxiliary\ninfrastructure on the passive receiver for these tasks. We\nevaluate the proposed framework for localizing automotive\ntargets over elevated terrain, with Monte Carlo simulations\nmodeling synchronization and platform motion errors. The\nresults demonstrate improved localization accuracy compared\nwith conventional InSAR-based localization. The interplay\nbetween radar and communication performances are further\nevaluated using diverse modulation schemes.\nIndex Terms—synthetic aperture radar, bistatic radar, UA V ,\nISAC, motion compensation\nI. INTRODUCTION\nUA Vs equipped with SAR are increasingly used for remote\nsensing, surveillance, and situational awareness [1]–[4]. These\nsystems combine platform agility, fast deployment, and low\ncost with SAR benefits of all-weather, day-night imaging,\nand wide-area coverage. UA V-SAR is particularly useful when\ntraditional space-borne SAR is limited by long satellite revisit\ntimes and when manned aircraft are difficult, unsafe, or\nexpensive to operate. Furthermore, recent advances in compact\nmillimeter wave (mmWave) transceivers, lightweight antennas,\nonboard processing, and autonomous operation enable the\nintegration of high-performance mmWave SAR payloads on\nsmall-to-medium UA Vs. The large available bandwidth at\nmmWave frequencies provides fine range resolution, enabling\nhigh-resolution imaging [5].\nMonostatic UA V SAR systems, in which the transmitter\nand receiver are on the same platform, are the most\n∗ Krishna Ayyagari and Vivaswan Nawani are joint second authors.\nThe first three authors are with the Indraprastha Institute of Information\nTechnology, Delhi, New Delhi 110020 India. E-mail:{akankshas,\nkrishna21158, vivaswan21217}@iiitd.ac.in. Last author is with University\nCollege London, United Kingdom, Email:{s.ram@ucl.ac.uk}\npopular SAR systems and are easiest to deploy in terms\nof synchronization [1], [6]. However, they are limited\nto facilitating two-dimensional imaging along range and\ncross-range. Interferometric [7], [8], bistatic [9], [10],\nand multistatic [11], [12] configurations exploit additional\nspatial, Doppler, and scattering diversity to enhance radar\ndetection metrics and can be configured for three-dimensional\n(3D) scene reconstruction. The theoretical foundations of\nbistatic image formation through inversion was studied in\n[10]. Other developments in 3D SAR imaging include\ninterferometric SAR (InSAR) to map heights of structures\n[7], differential InSAR to monitor deformations [13] on\nthe Earth’s surface, and SAR tomography (TomoSAR) to\nresolve multiple scatterers along the elevation axis, which\nis also the focus of our work. Early demonstrations of\nTomoSAR used multiple airborne baselines to synthesize a\nsecond aperture across tracks for optimally reconstructing\nelevation profiles [14]. Later developments used multipass\nspaceborne designs, capable of interferometry, focusing on\nlong-term repeat-pass data to allow 3D focusing [15].\nThe authors in [16] introduced differential TomoSAR\nschemes based on multidimensional spectral estimation\nand multifaceted signal classification algorithms to address\ntemporal decorrelation. More recent methods used holographic\nSAR tomography with circular airborne trajectories and\niterative adaptive reconstruction to provide super-resolution\nelevation reconstruction [17]. While these advances have\nsignificantly improved the 3D imaging capability of SAR\nsystems, their practical realization on distributed UA V\nplatforms introduces several implementation challenges.\nAmong these, maintaining synchronization between spatially\nseparated platforms is one of the most challenging\nrequirements for coherent SAR image formation.\nExisting synchronization approaches for bistatic UA V SAR\nfocus on hardware solutions, involving specialized microwave\nlinks, reference beacons, pilot exchanges, or precise timing\nsources based on global navigation satellite systems or atomic\noscillators on both UA Vs [11], [18], [19]. Alternatively, to\nreduce the hardware load, signal-processing-based algorithms\nthat estimate and compensate for residual timing and\nphase errors directly from the received echoes, have been\nproposed. This approach is, however, effective only with\nhigh signal-to-noise ratio (SNR) and stable geometries [20],\n[21]. Recently, a third approach has been investigated,\nin which UA Vs are augmented with communication links\narXiv:2611.11956v1  [eess.SP]  9 Nov 2026\n\n2\nto address synchronization and data-handling challenges\nin a distributed architecture. In [8], UA V-to-ground and\nUA V-to-UA V connections facilitate real-time data transfer\nand sensing-aware formation control for bistatic InSAR [8].\nCoherent multistatic UA V SAR architectures have also been\nexplored in [12], in which a direct line-of-sight sidelink was\nused as a phase reference for hardware synchronization.\nBut these approaches do not scale to tomographic or\n3D localization. Bistatic TomoSAR has more recently been\nachieved by repurposing an uplink communication signal to\nreconstruct tomographic elevation images [22]. The authors\nof [23] used orthogonal frequency-division multiplexing\n(OFDM) pilots over line-of-sight links to provide timing\nand phase references for bistatic SAR processing at a\nground-based station. Specialized two-way synchronization\nchains with pulsed carrier exchanges have also enabled\nhigh-precision bistatic InSAR in-flight experiments [24].\nThese studies have focused on the coexistence of radar and\ncommunication systems, where communication waveforms are\nused for synchronization, while separate conventional radar\nwaveforms are used for SAR imaging. Instead of using\nauxiliary communication platforms as discussed above, it\nis advantageous to consider ISAC transceivers to manage\nsynchronization and interference between communications and\nradar.\nRecent studies have explored waveform co-design strategies\nto enable joint wireless communication and high-resolution\nSAR imaging, in monostatic configurations or with centralized\nor ground-based infrastructure [18], [25]. As a result,\nthey do not address the challenges of distributed bistatic\nsynchronization and motion compensation in UA V-based\ntomographic SAR scenarios. In addition, most prior work is\nlimited to two-dimensional imaging or simplified point-target\nmodels and does not address three-dimensional localization\nof complex, distributed targets within an ISAC framework.\nFurthermore, many studies assume stationary or ground-based\nreceivers and simplified motion models, which limit their\napplicability to realistic UA V deployments involving mobile\nplatforms, elevated terrain, and dynamic flight trajectories.\nIn practical bistatic SAR systems, platform and target\nmotion cause significant image displacement, defocusing,\nand localization errors whose severity depends on the\nbistatic geometry and target kinematics [26], [27]. Hence,\nwhen multiple UA Vs are deployed, each has to be\nmounted with au"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "assistant_text": "Dưới đây là tóm tắt chi tiết nội dung bài báo khoa học thứ nhất:\n\n---\n\n### **Bistatic UAV-Based 3D SAR Imaging Using Integrated Sensing and Communications Transceivers**\n- **Mã định danh:** [arXiv:2611.11956v1](https://arxiv.org/abs/2611.11956v1)\n- **Tác giả:** Akanksha Sneh, Krishna Ayyagari, Vivaswan Nawani (Học viện CNTT Indraprastha Delhi - IIITD, Ấn Độ) và Shobha Sundar Ram (Đại học University College London - UCL, Anh Quốc).\n\n---\n\n### 1. Bối cảnh & Vấn đề đặt ra\n- **Hạn chế của UAV-SAR hiện nay:** Radar khẩu độ tổng hợp đơn tĩnh (Monostatic SAR) trên UAV chủ yếu chỉ tạo được ảnh 2D (theo hướng cự ly và phương ngang cự ly). Để tái tạo không gian 3D, cần cấu hình đa tĩnh (bistatic/multistatic) hoặc chụp cắt lớp SAR (TomoSAR).\n- **Thách thức cốt lõi:** Khi tách riêng trạm phát và trạm thu trên các UAV di động khác nhau, việc **đồng bộ hóa thời gian, tần số và pha** giữa các UAV là cực kỳ khó khăn. Các giải pháp truyền thống đòi hỏi phần cứng phức tạp/đắt đỏ (đồng hồ nguyên tử, bộ phát beacon chuyên dụng) hoặc thuật toán bù trừ lỗi rất nhạy cảm với nhiễu SNR thấp.\n\n---\n\n### 2. Ý tưởng & Đóng góp chính của bài báo\n- **Tích hợp cảm biến và truyền thông (ISAC - Integrated Sensing and Communications):** Nhóm tác giả đề xuất mô hình SAR cắt lớp bistatic trên UAV, sử dụng chung dạng sóng truyền thông tiêu chuẩn **IEEE 802.11ad (tần số sóng milimet - mmWave)**, phần cứng RF và tài nguyên phổ tần để cùng lúc thực hiện truyền thông dữ liệu và đo đạc radar định vị 3D.\n- **Tận dụng gói tin truyền thông để đồng bộ:**\n  - UAV chính (Master ISAC Transceiver) phát tín hiệu vừa để truyền dữ liệu vừa làm tín hiệu radar thăm dò.\n  - UAV phụ (Passive Receiver) nhận trực tiếp các gói tin truyền thông này (đường truyền tầm nhìn thẳng - LoS) để **tự đồng bộ thời gian và tần số**, đồng thời dùng nó làm tín hiệu tham chiếu để **bù chuyển động (motion compensation)** và xử lý tín hiệu phản xạ từ mục tiêu về máy thu.\n  - **Không cần phần cứng phụ trợ:** UAV phụ không cần gắn thêm các thiết bị đồng bộ hoặc trạm mặt đất phức tạp.\n\n---\n\n### 3. Kết quả đánh giá\n- **Kịch bản thử nghiệm:** Mô phỏng Monte Carlo để định vị 3D các mục tiêu phức tạp (như xe ô tô) di chuyển/nằm trên địa hình dốc gồ ghề, có tính đến các sai số dịch chuyển của UAV và sai số đồng bộ thực tế.\n- **Hiệu quả:**\n  - Đạt độ chính xác định vị 3D cao hơn rõ rệt so với các phương pháp định vị InSAR truyền thống.\n  - Phân tích và đánh giá sự đánh đổi (trade-off) giữa hiệu năng truyền thông dữ liệu và độ nét/chính xác radar dưới các sơ đồ điều chế khác nhau.",
+          "tool_calls": [],
+          "tool_results": []
+        }
+      ],
+      "tool_events": [
+        {
+          "tool": "paper_text",
+          "args": {
+            "arxiv_url": "2611.11956v1",
+            "max_chars": 8000,
+            "max_pages": 5
+          },
+          "result": {
+            "tool": "get_arxiv_paper_text",
+            "arxiv_id": "2611.11956v1",
+            "url": "https://arxiv.org/abs/2611.11956v1",
+            "pdf_url": "https://arxiv.org/pdf/2611.11956v1.pdf",
+            "pdf_path": "C:\\Users\\Admin\\Downloads\\K5-L3A-DAY03-Randoms-Prompt-Engineering-Tool-Calling-Labs-student\\starter_v0\\arxiv_papers\\2611.11956v1.pdf",
+            "txt_path": "C:\\Users\\Admin\\Downloads\\K5-L3A-DAY03-Randoms-Prompt-Engineering-Tool-Calling-Labs-student\\starter_v0\\arxiv_papers\\2611.11956v1.txt",
+            "page_count": 13,
+            "pages_read": 5,
+            "chars_returned": 8000,
+            "items": [
+              {
+                "title": "arXiv paper 2611.11956v1",
+                "url": "https://arxiv.org/abs/2611.11956v1",
+                "source": "arxiv.org",
+                "summary": "1\nBistatic UA V-Based 3D SAR Imaging Using\nIntegrated Sensing and Communications\nTransceivers\nAkanksha Sneh,Member IEEE, Krishna Ayyagari ∗, Vivaswan Nawani∗, Shobha Sundar Ram,Senior\nMember IEEE.\nAbstract—Integrated sensing and communication (ISAC)\nframeworks enable autonomous systems to jointly perform radar\nsensing and wireless communication using common spectral\nand hardware resources. Prior art on ISAC-enabled Unmanned\nAerial Vehicles (UA V) for Synthetic Aperture Radar (SAR)\nfocused on monostatic configurations for two-dimensional target\nimaging. In this work, we propose a bistatic UA V tomographic\nSAR framework in which the IEEE 802.11ad waveform,\nRF hardware, and spectral resources are jointly utilized for\ncommunication and radar sensing for three-dimensional (3D)\nlocalization of complex targets. Specifically, we demonstrate\nhow communication packets transmitted from a master ISAC\ntransceiver UA V to a passive receiver UA V are exploited for\ntiming and frequency synchronization, motion compensation,\nand 3D localization of targets, without requiring auxiliary\ninfrastructure on the passive receiver for these tasks. We\nevaluate the proposed framework for localizing automotive\ntargets over elevated terrain, with Monte Carlo simulations\nmodeling synchronization and platform motion errors. The\nresults demonstrate improved localization accuracy compared\nwith conventional InSAR-based localization. The interplay\nbetween radar and communication performances are further\nevaluated using diverse modulation schemes.\nIndex Terms—synthetic aperture radar, bistatic radar, UA V ,\nISAC, motion compensation\nI. INTRODUCTION\nUA Vs equipped with SAR are increasingly used for remote\nsensing, surveillance, and situational awareness [1]–[4]. These\nsystems combine platform agility, fast deployment, and low\ncost with SAR benefits of all-weather, day-night imaging,\nand wide-area coverage. UA V-SAR is particularly useful when\ntraditional space-borne SAR is limited by long satellite revisit\ntimes and when manned aircraft are difficult, unsafe, or\nexpensive to operate. Furthermore, recent advances in compact\nmillimeter wave (mmWave) transceivers, lightweight antennas,\nonboard processing, and autonomous operation enable the\nintegration of high-performance mmWave SAR payloads on\nsmall-to-medium UA Vs. The large available bandwidth at\nmmWave frequencies provides fine range resolution, enabling\nhigh-resolution imaging [5].\nMonostatic UA V SAR systems, in which the transmitter\nand receiver are on the same platform, are the most\n∗ Krishna Ayyagari and Vivaswan Nawani are joint second authors.\nThe first three authors are with the Indraprastha Institute of Information\nTechnology, Delhi, New Delhi 110020 India. E-mail:{akankshas,\nkrishna21158, vivaswan21217}@iiitd.ac.in. Last author is with University\nCollege London, United Kingdom, Email:{s.ram@ucl.ac.uk}\npopular SAR systems and are easiest to deploy in terms\nof synchronization [1], [6]. However, they are limited\nto facilitating two-dimensional imaging along range and\ncross-range. Interferometric [7], [8], bistatic [9], [10],\nand multistatic [11], [12] configurations exploit additional\nspatial, Doppler, and scattering diversity to enhance radar\ndetection metrics and can be configured for three-dimensional\n(3D) scene reconstruction. The theoretical foundations of\nbistatic image formation through inversion was studied in\n[10]. Other developments in 3D SAR imaging include\ninterferometric SAR (InSAR) to map heights of structures\n[7], differential InSAR to monitor deformations [13] on\nthe Earth’s surface, and SAR tomography (TomoSAR) to\nresolve multiple scatterers along the elevation axis, which\nis also the focus of our work. Early demonstrations of\nTomoSAR used multiple airborne baselines to synthesize a\nsecond aperture across tracks for optimally reconstructing\nelevation profiles [14]. Later developments used multipass\nspaceborne designs, capable of interferometry, focusing on\nlong-term repeat-pass data to allow 3D focusing [15].\nThe authors in [16] introduced differential TomoSAR\nschemes based on multidimensional spectral estimation\nand multifaceted signal classification algorithms to address\ntemporal decorrelation. More recent methods used holographic\nSAR tomography with circular airborne trajectories and\niterative adaptive reconstruction to provide super-resolution\nelevation reconstruction [17]. While these advances have\nsignificantly improved the 3D imaging capability of SAR\nsystems, their practical realization on distributed UA V\nplatforms introduces several implementation challenges.\nAmong these, maintaining synchronization between spatially\nseparated platforms is one of the most challenging\nrequirements for coherent SAR image formation.\nExisting synchronization approaches for bistatic UA V SAR\nfocus on hardware solutions, involving specialized microwave\nlinks, reference beacons, pilot exchanges, or precise timing\nsources based on global navigation satellite systems or atomic\noscillators on both UA Vs [11], [18], [19]. Alternatively, to\nreduce the hardware load, signal-processing-based algorithms\nthat estimate and compensate for residual timing and\nphase errors directly from the received echoes, have been\nproposed. This approach is, however, effective only with\nhigh signal-to-noise ratio (SNR) and stable geometries [20],\n[21]. Recently, a third approach has been investigated,\nin which UA Vs are augmented with communication links\narXiv:2611.11956v1  [eess.SP]  9 Nov 2026\n\n2\nto address synchronization and data-handling challenges\nin a distributed architecture. In [8], UA V-to-ground and\nUA V-to-UA V connections facilitate real-time data transfer\nand sensing-aware formation control for bistatic InSAR [8].\nCoherent multistatic UA V SAR architectures have also been\nexplored in [12], in which a direct line-of-sight sidelink was\nused as a phase reference for hardware synchronization.\nBut these approaches do not scale to tomographic or\n3D localization. Bistatic TomoSAR has more recently been\nachieved by repurposing an uplink communication signal to\nreconstruct tomographic elevation images [22]. The authors\nof [23] used orthogonal frequency-division multiplexing\n(OFDM) pilots over line-of-sight links to provide timing\nand phase references for bistatic SAR processing at a\nground-based station. Specialized two-way synchronization\nchains with pulsed carrier exchanges have also enabled\nhigh-precision bistatic InSAR in-flight experiments [24].\nThese studies have focused on the coexistence of radar and\ncommunication systems, where communication waveforms are\nused for synchronization, while separate conventional radar\nwaveforms are used for SAR imaging. Instead of using\nauxiliary communication platforms as discussed above, it\nis advantageous to consider ISAC transceivers to manage\nsynchronization and interference between communications and\nradar.\nRecent studies have explored waveform co-design strategies\nto enable joint wireless communication and high-resolution\nSAR imaging, in monostatic configurations or with centralized\nor ground-based infrastructure [18], [25]. As a result,\nthey do not address the challenges of distributed bistatic\nsynchronization and motion compensation in UA V-based\ntomographic SAR scenarios. In addition, most prior work is\nlimited to two-dimensional imaging or simplified point-target\nmodels and does not address three-dimensional localization\nof complex, distributed targets within an ISAC framework.\nFurthermore, many studies assume stationary or ground-based\nreceivers and simplified motion models, which limit their\napplicability to realistic UA V deployments involving mobile\nplatforms, elevated terrain, and dynamic flight trajectories.\nIn practical bistatic SAR systems, platform and target\nmotion cause significant image displacement, defocusing,\nand localization errors whose severity depends on the\nbistatic geometry and target kinematics [26], [27]. Hence,\nwhen multiple UA Vs are deployed, each has to be\nmounted with au"
+              }
+            ]
+          }
+        }
+      ],
+      "ended_at": "2026-11-10T12:16:10"
+    }
+  ]
+}

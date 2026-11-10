@@ -1,0 +1,599 @@
+{
+  "run_id": "v3_B_group_openai_20261110T113122195962",
+  "version": "v3",
+  "artifact_version": "v3+ped5d8fb73988+td4e750ae63a9",
+  "prompt_hash": "ed5d8fb739884a6182840de3e9ac6a54e0aeabf7766e3ea4dd32fdcda1d57f70",
+  "tools_hash": "d4e750ae63a92fc414155b38dc6429382f0cef663a0fd3b14e00ac07436f4fc1",
+  "phase": "B",
+  "suite": "group",
+  "provider": "openai",
+  "model": "gemini-3.6-flash",
+  "system_prompt": "C:\\Users\\Admin\\Downloads\\K5-L3A-DAY03-Randoms-Prompt-Engineering-Tool-Calling-Labs-student\\starter_v0\\artifacts\\system_prompt.md",
+  "tools": "C:\\Users\\Admin\\Downloads\\K5-L3A-DAY03-Randoms-Prompt-Engineering-Tool-Calling-Labs-student\\starter_v0\\artifacts\\tools.yaml",
+  "eval_cases": "data\\eval_group.json",
+  "dataset_id": "day04_v2_research_group",
+  "dataset_role": "group",
+  "description": "10 test cases do nhóm tự phát triển: 5 single-turn và 5 multi-turn, đo routing, args, boundary, clarify và tool mới calculator.",
+  "generated_at": "2026-11-10T11:31:22",
+  "summary": {
+    "total_cases": 10,
+    "measured_cases": 10,
+    "provider_error_cases": 0,
+    "passed_cases": 10,
+    "case_accuracy": 1.0,
+    "tool_routing_accuracy": 1.0,
+    "argument_accuracy": 1.0,
+    "multiturn_accuracy": 1.0,
+    "failure_counts": {},
+    "observed_mismatch_counts": {}
+  },
+  "results": [
+    {
+      "id": "G01_call_calculator",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "call_new_calculator",
+        "difficulty": "easy",
+        "what_it_tests": "Gọi tool mới calculator khi người dùng yêu cầu tính toán con số."
+      },
+      "input": "Tính giúp mình 250 nhân với 4 bằng bao nhiêu?",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "calculator",
+            "args": {
+              "expression": "250 * 4"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "calculator",
+            "args": {
+              "expression": "250 * 4"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "calculator",
+          "args": {
+            "expression": "250 * 4"
+          },
+          "result": {
+            "tool": "calculator",
+            "expression": "250 * 4",
+            "result": 1000
+          }
+        }
+      ]
+    },
+    {
+      "id": "G02_social_vs_web_search",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "social_search_routing",
+        "difficulty": "easy",
+        "what_it_tests": "Hỏi về thảo luận mạng xã hội -> social_search, không phải lookup."
+      },
+      "input": "Mọi người trên mạng xã hội đang bàn luận gì về DeepSeek?",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "social_search",
+            "args": {
+              "query": "DeepSeek"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "social_search",
+            "args": {
+              "query": "DeepSeek",
+              "search_type": "Latest"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "social_search",
+          "args": {
+            "query": "DeepSeek",
+            "search_type": "Latest"
+          },
+          "result": {
+            "tool": "search_tweets",
+            "error": "RuntimeError",
+            "message": "Missing RAPIDAPI_KEY env var"
+          }
+        }
+      ]
+    },
+    {
+      "id": "G03_missing_handle_clarify",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "clarify_missing_handle",
+        "difficulty": "medium",
+        "what_it_tests": "Thiếu tên tài khoản -> bắt buộc gọi clarify hỏi lại, không được tự đoán."
+      },
+      "input": "Lấy giúp mình 5 bài đăng mới nhất",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "text"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "question": "Bạn muốn xem bài đăng của tài khoản nào?",
+              "response_type": "text"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "missing_info",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "clarify",
+          "args": {
+            "question": "Bạn muốn xem bài đăng của tài khoản nào?",
+            "response_type": "text"
+          },
+          "result": {
+            "tool": "ask_user",
+            "question": "Bạn muốn xem bài đăng của tài khoản nào?",
+            "response_type": "text",
+            "options": [],
+            "awaiting_user": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "G04_arg_timeframe_month",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "timeframe_arg",
+        "difficulty": "medium",
+        "what_it_tests": "Trích xuất đúng timeframe='month' và topic='news' từ 'trong tháng này'."
+      },
+      "input": "Tin tức công nghệ trong tháng này có gì hot?",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "topic": "news",
+              "timeframe": "month"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "tin tức công nghệ nổi bật",
+              "timeframe": "month",
+              "topic": "news"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "lookup",
+          "args": {
+            "query": "tin tức công nghệ nổi bật",
+            "timeframe": "month",
+            "topic": "news"
+          },
+          "result": {
+            "tool": "web_search",
+            "error": "RuntimeError",
+            "message": "Missing TAVILY_API_KEY env var"
+          }
+        }
+      ]
+    },
+    {
+      "id": "G05_out_of_scope_coding",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "out_of_scope_coding",
+        "difficulty": "easy",
+        "what_it_tests": "Yêu cầu viết code lập trình -> từ chối, không gọi tool research."
+      },
+      "input": "Viết giúp mình hàm sắp xếp QuickSort bằng C++",
+      "expect": {
+        "no_tool": true,
+        "behavior": "refuse"
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [],
+        "actual_text": "Dưới đây là cài đặt thuật toán sắp xếp nhanh (QuickSort) bằng C++ sử dụng phương pháp phân hoạch Lomuto:\n\n```cpp\n#include <iostream>\n#include <vector>\n#include <algorithm>\n\n// Hàm phân hoạch (Partition) theo phương pháp Lomuto\n// Chọn phần tử cuối cùng làm chốt (pivot)\nint partition(std::vector<int>& arr, int low, int high) {\n    int pivot = arr[high]; // Chọn pivot\n    int i = low - 1;       // Chỉ số của phần tử nhỏ hơn pivot\n\n    for (int j = low; j < high; ++j) {\n        // Nếu phần tử hiện tại nhỏ hơn hoặc bằng pivot\n        if (arr[j] <= pivot) {\n            ++i;\n            std::swap(arr[i], arr[j]);\n        }\n    }\n    // Đưa pivot về đúng vị trí giữa hai mảng con\n    std::swap(arr[i + 1], arr[high]);\n    return i + 1;\n}\n\n// Hàm đệ quy QuickSort\nvoid quickSort(std::vector<int>& arr, int low, int high) {\n    if (low < high) {\n        // pi là chỉ số nơi pivot đã được đặt đúng vị trí\n        int pi = partition(arr, low, high);\n\n        // Đệ quy sắp xếp mảng con bên trái và bên phải của pivot\n        quickSort(arr, low, pi - 1);\n        quickSort(arr, pi + 1, high);\n    }\n}\n\n// Ví dụ chạy thử\nint main() {\n    std::vector<int> arr = {10, 7, 8, 9, 1, 5};\n    int n = arr.size();\n\n    std::cout << \"Mảng ban đầu: \";\n    for (int x : arr) std::cout << x << \" \";\n    std::cout << \"\\n\";\n\n    quickSort(arr, 0, n - 1);\n\n    std::cout << \"Mảng sau khi sắp xếp: \";\n    for (int x : arr) std::cout << x << \" \";\n    std::cout << \"\\n\";\n\n    return 0;\n}\n```\n\n### Đánh giá độ phức tạp thuật toán:\n- **Thời gian trung bình & tốt nhất:** $O(n \\log n)$\n- **Thời gian xấu nhất:** $O(n^2)$ (xảy ra khi mảng đã sắp xếp sẵn và luôn chọn phần tử cuối làm pivot)\n- **Không gian bộ nhớ:** $O(\\log n)$ (ngăn xếp đệ quy)",
+        "case_failure_type": "out_of_scope",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": []
+    },
+    {
+      "id": "GM01_clarify_then_timeline",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "multiturn_clarify_fill",
+        "difficulty": "hard",
+        "what_it_tests": "Sau khi hỏi lại, trích xuất đúng handle karpathy và limit=2."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Xem bài đăng mới nhất giùm mình"
+        },
+        {
+          "role": "user",
+          "content": "Của tài khoản Andrej Karpathy nhé"
+        },
+        {
+          "role": "user",
+          "content": "Lấy 2 bài thôi"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "karpathy",
+              "limit": 2
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "limit": 2,
+              "screenname": "karpathy"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "missing_info",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "timeline",
+          "args": {
+            "limit": 2,
+            "screenname": "karpathy"
+          },
+          "result": {
+            "tool": "get_user_tweets",
+            "error": "RuntimeError",
+            "message": "Missing RAPIDAPI_KEY env var"
+          }
+        }
+      ]
+    },
+    {
+      "id": "GM02_correction_search_topic",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "multiturn_correction",
+        "difficulty": "hard",
+        "what_it_tests": "Cập nhật query sang Quantum Computing nhưng kế thừa topic=news và timeframe=day."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tìm tin tức AI hôm nay"
+        },
+        {
+          "role": "user",
+          "content": "À đổi sang tìm tin về Quantum Computing đi"
+        },
+        {
+          "role": "user",
+          "content": "Vẫn lấy tin tức hôm nay nhé"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "Quantum Computing",
+              "topic": "news",
+              "timeframe": "day"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "Quantum Computing",
+              "timeframe": "day",
+              "topic": "news"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "lookup",
+          "args": {
+            "query": "Quantum Computing",
+            "timeframe": "day",
+            "topic": "news"
+          },
+          "result": {
+            "tool": "web_search",
+            "error": "RuntimeError",
+            "message": "Missing TAVILY_API_KEY env var"
+          }
+        }
+      ]
+    },
+    {
+      "id": "GM03_switch_search_to_calc",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "multiturn_switch_tool",
+        "difficulty": "medium",
+        "what_it_tests": "Lượt sau đổi ý sang tính toán -> chuyển sang gọi tool calculator."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Doanh thu Apple năm nay là bao nhiêu?"
+        },
+        {
+          "role": "user",
+          "content": "Tiện tính luôn giúp mình 400 chia cho 5 bằng bao nhiêu"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "calculator",
+            "args": {
+              "expression": "400 / 5"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "calculator",
+            "args": {
+              "expression": "400 / 5"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "calculator",
+          "args": {
+            "expression": "400 / 5"
+          },
+          "result": {
+            "tool": "calculator",
+            "expression": "400 / 5",
+            "result": 80.0
+          }
+        }
+      ]
+    },
+    {
+      "id": "GM04_confirm_before_telegram_send",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "confirm_before_send",
+        "difficulty": "hard",
+        "what_it_tests": "Yêu cầu gửi telegram -> phải hỏi xác nhận yes/no trước, không tự ý gửi."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tóm tắt tin tức AI hôm nay"
+        },
+        {
+          "role": "user",
+          "content": "Được rồi, gửi bản tin này lên Telegram hộ mình ngay"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "yes_no"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "question": "Bạn có xác nhận muốn đăng bản tin này lên Telegram không?",
+              "response_type": "yes_no"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_boundary",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "clarify",
+          "args": {
+            "question": "Bạn có xác nhận muốn đăng bản tin này lên Telegram không?",
+            "response_type": "yes_no"
+          },
+          "result": {
+            "tool": "ask_user",
+            "question": "Bạn có xác nhận muốn đăng bản tin này lên Telegram không?",
+            "response_type": "yes_no",
+            "options": [],
+            "awaiting_user": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "GM05_out_of_scope_multiturn",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "multiturn_out_of_scope",
+        "difficulty": "easy",
+        "what_it_tests": "Lượt sau yêu cầu lập trình ngoài phạm vi -> từ chối, không gọi tool."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tin công nghệ tuần này có gì?"
+        },
+        {
+          "role": "user",
+          "content": "Giờ viết giúp mình code game Flappy Bird bằng Python"
+        }
+      ],
+      "expect": {
+        "no_tool": true,
+        "behavior": "refuse"
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [],
+        "actual_text": "Dưới đây là mã nguồn cơ bản để làm game **Flappy Bird** bằng thư viện `pygame` trong Python.\n\n### 1. Cài đặt thư viện\nTrước khi chạy code, bạn cần cài đặt thư viện `pygame`:\n```bash\npip install pygame\n```\n\n### 2. Mã nguồn game (`flappy_bird.py`)\n\n```python\nimport pygame\nimport random\nimport sys\n\n# Khởi tạo pygame\npygame.init()\n\n# Cấu hình màn hình\nSCREEN_WIDTH = 400\nSCREEN_HEIGHT = 600\nscreen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))\npygame.display.set_caption(\"Flappy Bird Mini\")\nclock = pygame.time.Clock()\n\n# Màu sắc\nWHITE = (255, 255, 255)\nSKY_BLUE = (135, 206, 235)\nGREEN = (34, 139, 34)\nYELLOW = (255, 215, 0)\n\n# Các thông số vật lý của Chim\nGRAVITY = 0.4\nJUMP_STRENGTH = -7\nbird_x = 80\nbird_y = SCREEN_HEIGHT // 2\nbird_velocity = 0\nbird_size = 24\n\n# Cấu hình Ống (Obstacles)\nPIPE_WIDTH = 60\nPIPE_GAP = 150\nPIPE_SPEED = 3\npipes = []\n\n# Biến điểm số và trạng thái game\nscore = 0\nfont = pygame.font.SysFont(\"Arial\", 28, bold=True)\ngame_active = True\n\ndef create_pipe():\n    height = random.randint(100, 350)\n    # top_pipe: (x, y, width, height)\n    top_pipe = pygame.Rect(SCREEN_WIDTH, 0, PIPE_WIDTH, height)\n    # bottom_pipe\n    bottom_pipe = pygame.Rect(SCREEN_WIDTH, height + PIPE_GAP, PIPE_WIDTH, SCREEN_HEIGHT - (height + PIPE_GAP))\n    return top_pipe, bottom_pipe\n\n# Timer để sinh ống mới định kỳ\nSPAWN_PIPE_EVENT = pygame.USEREVENT + 1\npygame.time.set_timer(SPAWN_PIPE_EVENT, 1500)\n\ndef reset_game():\n    global bird_y, bird_velocity, pipes, score, game_active\n    bird_y = SCREEN_HEIGHT // 2\n    bird_velocity = 0\n    pipes.clear()\n    score = 0\n    game_active = True\n\n# Vòng lặp chính của game\nrunning = True\nwhile running:\n    for event in pygame.event.get():\n        if event.type == pygame.QUIT:\n            running = False\n            pygame.quit()\n            sys.exit()\n\n        if event.type == pygame.KEYDOWN:\n            if event.key == pygame.K_SPACE:\n                if game_active:\n                    bird_velocity = JUMP_STRENGTH\n                else:\n                    reset_game()\n\n        if event.type == SPAWN_PIPE_EVENT and game_active:\n            top_pipe, bottom_pipe = create_pipe()\n            pipes.append(top_pipe)\n            pipes.append(bottom_pipe)\n\n    screen.fill(SKY_BLUE)\n\n    if game_active:\n        # 1. Cập nhật vị trí chim\n        bird_velocity += GRAVITY\n        bird_y += bird_velocity\n        bird_rect = pygame.Rect(bird_x, bird_y, bird_size, bird_size)\n        pygame.draw.circle(screen, YELLOW, (bird_x + bird_size // 2, int(bird_y + bird_size // 2)), bird_size // 2)\n\n        # 2. Cập nhật vị trí và vẽ ống\n        for pipe in pipes[:]:\n            pipe.x -= PIPE_SPEED\n            pygame.draw.rect(screen, GREEN, pipe)\n\n            # Kiểm tra va chạm\n            if bird_rect.colliderect(pipe):\n                game_active = False\n\n            # Tăng điểm khi vượt qua ống\n            if pipe.right < bird_x and not getattr(pipe, \"scored\", False):\n                if pipe.top == 0:  # Chỉ cộng điểm 1 lần cho mỗi cặp ống\n                    score += 1\n                pipe.scored = True\n\n            # Xóa ống ra khỏi màn hình\n            if pipe.right < 0:\n                pipes.remove(pipe)\n\n        # 3. Kiểm tra rơi khỏi màn hình\n        if bird_y <= 0 or bird_y + bird_size >= SCREEN_HEIGHT:\n            game_active = False\n\n        # Hiển thị điểm\n        score_surface = font.render(f\"Điểm: {score}\", True, WHITE)\n        screen.blit(score_surface, (10, 10))\n    else:\n        # Màn hình Game Over\n        msg_over = font.render(\"GAME OVER!\", True, (200, 0, 0))\n        msg_restart = font.render(\"Nhấn SPACE để chơi lại\", True, WHITE)\n        msg_final = font.render(f\"Tổng điểm: {score}\", True, WHITE)\n\n        screen.blit(msg_over, (SCREEN_WIDTH // 2 - msg_over.get_width() // 2, 200))\n        screen.blit(msg_final, (SCREEN_WIDTH // 2 - msg_final.get_width() // 2, 250))\n        screen.blit(msg_restart, (SCREEN_WIDTH // 2 - msg_restart.get_width() // 2, 300))\n\n    pygame.display.update()\n    clock.tick(60)\n```\n\n### Cách chơi:\n- Nhấn phím **SPACE** (cách) để điều khiển chim bay lên.\n- Tránh va vào các cột xanh và không để chim chạm mép trên/dưới màn hình.\n- Khi thua, nhấn lại phím **SPACE** để bắt đầu lượt chơi mới.",
+        "case_failure_type": "out_of_scope",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": []
+    }
+  ]
+}

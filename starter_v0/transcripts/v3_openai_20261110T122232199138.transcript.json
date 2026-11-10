@@ -1,0 +1,67 @@
+{
+  "session_id": "v3_openai_20261110T122232199138",
+  "version": "v3",
+  "provider": "openai",
+  "model": "gemini-3.6-flash",
+  "artifact_version": "v3+p3b38955de18e+tda3fad24faa8",
+  "prompt_hash": "3b38955de18ebfd19ab27f30b9773f912a8bbef619f7f33bf2b5d8f185e32edf",
+  "tools_hash": "da3fad24faa8ff87cf0dffd7e215897be374401863822e046b4dd981b69557f7",
+  "started_at": "2026-11-10T12:22:32",
+  "turns": [
+    {
+      "turn_index": 1,
+      "started_at": "2026-11-10T12:22:35",
+      "user": "Giá Bitcoin hiện tại đang là bao nhiêu USD?\n\n\n  \n\n  \n\n  ",
+      "status": "answered",
+      "assistant_text": "Hiện tại hệ thống tra cứu giá tiền mã hóa thời gian thực đang gặp sự cố kỹ thuật (không thể kết nối với dịch vụ dữ liệu giá crypto), nên tôi chưa thể cung cấp giá Bitcoin chính xác tại thời điểm này. \n\nBạn vui lòng kiểm tra trực tiếp trên các nền tảng theo dõi thị trường như CoinMarketCap, CoinGecko hoặc Binance nhé.",
+      "rounds": [
+        {
+          "round": 1,
+          "assistant_text": null,
+          "tool_calls": [
+            {
+              "name": "crypto_lookup",
+              "args": {
+                "symbol": "BTC",
+                "vs_currency": "usd"
+              }
+            }
+          ],
+          "tool_results": [
+            {
+              "tool": "crypto_lookup",
+              "args": {
+                "symbol": "BTC",
+                "vs_currency": "usd"
+              },
+              "result": {
+                "error": "unknown_tool",
+                "message": "No local implementation for crypto_lookup"
+              }
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "assistant_text": "Hiện tại hệ thống tra cứu giá tiền mã hóa thời gian thực đang gặp sự cố kỹ thuật (không thể kết nối với dịch vụ dữ liệu giá crypto), nên tôi chưa thể cung cấp giá Bitcoin chính xác tại thời điểm này. \n\nBạn vui lòng kiểm tra trực tiếp trên các nền tảng theo dõi thị trường như CoinMarketCap, CoinGecko hoặc Binance nhé.",
+          "tool_calls": [],
+          "tool_results": []
+        }
+      ],
+      "tool_events": [
+        {
+          "tool": "crypto_lookup",
+          "args": {
+            "symbol": "BTC",
+            "vs_currency": "usd"
+          },
+          "result": {
+            "error": "unknown_tool",
+            "message": "No local implementation for crypto_lookup"
+          }
+        }
+      ],
+      "ended_at": "2026-11-10T12:22:48"
+    }
+  ]
+}

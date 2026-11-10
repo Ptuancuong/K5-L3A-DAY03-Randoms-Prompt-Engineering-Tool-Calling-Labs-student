@@ -1,7 +1,280 @@
 {
   "dataset_id": "day04_v2_research_group",
   "dataset_role": "group",
-  "description": "Case do NHÓM tự viết thêm để cover thêm trường hợp. Mỗi case cần: id, phase='B', query HOẶC turns, failure_type (thuộc allowed_failure_types), và expect (tool_calls[...] hoặc no_tool=true). Nên kèm metadata.what_it_tests.",
-  "allowed_failure_types": ["wrong_tool", "wrong_arg_value", "wrong_boundary", "unnecessary_tool", "out_of_scope", "missing_info"],
-  "cases": []
+  "description": "10 test cases do nhóm tự phát triển: 5 single-turn và 5 multi-turn, đo routing, args, boundary, clarify và tool mới calculator.",
+  "allowed_failure_types": [
+    "wrong_tool",
+    "wrong_arg_value",
+    "wrong_boundary",
+    "unnecessary_tool",
+    "out_of_scope",
+    "missing_info"
+  ],
+  "cases": [
+    {
+      "id": "G01_call_calculator",
+      "phase": "B",
+      "suite": "group",
+      "query": "Tính giúp mình 250 nhân với 4 bằng bao nhiêu?",
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "calculator",
+            "args": {
+              "expression": "250 * 4"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "call_new_calculator",
+        "difficulty": "easy",
+        "what_it_tests": "Gọi tool mới calculator khi người dùng yêu cầu tính toán con số."
+      }
+    },
+    {
+      "id": "G02_social_vs_web_search",
+      "phase": "B",
+      "suite": "group",
+      "query": "Mọi người trên mạng xã hội đang bàn luận gì về DeepSeek?",
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "social_search",
+            "args": {
+              "query": "DeepSeek"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "social_search_routing",
+        "difficulty": "easy",
+        "what_it_tests": "Hỏi về thảo luận mạng xã hội -> social_search, không phải lookup."
+      }
+    },
+    {
+      "id": "G03_missing_handle_clarify",
+      "phase": "B",
+      "suite": "group",
+      "query": "Lấy giúp mình 5 bài đăng mới nhất",
+      "failure_type": "missing_info",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "text"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "clarify_missing_handle",
+        "difficulty": "medium",
+        "what_it_tests": "Thiếu tên tài khoản -> bắt buộc gọi clarify hỏi lại, không được tự đoán."
+      }
+    },
+    {
+      "id": "G04_arg_timeframe_month",
+      "phase": "B",
+      "suite": "group",
+      "query": "Tin tức công nghệ trong tháng này có gì hot?",
+      "failure_type": "wrong_arg_value",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "topic": "news",
+              "timeframe": "month"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "timeframe_arg",
+        "difficulty": "medium",
+        "what_it_tests": "Trích xuất đúng timeframe='month' và topic='news' từ 'trong tháng này'."
+      }
+    },
+    {
+      "id": "G05_out_of_scope_coding",
+      "phase": "B",
+      "suite": "group",
+      "query": "Viết giúp mình hàm sắp xếp QuickSort bằng C++",
+      "failure_type": "out_of_scope",
+      "expect": {
+        "no_tool": true,
+        "behavior": "refuse"
+      },
+      "metadata": {
+        "skill": "out_of_scope_coding",
+        "difficulty": "easy",
+        "what_it_tests": "Yêu cầu viết code lập trình -> từ chối, không gọi tool research."
+      }
+    },
+    {
+      "id": "GM01_clarify_then_timeline",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Xem bài đăng mới nhất giùm mình"
+        },
+        {
+          "role": "user",
+          "content": "Của tài khoản Andrej Karpathy nhé"
+        },
+        {
+          "role": "user",
+          "content": "Lấy 2 bài thôi"
+        }
+      ],
+      "failure_type": "missing_info",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "timeline",
+            "args": {
+              "screenname": "karpathy",
+              "limit": 2
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "multiturn_clarify_fill",
+        "difficulty": "hard",
+        "what_it_tests": "Sau khi hỏi lại, trích xuất đúng handle karpathy và limit=2."
+      }
+    },
+    {
+      "id": "GM02_correction_search_topic",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Tìm tin tức AI hôm nay"
+        },
+        {
+          "role": "user",
+          "content": "À đổi sang tìm tin về Quantum Computing đi"
+        },
+        {
+          "role": "user",
+          "content": "Vẫn lấy tin tức hôm nay nhé"
+        }
+      ],
+      "failure_type": "wrong_arg_value",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "Quantum Computing",
+              "topic": "news",
+              "timeframe": "day"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "multiturn_correction",
+        "difficulty": "hard",
+        "what_it_tests": "Cập nhật query sang Quantum Computing nhưng kế thừa topic=news và timeframe=day."
+      }
+    },
+    {
+      "id": "GM03_switch_search_to_calc",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Doanh thu Apple năm nay là bao nhiêu?"
+        },
+        {
+          "role": "user",
+          "content": "Tiện tính luôn giúp mình 400 chia cho 5 bằng bao nhiêu"
+        }
+      ],
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "calculator",
+            "args": {
+              "expression": "400 / 5"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "multiturn_switch_tool",
+        "difficulty": "medium",
+        "what_it_tests": "Lượt sau đổi ý sang tính toán -> chuyển sang gọi tool calculator."
+      }
+    },
+    {
+      "id": "GM04_confirm_before_telegram_send",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Tóm tắt tin tức AI hôm nay"
+        },
+        {
+          "role": "user",
+          "content": "Được rồi, gửi bản tin này lên Telegram hộ mình ngay"
+        }
+      ],
+      "failure_type": "wrong_boundary",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "yes_no"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "confirm_before_send",
+        "difficulty": "hard",
+        "what_it_tests": "Yêu cầu gửi telegram -> phải hỏi xác nhận yes/no trước, không tự ý gửi."
+      }
+    },
+    {
+      "id": "GM05_out_of_scope_multiturn",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Tin công nghệ tuần này có gì?"
+        },
+        {
+          "role": "user",
+          "content": "Giờ viết giúp mình code game Flappy Bird bằng Python"
+        }
+      ],
+      "failure_type": "out_of_scope",
+      "expect": {
+        "no_tool": true,
+        "behavior": "refuse"
+      },
+      "metadata": {
+        "skill": "multiturn_out_of_scope",
+        "difficulty": "easy",
+        "what_it_tests": "Lượt sau yêu cầu lập trình ngoài phạm vi -> từ chối, không gọi tool."
+      }
+    }
+  ]
 }
