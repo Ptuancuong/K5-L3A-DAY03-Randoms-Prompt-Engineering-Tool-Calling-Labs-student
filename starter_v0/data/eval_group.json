@@ -2,6 +2,237 @@
   "dataset_id": "day04_v2_research_group",
   "dataset_role": "group",
   "description": "Case do NHÓM tự viết thêm để cover thêm trường hợp. Mỗi case cần: id, phase='B', query HOẶC turns, failure_type (thuộc allowed_failure_types), và expect (tool_calls[...] hoặc no_tool=true). Nên kèm metadata.what_it_tests.",
-  "allowed_failure_types": ["wrong_tool", "wrong_arg_value", "wrong_boundary", "unnecessary_tool", "out_of_scope", "missing_info"],
-  "cases": []
+  "allowed_failure_types": [
+    "wrong_tool",
+    "wrong_arg_value",
+    "wrong_boundary",
+    "unnecessary_tool",
+    "out_of_scope",
+    "missing_info"
+  ],
+  "cases": [
+    {
+      "id": "G01_wiki_concept_routing",
+      "phase": "B",
+      "suite": "group",
+      "query": "Giải thích giúp mình khái niệm Retrieval-augmented generation là gì?",
+      "failure_type": "wrong_tool",
+      "expect": { "tool_calls": [{ "name": "wiki", "args": {} }] },
+      "metadata": {
+        "skill": "routing_new_tool_wiki",
+        "difficulty": "medium",
+        "source": "new tool",
+        "what_it_tests": "Hỏi định nghĩa khái niệm → wiki, không phải lookup (web) và không trả lời từ trí nhớ."
+      }
+    },
+    {
+      "id": "G02_hn_routing_query",
+      "phase": "B",
+      "suite": "group",
+      "query": "Trên Hacker News dạo này mọi người bàn gì về Rust?",
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [{ "name": "hn_search", "args": { "query": "Rust" } }]
+      },
+      "metadata": {
+        "skill": "routing_new_tool_hn",
+        "difficulty": "easy",
+        "source": "new tool",
+        "what_it_tests": "Nhắc rõ Hacker News → hn_search với query ngắn 'Rust', không phải social_search/lookup."
+      }
+    },
+    {
+      "id": "G03_github_language_sort",
+      "phase": "B",
+      "suite": "group",
+      "query": "Tìm giúp mình các repo GitHub viết bằng Python về LLM agent, ưu tiên repo nhiều sao nhất",
+      "failure_type": "wrong_arg_value",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "github_search",
+            "args": { "language": "Python", "sort": "stars" }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "args_new_tool_github",
+        "difficulty": "medium",
+        "source": "new tool",
+        "what_it_tests": "Ngôn ngữ đưa vào arg language (không nhét vào query), 'nhiều sao' → sort=stars."
+      }
+    },
+    {
+      "id": "G04_hf_task_arg",
+      "phase": "B",
+      "suite": "group",
+      "query": "Model text-to-speech nào trên Hugging Face được tải nhiều nhất?",
+      "failure_type": "wrong_arg_value",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "hf_models",
+            "args": { "task": "text-to-speech", "sort": "downloads" }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "args_new_tool_hf",
+        "difficulty": "medium",
+        "source": "new tool",
+        "what_it_tests": "Tác vụ → task=text-to-speech (pipeline tag), 'tải nhiều' → sort=downloads."
+      }
+    },
+    {
+      "id": "G05_news_about_hf_is_lookup",
+      "phase": "B",
+      "suite": "group",
+      "query": "Tin tức về Hugging Face hôm nay có gì mới?",
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "Hugging Face",
+              "topic": "news",
+              "timeframe": "day"
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "boundary_new_tool_vs_lookup",
+        "difficulty": "hard",
+        "source": "v0 log (R03 query 'AI news') + new tool boundary",
+        "what_it_tests": "Tin tức VỀ Hugging Face → lookup news/day, KHÔNG phải hf_models; query chỉ là 'Hugging Face', không thêm 'tin tức/hôm nay'."
+      }
+    },
+    {
+      "id": "M_G06_confirm_then_send",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Đăng bản tin này lên Telegram giúp mình: 'Tóm tắt AI hôm nay: OpenAI ra mắt model mới.'"
+        },
+        {
+          "role": "assistant",
+          "content": "Bạn có xác nhận muốn đăng nội dung đó lên Telegram không?"
+        },
+        { "role": "user", "content": "Có, đăng đúng nội dung đó đi" }
+      ],
+      "failure_type": "wrong_boundary",
+      "expect": {
+        "tool_calls": [{ "name": "send", "args": { "confirmed": true } }]
+      },
+      "metadata": {
+        "skill": "send_after_confirmation",
+        "difficulty": "medium",
+        "source": "v0 log (R12 send without confirmation)",
+        "what_it_tests": "Sau khi user đã xác nhận 'Có' → gọi send với confirmed=true (không hỏi lại lần nữa). Lưu ý: eval chạy tool thật, chỉ gửi thật nếu .env có TELEGRAM_*."
+      }
+    },
+    {
+      "id": "M_G07_drop_source_persists",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Tìm tin AI trên web và cả tweet về AI nữa"
+        },
+        { "role": "user", "content": "Thôi bỏ phần Twitter đi" },
+        { "role": "user", "content": "Chỉ lấy tin hôm nay thôi" }
+      ],
+      "failure_type": "unnecessary_tool",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": { "query": "AI", "topic": "news", "timeframe": "day" }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "multiturn_drop_source",
+        "difficulty": "hard",
+        "source": "v2 log (M06 extra social_search after 'Bỏ Twitter')",
+        "what_it_tests": "Lượt 2 đã bỏ Twitter → lượt 3 chỉ gọi lookup, KHÔNG gọi thêm social_search."
+      }
+    },
+    {
+      "id": "M_G08_switch_web_to_hn",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        { "role": "user", "content": "Tin tức về Rust tuần này" },
+        { "role": "user", "content": "Chuyển sang xem trên Hacker News đi" },
+        { "role": "user", "content": "Vẫn chủ đề Rust nhé" }
+      ],
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [{ "name": "hn_search", "args": { "query": "Rust" } }]
+      },
+      "metadata": {
+        "skill": "multiturn_switch_to_new_tool",
+        "difficulty": "hard",
+        "source": "base M06 pattern + new tool",
+        "what_it_tests": "Đổi nguồn từ web sang Hacker News, giữ chủ đề Rust → chỉ hn_search, không gọi lookup."
+      }
+    },
+    {
+      "id": "M_G09_github_language_correction",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Tìm repo GitHub về vector database viết bằng Python"
+        },
+        { "role": "user", "content": "À nhầm, mình cần viết bằng Rust" },
+        { "role": "user", "content": "Ưu tiên repo nhiều sao" }
+      ],
+      "failure_type": "wrong_arg_value",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "github_search",
+            "args": { "language": "Rust", "sort": "stars" }
+          }
+        ]
+      },
+      "metadata": {
+        "skill": "multiturn_correction_new_tool",
+        "difficulty": "hard",
+        "source": "base M03 pattern + new tool",
+        "what_it_tests": "Sửa ngôn ngữ Python→Rust ở lượt 2, giữ ở lượt 3, sort=stars."
+      }
+    },
+    {
+      "id": "M_G10_clarify_then_wiki",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        { "role": "user", "content": "Giải thích khái niệm này giúp mình" },
+        {
+          "role": "assistant",
+          "content": "Bạn muốn mình giải thích khái niệm nào?"
+        },
+        {
+          "role": "user",
+          "content": "Khái niệm Transformer trong deep learning, lấy theo Wikipedia nhé"
+        }
+      ],
+      "failure_type": "missing_info",
+      "expect": { "tool_calls": [{ "name": "wiki", "args": {} }] },
+      "metadata": {
+        "skill": "multiturn_clarify_then_new_tool",
+        "difficulty": "medium",
+        "source": "base M04 pattern + new tool",
+        "what_it_tests": "Sau khi user bổ sung tên khái niệm → gọi wiki, không hỏi lại và không dùng lookup."
+      }
+    }
+  ]
 }

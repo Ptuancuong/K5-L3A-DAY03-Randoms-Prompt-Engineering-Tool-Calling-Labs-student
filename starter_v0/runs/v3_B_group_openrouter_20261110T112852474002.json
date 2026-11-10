@@ -1,0 +1,1095 @@
+{
+  "run_id": "v3_B_group_openrouter_20261110T112852474002",
+  "version": "v3",
+  "artifact_version": "v3+p76efdf4aa816+tc8e152203f1a",
+  "prompt_hash": "76efdf4aa816646a24db9dd0f4c9560ff8282bc3b5d1d7bb8c9108219ca31f1f",
+  "tools_hash": "c8e152203f1a0119f62989919b5685a2519311349e93cd4cf393214bc376e854",
+  "phase": "B",
+  "suite": "group",
+  "provider": "openrouter",
+  "model": "openai/gpt-4o-mini",
+  "system_prompt": "C:\\Users\\Admin\\Documents\\VinUni Lab1\\K5-L3A-DAY03-Randoms-Prompt-Engineering-Tool-Calling-Labs-student\\starter_v0\\artifacts\\system_prompt.md",
+  "tools": "C:\\Users\\Admin\\Documents\\VinUni Lab1\\K5-L3A-DAY03-Randoms-Prompt-Engineering-Tool-Calling-Labs-student\\starter_v0\\artifacts\\tools.yaml",
+  "eval_cases": "data\\eval_group.json",
+  "dataset_id": "day04_v2_research_group",
+  "dataset_role": "group",
+  "description": "Case do NHÓM tự viết thêm để cover thêm trường hợp. Mỗi case cần: id, phase='B', query HOẶC turns, failure_type (thuộc allowed_failure_types), và expect (tool_calls[...] hoặc no_tool=true). Nên kèm metadata.what_it_tests.",
+  "generated_at": "2026-11-10T11:28:52",
+  "summary": {
+    "total_cases": 10,
+    "measured_cases": 10,
+    "provider_error_cases": 0,
+    "passed_cases": 9,
+    "case_accuracy": 0.9,
+    "tool_routing_accuracy": 0.9,
+    "argument_accuracy": 0.9,
+    "multiturn_accuracy": 0.8,
+    "failure_counts": {
+      "unnecessary_tool": 1
+    },
+    "observed_mismatch_counts": {
+      "extra_tool_call": 1
+    }
+  },
+  "results": [
+    {
+      "id": "G01_wiki_concept_routing",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "routing_new_tool_wiki",
+        "difficulty": "medium",
+        "source": "new tool",
+        "what_it_tests": "Hỏi định nghĩa khái niệm → wiki, không phải lookup (web) và không trả lời từ trí nhớ."
+      },
+      "input": "Giải thích giúp mình khái niệm Retrieval-augmented generation là gì?",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "wiki",
+            "args": {}
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "wiki",
+            "args": {
+              "title": "Retrieval-augmented generation"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "wiki",
+          "args": {
+            "title": "Retrieval-augmented generation"
+          },
+          "result": {
+            "tool": "wiki",
+            "title": "Retrieval-augmented generation",
+            "lang": "en",
+            "is_disambiguation": false,
+            "items": [
+              {
+                "title": "Retrieval-augmented generation",
+                "url": "https://en.wikipedia.org/wiki/Retrieval-augmented_generation",
+                "source": "en.wikipedia.org",
+                "summary": "Retrieval-augmented generation (RAG) is a technique that enables large language models (LLMs) to retrieve and incorporate new information from external data sources. With RAG, LLMs first refer to a specified set of documents, then respond to user queries. These documents supplement information from the LLM's pre-existing training data. This allows LLMs to use domain-specific and/or updated information that is not available in the training data. For example, this enables LLM-based chatbots to access internal company data or generate responses based on authoritative sources. The technique was first proposed in 2020 and has since become a widely adopted approach in modern AI systems.",
+                "description": "Type of information retrieval using LLMs"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "G02_hn_routing_query",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "routing_new_tool_hn",
+        "difficulty": "easy",
+        "source": "new tool",
+        "what_it_tests": "Nhắc rõ Hacker News → hn_search với query ngắn 'Rust', không phải social_search/lookup."
+      },
+      "input": "Trên Hacker News dạo này mọi người bàn gì về Rust?",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "hn_search",
+            "args": {
+              "query": "Rust"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "hn_search",
+            "args": {
+              "query": "Rust",
+              "sort": "date",
+              "limit": 5
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "hn_search",
+          "args": {
+            "query": "Rust",
+            "sort": "date",
+            "limit": 5
+          },
+          "result": {
+            "tool": "hn_search",
+            "query": "Rust",
+            "sort": "date",
+            "items": [
+              {
+                "title": "CoderPad Reports a Security Breach",
+                "url": "https://news.ycombinator.com/item?id=50435929",
+                "source": "news.ycombinator.com",
+                "summary": "2 points, 0 comments on Hacker News",
+                "discussion_url": "https://news.ycombinator.com/item?id=50435929",
+                "date": "2026-11-10T04:05:15Z"
+              },
+              {
+                "title": "Australia to introduce mandatory incident reporting after OpenAI hack",
+                "url": "https://www.theguardian.com/technology/2026/nov/10/australia-manadatory-reporting-openai-medicare-hack",
+                "source": "theguardian.com",
+                "summary": "3 points, 1 comments on Hacker News",
+                "discussion_url": "https://news.ycombinator.com/item?id=50435725",
+                "date": "2026-11-10T03:31:12Z"
+              },
+              {
+                "title": "QNet: Post-quantum Layer-1 in Rust using native ML-DSA-65 signatures",
+                "url": "https://github.com/AIQnetLab/QNet-Blockchain",
+                "source": "github.com",
+                "summary": "1 points, 0 comments on Hacker News",
+                "discussion_url": "https://news.ycombinator.com/item?id=50435629",
+                "date": "2026-11-10T03:14:57Z"
+              },
+              {
+                "title": "Show HN: Kinsona – a hotel booking site that shows its cut on every booking",
+                "url": "https://kinsona.com/",
+                "source": "kinsona.com",
+                "summary": "1 points, 2 comments on Hacker News",
+                "discussion_url": "https://news.ycombinator.com/item?id=50435628",
+                "date": "2026-11-10T03:13:42Z"
+              },
+              {
+                "title": "Serc: CPython bytecode compiler written in Rust (2-4x speedup, Codex built)",
+                "url": "https://github.com/astral-experiments/serc",
+                "source": "github.com",
+                "summary": "2 points, 1 comments on Hacker News",
+                "discussion_url": "https://news.ycombinator.com/item?id=50435502",
+                "date": "2026-11-10T02:53:14Z"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "G03_github_language_sort",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "args_new_tool_github",
+        "difficulty": "medium",
+        "source": "new tool",
+        "what_it_tests": "Ngôn ngữ đưa vào arg language (không nhét vào query), 'nhiều sao' → sort=stars."
+      },
+      "input": "Tìm giúp mình các repo GitHub viết bằng Python về LLM agent, ưu tiên repo nhiều sao nhất",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "github_search",
+            "args": {
+              "language": "Python",
+              "sort": "stars"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "github_search",
+            "args": {
+              "query": "LLM agent",
+              "language": "Python",
+              "sort": "stars",
+              "limit": 5
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "github_search",
+          "args": {
+            "query": "LLM agent",
+            "language": "Python",
+            "sort": "stars",
+            "limit": 5
+          },
+          "result": {
+            "tool": "github_search",
+            "query": "LLM agent",
+            "language": "Python",
+            "sort": "stars",
+            "items": [
+              {
+                "title": "NousResearch/hermes-agent",
+                "url": "https://github.com/NousResearch/hermes-agent",
+                "source": "github.com",
+                "summary": "The agent that grows with you",
+                "stars": 262130,
+                "language": "Python",
+                "updated_at": "2026-11-10T04:19:49Z"
+              },
+              {
+                "title": "langgenius/dify",
+                "url": "https://github.com/langgenius/dify",
+                "source": "github.com",
+                "summary": "Build Agentic workflows, RAG pipelines, with rich AI model and tool support on one collaborative workspace. Deploy on cloud, VPC, or self-hosted, so teams move from prototype to production without rebuilding the stack.",
+                "stars": 160791,
+                "language": "Python",
+                "updated_at": "2026-11-10T04:27:54Z"
+              },
+              {
+                "title": "langchain-ai/langchain",
+                "url": "https://github.com/langchain-ai/langchain",
+                "source": "github.com",
+                "summary": "The agent engineering platform.",
+                "stars": 149288,
+                "language": "Python",
+                "updated_at": "2026-11-10T04:09:49Z"
+              },
+              {
+                "title": "Shubhamsaboo/awesome-llm-apps",
+                "url": "https://github.com/Shubhamsaboo/awesome-llm-apps",
+                "source": "github.com",
+                "summary": "100+ AI Agents, Agent Skills and RAG Apps - Free and Open Source.",
+                "stars": 144319,
+                "language": "Python",
+                "updated_at": "2026-11-10T04:17:12Z"
+              },
+              {
+                "title": "TauricResearch/TradingAgents",
+                "url": "https://github.com/TauricResearch/TradingAgents",
+                "source": "github.com",
+                "summary": "TradingAgents: Multi-Agents LLM Financial Trading Framework",
+                "stars": 121677,
+                "language": "Python",
+                "updated_at": "2026-11-10T04:27:04Z"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "G04_hf_task_arg",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "args_new_tool_hf",
+        "difficulty": "medium",
+        "source": "new tool",
+        "what_it_tests": "Tác vụ → task=text-to-speech (pipeline tag), 'tải nhiều' → sort=downloads."
+      },
+      "input": "Model text-to-speech nào trên Hugging Face được tải nhiều nhất?",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "hf_models",
+            "args": {
+              "task": "text-to-speech",
+              "sort": "downloads"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "hf_models",
+            "args": {
+              "task": "text-to-speech",
+              "sort": "downloads",
+              "limit": 5
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "hf_models",
+          "args": {
+            "task": "text-to-speech",
+            "sort": "downloads",
+            "limit": 5
+          },
+          "result": {
+            "tool": "hf_models",
+            "query": "",
+            "task": "text-to-speech",
+            "sort": "downloads",
+            "items": [
+              {
+                "title": "hexgrad/Kokoro-82M",
+                "url": "https://huggingface.co/hexgrad/Kokoro-82M",
+                "source": "huggingface.co",
+                "summary": "task=text-to-speech, downloads=12452361, likes=7390",
+                "task": "text-to-speech",
+                "downloads": 12452361,
+                "likes": 7390
+              },
+              {
+                "title": "audio-cpp/audio.cpp-gguf",
+                "url": "https://huggingface.co/audio-cpp/audio.cpp-gguf",
+                "source": "huggingface.co",
+                "summary": "task=text-to-speech, downloads=8890490, likes=309",
+                "task": "text-to-speech",
+                "downloads": 8890490,
+                "likes": 309
+              },
+              {
+                "title": "coqui/XTTS-v2",
+                "url": "https://huggingface.co/coqui/XTTS-v2",
+                "source": "huggingface.co",
+                "summary": "task=text-to-speech, downloads=5705837, likes=3953",
+                "task": "text-to-speech",
+                "downloads": 5705837,
+                "likes": 3953
+              },
+              {
+                "title": "k2-fsa/OmniVoice",
+                "url": "https://huggingface.co/k2-fsa/OmniVoice",
+                "source": "huggingface.co",
+                "summary": "task=text-to-speech, downloads=3545067, likes=1675",
+                "task": "text-to-speech",
+                "downloads": 3545067,
+                "likes": 1675
+              },
+              {
+                "title": "ResembleAI/chatterbox",
+                "url": "https://huggingface.co/ResembleAI/chatterbox",
+                "source": "huggingface.co",
+                "summary": "task=text-to-speech, downloads=2399737, likes=1905",
+                "task": "text-to-speech",
+                "downloads": 2399737,
+                "likes": 1905
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "G05_news_about_hf_is_lookup",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "skill": "boundary_new_tool_vs_lookup",
+        "difficulty": "hard",
+        "source": "v0 log (R03 query 'AI news') + new tool boundary",
+        "what_it_tests": "Tin tức VỀ Hugging Face → lookup news/day, KHÔNG phải hf_models; query chỉ là 'Hugging Face', không thêm 'tin tức/hôm nay'."
+      },
+      "input": "Tin tức về Hugging Face hôm nay có gì mới?",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "Hugging Face",
+              "topic": "news",
+              "timeframe": "day"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "Hugging Face",
+              "topic": "news",
+              "timeframe": "day"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "lookup",
+          "args": {
+            "query": "Hugging Face",
+            "topic": "news",
+            "timeframe": "day"
+          },
+          "result": {
+            "tool": "web_search",
+            "query": "Hugging Face",
+            "topic": "news",
+            "timeframe": "day",
+            "items": [
+              {
+                "title": "Hugging Face",
+                "url": "https://tavily.com/knowledge/company/4wx5ysq2JzlW",
+                "source": "tavily.com",
+                "summary": "# Hugging Face\nID: 4wx5ysq2JzlW\nWebsite: www.huggingface.co\nLegal name: Hugging Face, Inc.\nHeadquarters: Paris, FR\nLinkedIn: www.linkedin.com/company/huggingface · 1,289,827 followers\nIndustry: Software Development\nIndustry codes: SIC 73, 737, NAICS 54, 541\nCompany type: Privately Held\nFounded: 2016\nSocial profiles: www.facebook.com/huggingface, www.twitter.com/huggingface, www.crunchbase.com/organization/hugging-face, www.youtube.com/@huggingface, github.com/huggingface [...] Email: api-enterprise@huggingface.co.\nPhone: 1-617-832-1731\nDescription: Hugging Face is an AI community that aims to advance and democratize artificial intelligence through open source and open science. [...] Clement Benoit, Terrence Rohan, betaworks, The Chernin Group",
+                "score": 0.8947989
+              },
+              {
+                "title": "Qai, Hugging Face partner to nurture Qatar AI talent via inaugural hackathon - Gulf Times",
+                "url": "https://www.gulf-times.com/article/737852/business/qai-hugging-face-partner-to-nurture-qatar-ai-talent-via-inaugural-hackathon",
+                "source": "gulf-times.com",
+                "summary": "Winners of Qai’s first hackathon event, co-hosted with Hugging Face.\n\nQai, a global technology company headquartered in Qatar, and Hugging Face, a leading technology platform and community for AI, have hosted Qai’s first hackathon event, bringing together over 140 engineers, students and researchers from across Doha’s technology community. [...] Sayak Paul, senior researcher at Hugging Face said: “We're very excited to be in this part of the world for the very first time to do an event. From day one, we have been seeing and feeling the energy from the participants, which is exactly what we anticipated. Hopefully, this is the start of something collaborative and meaningful. We're grateful to the Qai team for working with us to make this happen. We'll hopefully be back for more.” [...] Participants were supported throughout the weekend with technical workshops and mentoring from Qai and Hugging Face engineers. On the final day, teams pitched their projects to a panel of judges from both organisations. Final projects spanned healthcare, nutrition, Arabic language, environment, cybersecurity, and drone technology.",
+                "score": 0.72395444
+              },
+              {
+                "title": "Tencent's AI chief says AI bioweapons are coming, but closing off models isn't the answer",
+                "url": "https://the-decoder.com/tencents-ai-chief-says-ai-bioweapons-are-coming-but-closing-off-models-isnt-the-answer",
+                "source": "the-decoder.com",
+                "summary": "The Hugging Face report backs up Yao's example but also shows its limits. GLM-5.2 was only used during the forensic analysis. The actual attack was stopped when the security team patched the exploited vulnerability, rebuilt affected servers, and rotated credentials. Hugging Face also stressed that the incident isn't an argument against safety filters on hosted models.",
+                "score": 0.6654328
+              },
+              {
+                "title": "Urbyte tests KƎƎLO on OpenAI, Anthropic & Hugging Face",
+                "url": "https://securitybrief.com.au/story/urbyte-tests-k-lo-on-openai-anthropic-hugging-face",
+                "source": "securitybrief.com.au",
+                "summary": "The third scenario focused on a reported Hugging Face security incident involving an autonomous agent and compromised credentials. Urbyte said an agent credential tried to cross into another tenant's resource boundary and obtain administrative permission beyond its assigned scope. Both requests were denied, and a later attempt after revocation was rejected with the recorded decision GRANT\\_INACTIVE.\n\nExecution boundary [...] In the scenario based on the reported OpenAI Medicare statistics portal incident, an agent authorised for public research attempted to access a restricted resource and send an action to an unapproved external destination. Both requests were denied before the provider was invoked, while an authorised research action proceeded and generated a receipt that was reused when the same action was delivered again. [...] Urbyte describes KƎƎLO as an Executive Operating System intended to connect organisational objectives, governance, automation and controlled execution. The architecture includes components known as Director and Forge, along with persistent state management and an operating cycle of Detect, Verify, Govern, Act, Measure, Reduce and Prevent.",
+                "score": 0.6496014
+              },
+              {
+                "title": "When AI goes rogue, who should keep it in check? - Harvard Law School | Harvard Law School",
+                "url": "https://hls.harvard.edu/today/when-ai-goes-rogue-who-should-keep-it-in-check",
+                "source": "hls.harvard.edu",
+                "summary": "One of the key reasons for Hadfield and Ramakrishnan’s growing anxiety: a July 2026 cyberattack by rogue AI agents on Hugging Face, a platform that hosts open-source AI models and datasets. [...] “The thing that I think actually disturbs me the most about the Hugging Face incident is that there’s a lot of evidence that at least at various points, the agents know what they’re doing is wrong. They say, ‘Oh, this is against our instructions, or would contravene ethical norms, but there is no other way to do what we’re trying to do,’” he said. [...] This behavior is sometimes called “reward hacking,” Ramakrishnan said. With the Hugging Face attack, he added, “This is the first big incident where I think you have, I wouldn’t say unambiguous, but really quite strong evidence of this phenomenon.”\n\nWhile Ramakrishnan was careful to say that he believed that “some of the upsides [of AI] could be very large” — discovering a cure for cancer, for example — he also saw a looming question about human purpose.",
+                "score": 0.56431514
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "M_G06_confirm_then_send",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "send_after_confirmation",
+        "difficulty": "medium",
+        "source": "v0 log (R12 send without confirmation)",
+        "what_it_tests": "Sau khi user đã xác nhận 'Có' → gọi send với confirmed=true (không hỏi lại lần nữa). Lưu ý: eval chạy tool thật, chỉ gửi thật nếu .env có TELEGRAM_*."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Đăng bản tin này lên Telegram giúp mình: 'Tóm tắt AI hôm nay: OpenAI ra mắt model mới.'"
+        },
+        {
+          "role": "assistant",
+          "content": "Bạn có xác nhận muốn đăng nội dung đó lên Telegram không?"
+        },
+        {
+          "role": "user",
+          "content": "Có, đăng đúng nội dung đó đi"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "send",
+            "args": {
+              "confirmed": true
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "send",
+            "args": {
+              "text": "Tóm tắt AI hôm nay: OpenAI ra mắt model mới.",
+              "confirmed": true
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_boundary",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "send",
+          "args": {
+            "text": "Tóm tắt AI hôm nay: OpenAI ra mắt model mới.",
+            "confirmed": true
+          },
+          "result": {
+            "tool": "send_telegram",
+            "error": "RuntimeError",
+            "message": "Missing TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID env var"
+          }
+        }
+      ]
+    },
+    {
+      "id": "M_G07_drop_source_persists",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "multiturn_drop_source",
+        "difficulty": "hard",
+        "source": "v2 log (M06 extra social_search after 'Bỏ Twitter')",
+        "what_it_tests": "Lượt 2 đã bỏ Twitter → lượt 3 chỉ gọi lookup, KHÔNG gọi thêm social_search."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tìm tin AI trên web và cả tweet về AI nữa"
+        },
+        {
+          "role": "user",
+          "content": "Thôi bỏ phần Twitter đi"
+        },
+        {
+          "role": "user",
+          "content": "Chỉ lấy tin hôm nay thôi"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "AI",
+              "topic": "news",
+              "timeframe": "day"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": false,
+        "routing_correct": false,
+        "args_correct": false,
+        "actual_tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "query": "AI",
+              "topic": "news",
+              "timeframe": "day"
+            }
+          },
+          {
+            "name": "social_search",
+            "args": {
+              "query": "AI",
+              "search_type": "Latest",
+              "limit": 5
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "unnecessary_tool",
+        "observed_mismatch": "extra_tool_call",
+        "failure_type": "unnecessary_tool",
+        "failures": [
+          "extra tool call social_search"
+        ]
+      },
+      "tool_results": [
+        {
+          "tool": "lookup",
+          "args": {
+            "query": "AI",
+            "topic": "news",
+            "timeframe": "day"
+          },
+          "result": {
+            "tool": "web_search",
+            "query": "AI",
+            "topic": "news",
+            "timeframe": "day",
+            "items": [
+              {
+                "title": "Recent Advances in AI Are Creating a ‘Paradigm Shift’ for Robotics | Research UC Berkeley",
+                "url": "https://vcresearch.berkeley.edu/news/recent-advances-ai-are-creating-paradigm-shift-robotics",
+                "source": "vcresearch.berkeley.edu",
+                "summary": "In recent months, artificial intelligence agents that can reason, plan and use external tools to accomplish multistep tasks have already reshaped computer coding, online shopping, dinner reservations and cyberattacks.\n\nRobotics might be next.\n\nKen Goldberg, a UC Berkeley roboticist and professor of engineering, said new models make it possible for teams of AI agents to develop robot-control programs, test them in simulated environments and revise the code when something doesn’t work. [...] Then, AI agents generate and connect these skills into a robot program. Using NVIDIA’s Isaac simulation libraries, the agents autonomously rehearse the program across task variations, identify where failures happen and refine the approach before deployment. [...] OpenAI’s recent release of its Astra model made the process even more promising, Goldberg said. His postdoctoral students Eric Kaiyuan Chen and Shuangyu Xie gave Astra access to their simulation interface and a short video of a real robot whose assignment was using a sponge to wipe ink off a metal bar. In less than an hour, the AI tool created and fine-tuned a physics simulation that accurately reproduced the video, including very realistic deformations of the sponge.",
+                "score": 0.29827207
+              },
+              {
+                "title": "Meta introduces Muse Ember to power cost-efficient AI agents - SiliconANGLE",
+                "url": "https://siliconangle.com/2026/11/09/meta-introduces-muse-ember-to-power-cost-efficient-ai-agents",
+                "source": "siliconangle.com",
+                "summary": "Anthropic launches Fable 5.2 and Mythos 5.2 with science, coding upgrades\n\n  AI - BY MARIA DEUTSCHER . 2 HOURS AGO\n Trump stands by Nvidia boss Jensen Huang despite spy scandal, but FBI is investigating\n\n  POLICY - BY MIKE WHEATLEY . 2 HOURS AGO\n Alphabet’s Wing to invest $125M in new delivery drone factory\n\n  EMERGING TECH - BY MARIA DEUTSCHER . 4 HOURS AGO\n Cisco research: Trust, not technology, is now the speed limit on enterprise AI [...] Anthropic launches Fable 5.2 and Mythos 5.2 with science, coding upgrades\n Trump stands by Nvidia boss Jensen Huang despite spy scandal, but FBI is investigating\n IBM builds on hybrid cloud and governance to advance its enterprise AI operating model\n Alphabet’s Wing to invest $125M in new delivery drone factory\n Cisco research: Trust, not technology, is now the speed limit on enterprise AI\n On theCUBE Pod: Blue wave sends AI stock plunging\n\n##### LATEST STORIES [...] One possibility is that the company used it to perform post-training, the task of honing a model’s capabilities by training it on additional data. Thinking Machines Labs Inc. recently demonstrated that even a relatively small LLM can run post-training runs end-to-end. Anthropic PBC, for its part, last week revealed that its AI models could soon gain the ability to significantly accelerate machine learning research.",
+                "score": 0.26130545
+              },
+              {
+                "title": "Live online certificate brings AI expertise to finance professionals | Cornell Chronicle",
+                "url": "https://news.cornell.edu/stories/2026/11/live-online-certificate-brings-ai-expertise-finance-professionals",
+                "source": "news.cornell.edu",
+                "summary": "That philosophy is reflected in the curriculum, which progresses from AI foundations and tools to financial use cases, responsible AI, industry applications and leadership. Participants examine applications including investment research, credit risk, fraud detection, compliance, client engagement and operational efficiency, while also considering issues such as hallucinations, data security, regulation and governance. The program concludes by asking participants to identify opportunities for AI [...] The AI in Finance certificate, offered through eCornell as a collaboration between the Cornell Duffield College of Engineering and the Cornell SC Johnson College of Business, debuted in spring 2026 with 37 participants. Unlike many online certificate programs built primarily around prerecorded material, the program is taught live online, allowing participants to interact directly with Cornell faculty and industry practitioners. [...] Averbukh, who is also a professor of practice in the School of Operations Research and Information Engineering, said conversations with those practitioners increasingly turned toward artificial intelligence – first big data and predictive analytics, then machine learning and, more recently, generative and agentic AI.",
+                "score": 0.22764139
+              },
+              {
+                "title": "Google AI policy forces decision for San Diego schools – NBC 7 San Diego",
+                "url": "https://www.nbcsandiego.com/news/local/googles-ai-ultimatum-forces-san-diego-schools-make-tough-choice/4099437",
+                "source": "nbcsandiego.com",
+                "summary": "As districts consider their options, students are already seeing artificial intelligence become a more common part of everyday learning.\n\n“I feel like I see a lot of people using AI now,” said Delilah Ortiz, a student at El Camino High School.\n\nSome students believe the focus should be on establishing guidelines for AI use rather than banning the technology entirely. [...] San Diego County school districts face a January deadline to decide whether to opt in to Google's artificial intelligence features or lose access to the company's search engine, forcing educators to weigh the benefits of AI against concerns about student access to the technology. [...] Google plans to disable a range of AI-powered features, including Gemini, Gemini Notebook and Search in January to give school districts more control over the technology students can access. However, districts that want to continue using Google Search will have to opt in to the AI features.\n\nStream San Diego News for free, 24/7, wherever you are with NBC 7.\n\nWatch button  WATCH HERE",
+                "score": 0.202917
+              },
+              {
+                "title": "Military-made AI tool helped thwart World Cup bomb threat - Federal News Network",
+                "url": "https://federalnewsnetwork.com/artificial-intelligence/2026/11/military-made-ai-tool-helped-thwart-world-cup-bomb-threat",
+                "source": "federalnewsnetwork.com",
+                "summary": "The 2026 World Cup brought more than six million spectators from around the world to more than 100 matches in 16 host cities in the U.S., Canada and Mexico over the course of two months, prompting a massive interagency effort to secure those sites using technologies like AI and drones. Two people were charged in connection with another bomb threat against FIFA during a World Cup match at MetLife Stadium in New Jersey. [...] A military-made artificial intelligence tool helped law enforcement thwart a bomb threat at the FIFA World Cup in California this summer.\n\nThe previously undisclosed incident occurred June 18, when Switzerland faced Bosnia and Herzegovina at SoFi Stadium outside Los Angeles, Army Capt. Ryan Hetrick, who leads the Pentagon’s Generative AI Task Force, said Nov. 6 at an AI event in Washington. [...] Hetrick has become one of the military’s biggest — and busiest — evangelists for AI. The GenAI Task Force travels around the globe to sit down with troops on operations floors and in the field and find AI fixes for their most pressing problems.",
+                "score": 0.19305643
+              }
+            ]
+          }
+        },
+        {
+          "tool": "social_search",
+          "args": {
+            "query": "AI",
+            "search_type": "Latest",
+            "limit": 5
+          },
+          "result": {
+            "tool": "search_tweets",
+            "query": "AI",
+            "search_type": "Latest",
+            "items": [
+              {
+                "title": "@c2wanning AI NAO TINHA VISTO VSFFF parecendo um frango",
+                "summary": "@c2wanning AI NAO TINHA VISTO VSFFF parecendo um frango",
+                "url": "https://x.com/isiezz_/status/2120010736705396991",
+                "source": "@isiezz_",
+                "date": "Tue Nov 10 04:28:42 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 0,
+                  "views": null
+                }
+              },
+              {
+                "title": "第二班到站了 🚄",
+                "summary": "第二班到站了 🚄\n— .ai Agent 钱包铸造 SAGENT，$2.99/份\n— 72 小时未满可退款\n— CA：0x5ebD2D81C864d1681F018D919106FAcA728126e9（代币合约无 owner）\n我的上车链接：https://t.co/RE8P6ICQj1",
+                "url": "https://x.com/fulin51252085/status/2120010736269422726",
+                "source": "@fulin51252085",
+                "date": "Tue Nov 10 04:28:42 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 0,
+                  "views": null
+                }
+              },
+              {
+                "title": "After testing FAN SZN by @IPXExchange here’s exactly what drives Aura:",
+                "summary": "After testing FAN SZN by @IPXExchange here’s exactly what drives Aura:\n\n1. Daily streak is the biggest multiplier  \nStarts at 2.0x and climbs toward 2.9x. It multiplies every content score, so protecting the streak matters more than posting heavily on a single day.\n\n2. Alfred AI rewards useful content  \nClear, practical breakdowns of how the system works score higher than pure promo. Structured explanations consistently land in the upper range.\n\n3. Plus-Ones only count with real activity  \nAura is given when invited people complete the Fan Check and build a streak — not just when they join.\n\n4. Follower count has limited impact  \nIt mainly affects starting Social Aura. After that, contribution drives ranking more than audience size.\n\nI’m in Afrobeats Nation and currently focusing on streak consistency + clear explanations. This approach has produced the best scores so far.\n\nLeaderboard closes November 15.\n\n#FANSZN @IPXExchange",
+                "url": "https://x.com/Imshoaib55/status/2120010735992418754",
+                "source": "@Imshoaib55",
+                "date": "Tue Nov 10 04:28:42 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 0,
+                  "views": null
+                }
+              },
+              {
+                "title": "@CharlyMatt L'AI diventa insopportabile quando si leggono gli annunci delle agenzie immobiliari. Create da AI con frasi ",
+                "summary": "@CharlyMatt L'AI diventa insopportabile quando si leggono gli annunci delle agenzie immobiliari. Create da AI con frasi irritanti: \"Qui l'unico vicino rumoroso è il vento tra le colline 📷📷\"",
+                "url": "https://x.com/salva_savior/status/2120010735275343937",
+                "source": "@salva_savior",
+                "date": "Tue Nov 10 04:28:41 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 0,
+                  "views": null
+                }
+              },
+              {
+                "title": "This grandma is AI. Could you tell? 👀",
+                "summary": "This grandma is AI. Could you tell? 👀\nHer TikTok account reportedly did $90K in a month.\n\nBreaking down AI accounts winning on US TikTok.\n\nToday: gigi_shopfinds\n\nThe interesting part isn’t just how real she looks. It’s how memorable she is.\n\nHere’s why the character works:\n\n1. The silver hair is the signature.\nYou recognize her instantly. That’s a huge advantage in a feed full of interchangeable AI faces.\n\n2. Her style creates the contrast.\nShe’s older and effortlessly stylish. Clothes and sunglasses feel like natural extensions of her personality.\n\n3. She says exactly what she thinks.\nThat blunt, confident attitude gives you a reason to keep watching. Main-character energy doesn’t have an age limit.\n\nThe takeaway: give your AI character a recognizable look and a point of view.\n\nA lot of creators choose a face and skip the personality.\n\nBut people come back for the character. The products need to fit into her world.\n\nWant to create your own version? Use Clipcat to recreate the format with your own character and products.\n\n#TikTokMarketing #clipcat #aivideo #tiktok #ai",
+                "url": "https://x.com/Jackaitk/status/2120010731999691060",
+                "source": "@Jackaitk",
+                "date": "Tue Nov 10 04:28:41 +0000 2026",
+                "metrics": {
+                  "favorites": 0,
+                  "retweets": 0,
+                  "views": null
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "M_G08_switch_web_to_hn",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "multiturn_switch_to_new_tool",
+        "difficulty": "hard",
+        "source": "base M06 pattern + new tool",
+        "what_it_tests": "Đổi nguồn từ web sang Hacker News, giữ chủ đề Rust → chỉ hn_search, không gọi lookup."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tin tức về Rust tuần này"
+        },
+        {
+          "role": "user",
+          "content": "Chuyển sang xem trên Hacker News đi"
+        },
+        {
+          "role": "user",
+          "content": "Vẫn chủ đề Rust nhé"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "hn_search",
+            "args": {
+              "query": "Rust"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "hn_search",
+            "args": {
+              "query": "Rust",
+              "sort": "date",
+              "limit": 5
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "hn_search",
+          "args": {
+            "query": "Rust",
+            "sort": "date",
+            "limit": 5
+          },
+          "result": {
+            "tool": "hn_search",
+            "query": "Rust",
+            "sort": "date",
+            "items": [
+              {
+                "title": "CoderPad Reports a Security Breach",
+                "url": "https://news.ycombinator.com/item?id=50435929",
+                "source": "news.ycombinator.com",
+                "summary": "2 points, 0 comments on Hacker News",
+                "discussion_url": "https://news.ycombinator.com/item?id=50435929",
+                "date": "2026-11-10T04:05:15Z"
+              },
+              {
+                "title": "Australia to introduce mandatory incident reporting after OpenAI hack",
+                "url": "https://www.theguardian.com/technology/2026/nov/10/australia-manadatory-reporting-openai-medicare-hack",
+                "source": "theguardian.com",
+                "summary": "3 points, 1 comments on Hacker News",
+                "discussion_url": "https://news.ycombinator.com/item?id=50435725",
+                "date": "2026-11-10T03:31:12Z"
+              },
+              {
+                "title": "QNet: Post-quantum Layer-1 in Rust using native ML-DSA-65 signatures",
+                "url": "https://github.com/AIQnetLab/QNet-Blockchain",
+                "source": "github.com",
+                "summary": "1 points, 0 comments on Hacker News",
+                "discussion_url": "https://news.ycombinator.com/item?id=50435629",
+                "date": "2026-11-10T03:14:57Z"
+              },
+              {
+                "title": "Show HN: Kinsona – a hotel booking site that shows its cut on every booking",
+                "url": "https://kinsona.com/",
+                "source": "kinsona.com",
+                "summary": "1 points, 2 comments on Hacker News",
+                "discussion_url": "https://news.ycombinator.com/item?id=50435628",
+                "date": "2026-11-10T03:13:42Z"
+              },
+              {
+                "title": "Serc: CPython bytecode compiler written in Rust (2-4x speedup, Codex built)",
+                "url": "https://github.com/astral-experiments/serc",
+                "source": "github.com",
+                "summary": "2 points, 1 comments on Hacker News",
+                "discussion_url": "https://news.ycombinator.com/item?id=50435502",
+                "date": "2026-11-10T02:53:14Z"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "M_G09_github_language_correction",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "multiturn_correction_new_tool",
+        "difficulty": "hard",
+        "source": "base M03 pattern + new tool",
+        "what_it_tests": "Sửa ngôn ngữ Python→Rust ở lượt 2, giữ ở lượt 3, sort=stars."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tìm repo GitHub về vector database viết bằng Python"
+        },
+        {
+          "role": "user",
+          "content": "À nhầm, mình cần viết bằng Rust"
+        },
+        {
+          "role": "user",
+          "content": "Ưu tiên repo nhiều sao"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "github_search",
+            "args": {
+              "language": "Rust",
+              "sort": "stars"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "github_search",
+            "args": {
+              "query": "vector database",
+              "language": "Rust",
+              "sort": "stars"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "github_search",
+          "args": {
+            "query": "vector database",
+            "language": "Rust",
+            "sort": "stars"
+          },
+          "result": {
+            "tool": "github_search",
+            "query": "vector database",
+            "language": "Rust",
+            "sort": "stars",
+            "items": [
+              {
+                "title": "qdrant/qdrant",
+                "url": "https://github.com/qdrant/qdrant",
+                "source": "github.com",
+                "summary": "Qdrant - High-performance, massive-scale Vector Database and Vector Search Engine for the next generation of AI. Also available in the cloud https://cloud.qdrant.io/",
+                "stars": 35489,
+                "language": "Rust",
+                "updated_at": "2026-11-10T01:43:03Z"
+              },
+              {
+                "title": "xerj-org/xerj",
+                "url": "https://github.com/xerj-org/xerj",
+                "source": "github.com",
+                "summary": "AI search engine and MCP server for bots and agents. One Rust binary indexes code, docs, logs, JSONL/CSV and PDFs for BM25 full-text, vector and hybrid search, code search without grep, agent memory and RAG. Elasticsearch-compatible API; Corpus Hub serves hundreds of reference memory corpora.",
+                "stars": 18688,
+                "language": "Rust",
+                "updated_at": "2026-11-10T03:58:26Z"
+              },
+              {
+                "title": "HelixDB/helix-db",
+                "url": "https://github.com/HelixDB/helix-db",
+                "source": "github.com",
+                "summary": "HelixDB is an OLTP graph database with native vector and full-text search built in Rust on Object Storage.",
+                "stars": 6279,
+                "language": "Rust",
+                "updated_at": "2026-11-10T01:19:45Z"
+              },
+              {
+                "title": "cozodb/cozo",
+                "url": "https://github.com/cozodb/cozo",
+                "source": "github.com",
+                "summary": "A transactional, relational-graph-vector database that uses Datalog for query. The hippocampus for AI!",
+                "stars": 4145,
+                "language": "Rust",
+                "updated_at": "2026-11-08T07:40:54Z"
+              },
+              {
+                "title": "tensorchord/pgvecto.rs",
+                "url": "https://github.com/tensorchord/pgvecto.rs",
+                "source": "github.com",
+                "summary": "Scalable, Low-latency and Hybrid-enabled Vector Search in Postgres. Revolutionize Vector Search, not Database.",
+                "stars": 2191,
+                "language": "Rust",
+                "updated_at": "2026-10-27T15:31:56Z"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "M_G10_clarify_then_wiki",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "skill": "multiturn_clarify_then_new_tool",
+        "difficulty": "medium",
+        "source": "base M04 pattern + new tool",
+        "what_it_tests": "Sau khi user bổ sung tên khái niệm → gọi wiki, không hỏi lại và không dùng lookup."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Giải thích khái niệm này giúp mình"
+        },
+        {
+          "role": "assistant",
+          "content": "Bạn muốn mình giải thích khái niệm nào?"
+        },
+        {
+          "role": "user",
+          "content": "Khái niệm Transformer trong deep learning, lấy theo Wikipedia nhé"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "wiki",
+            "args": {}
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "wiki",
+            "args": {
+              "title": "Transformer (deep learning)"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "missing_info",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "wiki",
+          "args": {
+            "title": "Transformer (deep learning)"
+          },
+          "result": {
+            "tool": "wiki",
+            "title": "Transformer (deep learning)",
+            "lang": "en",
+            "is_disambiguation": false,
+            "items": [
+              {
+                "title": "Transformer (deep learning)",
+                "url": "https://en.wikipedia.org/wiki/Transformer_(deep_learning)",
+                "source": "en.wikipedia.org",
+                "summary": "In deep learning, the transformer is a family of artificial neural network architectures based on the multi-head attention mechanism, in which input data such as text, images, or audio is converted to a sequence of numerical representations called tokens, and each token is converted into a vector through an embedding layer. At each layer, each token is then contextualized within the scope of the context window with other (unmasked) tokens via a parallel multi-head attention mechanism, allowing the signal for key tokens to be amplified and less important tokens to be diminished. Because self-attention alone is permutation-invariant, transformers inject positional information, typically through positional encodings or learned positional embeddings, so token order can affect the output.",
+                "description": "Algorithm for modelling sequential data"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
