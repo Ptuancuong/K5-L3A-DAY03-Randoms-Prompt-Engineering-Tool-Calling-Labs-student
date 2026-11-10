@@ -1,0 +1,305 @@
+{
+  "G01_wiki_person": [
+    {
+      "user": "Andrej Karpathy là ai?",
+      "status": "answered",
+      "calls": [
+        {
+          "name": "wiki",
+          "args": {
+            "title": "Andrej Karpathy"
+          },
+          "result": "1 items"
+        }
+      ],
+      "answer": "Andrej Karpathy là một nhà nghiên cứu AI người Slovakia-Canada, người đã đồng sáng lập và từng làm việc tại OpenAI, nơi ông chuyên về học sâu và thị giác máy tính. Ông cũng đã làm giám đốc trí tuệ nhâ"
+    }
+  ],
+  "G02_news_not_wiki": [
+    {
+      "user": "Tin mới nhất về OpenAI trong tuần này",
+      "status": "answered",
+      "calls": [
+        {
+          "name": "lookup",
+          "args": {
+            "query": "OpenAI",
+            "topic": "news",
+            "timeframe": "week"
+          },
+          "result": "5 items"
+        }
+      ],
+      "answer": "Here are the latest news articles about OpenAI from this week:\n\n1. **[OpenAI](https://tavily.com/knowledge/company/p4PyTakV77G9)**  \n   Source: tavily.com  \n   Summary: OpenAI is a company focused on "
+    }
+  ],
+  "G03_company_policy": [
+    {
+      "user": "Theo quy định của công ty, mình có được trích dẫn một tweet như nguồn đã xác minh không?",
+      "status": "answered",
+      "calls": [
+        {
+          "name": "policy",
+          "args": {
+            "query": "trích dẫn tweet",
+            "policy_area": "source_citation"
+          },
+          "result": "3 items"
+        }
+      ],
+      "answer": "Theo quy định của công ty, bạn có thể trích dẫn một tweet, nhưng cần lưu ý rằng nó thuộc Tier 3 trong chính sách trích dẫn nguồn. Dưới đây là một số điểm quan trọng từ chính sách:\n\n- **Tier 3**: Bao g"
+    }
+  ],
+  "G04_thanks_no_tool": [
+    {
+      "user": "Cảm ơn bạn nhiều nhé!",
+      "status": "answered",
+      "calls": [],
+      "answer": "Không có gì! Nếu bạn cần thêm thông tin hay hỗ trợ gì khác, hãy cho tôi biết nhé!"
+    }
+  ],
+  "G05_top_tweets_with_limit": [
+    {
+      "user": "Cho mình 7 tweet nổi bật nhất về Claude",
+      "status": "answered",
+      "calls": [
+        {
+          "name": "social_search",
+          "args": {
+            "query": "Claude",
+            "search_type": "Top",
+            "limit": 7
+          },
+          "result": "7 items"
+        }
+      ],
+      "answer": "Here are the 7 most notable tweets about Claude:\n\n1. **Elon Musk on Claude Agents**  \n   \"Anyone not running a swarm of agents by the end of 2026 will look like someone who refused to use email in 199"
+    }
+  ],
+  "GM01_wiki_switch_language": [
+    {
+      "user": "Transformer trong AI là gì?",
+      "status": "answered",
+      "calls": [
+        {
+          "name": "wiki",
+          "args": {
+            "title": "Transformer (deep learning)",
+            "lang": "vi"
+          },
+          "result": "0 items"
+        }
+      ],
+      "answer": "Có vẻ như không có bài viết nào trên Wikipedia tiếng Việt về \"Transformer (deep learning)\". Tuy nhiên, tôi có thể cung cấp một số thông tin cơ bản về Transformer trong AI:\n\nTransformer là một kiến trú"
+    },
+    {
+      "user": "Tìm nguồn tiếng Anh giúp mình",
+      "status": "answered",
+      "calls": [
+        {
+          "name": "wiki",
+          "args": {
+            "title": "Transformer (deep learning)",
+            "lang": "en"
+          },
+          "result": "1 items"
+        }
+      ],
+      "answer": "Bạn có thể tìm hiểu về Transformer trong AI qua bài viết trên Wikipedia tiếng Anh tại đây: [Transformer (deep learning)](https://en.wikipedia.org/wiki/Transformer_(deep_learning)).\n\nTóm tắt nội dung b"
+    },
+    {
+      "user": "Vẫn chủ đề Transformer đó nhé",
+      "status": "answered",
+      "calls": [
+        {
+          "name": "lookup",
+          "args": {
+            "query": "Transformer",
+            "topic": "general",
+            "timeframe": "week",
+            "max_results": 5
+          },
+          "result": "5 items"
+        },
+        {
+          "name": "social_search",
+          "args": {
+            "query": "Transformer",
+            "limit": 5
+          },
+          "result": "5 items"
+        }
+      ],
+      "answer": "Dưới đây là một số nguồn tiếng Anh về Transformer trong AI:\n\n1. **[What is a transformer in AI? | Harvard Chan School](https://hsph.harvard.edu/advanced-learning-academy/news/transformer)**  \n   Bài v"
+    }
+  ],
+  "GM02_send_after_confirm": [
+    {
+      "user": "Đăng lên Telegram câu này: 'Bản tin AI hôm nay đã sẵn sàng'",
+      "status": "waiting_for_user",
+      "calls": [
+        {
+          "name": "clarify",
+          "args": {
+            "question": "Bạn có chắc chắn muốn đăng câu này lên Telegram không?",
+            "response_type": "yes_no"
+          },
+          "result": "0 items"
+        }
+      ],
+      "answer": "Bạn có chắc chắn muốn đăng câu này lên Telegram không?"
+    },
+    {
+      "user": "Đúng nội dung đó",
+      "status": "answered",
+      "calls": [
+        {
+          "name": "send",
+          "args": {
+            "text": "Bản tin AI hôm nay đã sẵn sàng",
+            "confirmed": true
+          },
+          "result": "RuntimeError"
+        }
+      ],
+      "answer": "Có vẻ như tôi không thể đăng câu đó lên Telegram do thiếu thông tin cần thiết. Nếu bạn có thể cung cấp mã thông báo bot Telegram và ID chat, tôi có thể thực hiện việc này."
+    },
+    {
+      "user": "Có, mình xác nhận gửi",
+      "status": "answered",
+      "calls": [
+        {
+          "name": "send",
+          "args": {
+            "text": "Bản tin AI hôm nay đã sẵn sàng",
+            "confirmed": true
+          },
+          "result": "RuntimeError"
+        }
+      ],
+      "answer": "Có vẻ như tôi không thể gửi tin nhắn lên Telegram do thiếu thông tin cần thiết về mã thông báo bot và ID chat. Bạn có thể cung cấp thông tin đó không?"
+    }
+  ],
+  "GM03_cancel_send": [
+    {
+      "user": "Gửi bản tin này lên Telegram giúp mình",
+      "status": "waiting_for_user",
+      "calls": [
+        {
+          "name": "clarify",
+          "args": {
+            "question": "Bạn muốn gửi nội dung gì lên Telegram?",
+            "response_type": "text"
+          },
+          "result": "0 items"
+        }
+      ],
+      "answer": "Bạn muốn gửi nội dung gì lên Telegram?"
+    },
+    {
+      "user": "Khoan đã",
+      "status": "answered",
+      "calls": [],
+      "answer": "Không sao, bạn có thể cho tôi biết khi nào bạn sẵn sàng hoặc cần giúp đỡ gì khác!"
+    },
+    {
+      "user": "Thôi không gửi nữa, cảm ơn",
+      "status": "answered",
+      "calls": [],
+      "answer": "Không có gì! Nếu bạn cần giúp đỡ gì khác, hãy cho tôi biết nhé!"
+    }
+  ],
+  "GM04_handle_after_clarify": [
+    {
+      "user": "Lấy tweet mới nhất giúp mình",
+      "status": "waiting_for_user",
+      "calls": [
+        {
+          "name": "clarify",
+          "args": {
+            "question": "Bạn muốn lấy tweet mới nhất từ tài khoản nào?",
+            "response_type": "text"
+          },
+          "result": "0 items"
+        }
+      ],
+      "answer": "Bạn muốn lấy tweet mới nhất từ tài khoản nào?"
+    },
+    {
+      "user": "Của Demis Hassabis",
+      "status": "answered",
+      "calls": [
+        {
+          "name": "timeline",
+          "args": {
+            "screenname": "demishassabis",
+            "limit": 1
+          },
+          "result": "1 items"
+        }
+      ],
+      "answer": "Tweet mới nhất của Demis Hassabis là:\n\n> \"RT @sundarpichai: Four distinct TPU systems in a single generation in one year! Instead of waiting years for a traditional semiconductor cycle...\"\n\nBạn có thể"
+    },
+    {
+      "user": "Lấy 4 cái thôi",
+      "status": "answered",
+      "calls": [
+        {
+          "name": "timeline",
+          "args": {
+            "screenname": "demishassabis",
+            "limit": 4
+          },
+          "result": "4 items"
+        }
+      ],
+      "answer": "Dưới đây là 4 tweet mới nhất của Demis Hassabis:\n\n1. **[RT @sundarpichai: Four distinct TPU systems in a single generation in one year! Instead of waiting years for a traditional semiconductor cycle.."
+    }
+  ],
+  "GM05_switch_twitter_to_wiki": [
+    {
+      "user": "Mọi người nói gì về Anthropic trên Twitter?",
+      "status": "answered",
+      "calls": [
+        {
+          "name": "social_search",
+          "args": {
+            "query": "Anthropic",
+            "search_type": "Latest",
+            "limit": 5
+          },
+          "result": "5 items"
+        }
+      ],
+      "answer": "Here are the latest discussions about Anthropic on Twitter:\n\n1. **[Anthropic launches Claude Fable 5.2, Mythos 5.2 with stronger coding capabilities](https://x.com/BTechComedian/status/212002071797897"
+    },
+    {
+      "user": "Thôi, mình muốn biết Anthropic là công ty gì",
+      "status": "answered",
+      "calls": [
+        {
+          "name": "wiki",
+          "args": {
+            "title": "Anthropic"
+          },
+          "result": "1 items"
+        }
+      ],
+      "answer": "Anthropic, PBC is an American artificial intelligence (AI) public benefit corporation headquartered in San Francisco, California. Its flagship product is Claude, a series of proprietary large language"
+    },
+    {
+      "user": "Tra Wikipedia",
+      "status": "answered",
+      "calls": [
+        {
+          "name": "wiki",
+          "args": {
+            "title": "Anthropic"
+          },
+          "result": "1 items"
+        }
+      ],
+      "answer": "Anthropic, PBC is an American artificial intelligence (AI) public benefit corporation headquartered in San Francisco, California. Its flagship product is Claude, a series of proprietary large language"
+    }
+  ]
+}

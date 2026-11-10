@@ -269,6 +269,50 @@ def test_wiki_server_error_returns_error_dict(fake_http) -> None:
     assert wiki(title="AI")["error"] == "HTTPError"
 
 
+def _route_http(monkeypatch, routes: dict[str, FakeResponse]) -> list[str]:
+    """Fake requests.get that answers by URL prefix (fake_http only returns one response)."""
+    seen: list[str] = []
+
+    def _get(url, **kwargs):
+        seen.append(url)
+        for prefix, response in routes.items():
+            if url.startswith(prefix):
+                return response
+        return FakeResponse(status_code=404)
+
+    monkeypatch.setattr(requests, "get", _get)
+    return seen
+
+
+def test_wiki_uses_title_search_when_exact_title_missing(monkeypatch) -> None:
+    seen = _route_http(monkeypatch, {
+        "https://en.wikipedia.org/w/rest.php/v1/search/title": FakeResponse({"pages": [{"title": "Transformer (deep learning)"}]}),
+        "https://en.wikipedia.org/api/rest_v1/page/summary/Transformer_%28deep_learning%29": FakeResponse({"title": "Transformer (deep learning)", "extract": "x"}),
+    })
+
+    result = wiki(title="Transformer AI")
+
+    assert result["items"][0]["title"] == "Transformer (deep learning)"
+    assert seen[0].endswith("/summary/Transformer_AI")       # exact title tried first
+    assert "/search/title" in seen[1]                         # then search
+    assert "note" not in result                               # same language, no fallback note
+
+
+def test_wiki_vietnamese_miss_falls_back_to_english(monkeypatch) -> None:
+    seen = _route_http(monkeypatch, {
+        "https://vi.wikipedia.org/w/rest.php/v1/search/title": FakeResponse({"pages": []}),
+        "https://en.wikipedia.org/api/rest_v1/page/summary/Andrej_Karpathy": FakeResponse({"title": "Andrej Karpathy", "extract": "AI researcher"}),
+    })
+
+    result = wiki(title="Andrej Karpathy", lang="vi")
+
+    assert result["lang"] == "en"
+    assert result["requested_lang"] == "vi"
+    assert "returned the en article" in result["note"]
+    assert result["items"][0]["source"] == "en.wikipedia.org"
+    assert any(url.startswith("https://vi.wikipedia.org") for url in seen)  # vi really was tried first
+
+
 # ---- hn_search ----
 
 def test_hn_search_sends_story_query_and_maps_hits(fake_http) -> None:
