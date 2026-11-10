@@ -54,7 +54,7 @@ Fill from `artifacts/version_log.csv` and `runs/*.json`.
 
 | Version | Changed Artifact | Hypothesis | Metric Before | Metric After | Run File |
 |---|---|---|---:|---:|---|
-| v0 | baseline |  |  |  |  |
+| v0 | baseline | Establish baseline performance before making changes | ___ | 70%  | v0_B_base_openrouter_20261110T102529804245.json |
 | v1 |  |  |  |  |  |
 | v2 |  |  |  |  |  |
 | v3 |  |  |  |  |  |
@@ -65,7 +65,12 @@ Use actual failures from `results[*].result.failures`.
 
 | Case ID | Failure Type | Actual Tool Calls | What Failed | Fix |
 |---|---|---|---|---|
-|  |  |  |  |  |
+| R08 | out_of_scope | send | Agent gọi tool gửi tin nhắn cho câu hỏi toán học ngoài phạm vi research | Fix |
+| R10 | missing_info | timeline(screenname="sama") | Agent tự đoán tài khoản Twitter thay vì hỏi người dùng | Fix |
+| R11 | missing_info | fetch(url="https://example.com/article") | Agent tự tạo URL khi người dùng chưa cung cấp link | Fix |
+| R12 | wrong_boundary | send | Agent gọi tool gửi Telegram trước khi có xác nhận | Fix |
+| R13 | wrong_arg_value | lookup(query="AI news"), social_search | Sai tham số lookup: thiếu topic="news" và query không đúng mong đợi | Fix |
+| R14 | out_of_scope | send | Agent gọi tool gửi tin nhắn cho yêu cầu viết code Python | Fix |
 
 ## B3. Team Eval Cases
 
