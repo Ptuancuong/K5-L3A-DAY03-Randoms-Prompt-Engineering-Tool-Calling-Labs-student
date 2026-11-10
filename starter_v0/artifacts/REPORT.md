@@ -3,7 +3,7 @@
 ## Team
 
 - Team: Randoms
-- Members: 4 thành viên (Phạm Tuấn Cường nhóm trưởng)
+- Members: 4 thành viên (Phạm Tuấn Cường nhóm trưởng, Nguyễn Trần Hà Lan thành viên, Hồ Sỹ Tùng thành viên, Nguyễn Minh Đạt thành viên)
 - Provider/model: OpenRouter — `openai/gpt-4o-mini`, temperature 0
 
 ---
