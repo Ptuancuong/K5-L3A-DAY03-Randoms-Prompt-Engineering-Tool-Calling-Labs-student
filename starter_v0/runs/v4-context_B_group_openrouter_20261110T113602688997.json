@@ -1,0 +1,721 @@
+{
+  "run_id": "v4-context_B_group_openrouter_20261110T113602688997",
+  "version": "v4-context",
+  "artifact_version": "v4-context+pf57c5e87e336+taf94849ae081",
+  "prompt_hash": "f57c5e87e3368f87d61b766308289fc8c461f899a270f8aa2939b4adbc35c3ba",
+  "tools_hash": "af94849ae081e440b26e2efd8bb6b5a8c89e085f247dc18950116a4680e26e09",
+  "phase": "B",
+  "suite": "group",
+  "provider": "openrouter",
+  "model": "openai/gpt-oss-120b",
+  "system_prompt": "D:\\lab3\\K5-L3A-DAY03-Randoms-Prompt-Function-Calling-Tool-Design-MCP-\\starter_v0\\artifacts\\system_prompt.md",
+  "tools": "D:\\lab3\\K5-L3A-DAY03-Randoms-Prompt-Function-Calling-Tool-Design-MCP-\\starter_v0\\artifacts\\tools.yaml",
+  "eval_cases": "data\\eval_group.json",
+  "dataset_id": "lab3_group_research",
+  "dataset_role": "group",
+  "description": "10 group cases: 5 single-turn and 5 multi-turn.",
+  "generated_at": "2026-11-10T11:36:02",
+  "summary": {
+    "total_cases": 10,
+    "measured_cases": 10,
+    "provider_error_cases": 0,
+    "passed_cases": 10,
+    "case_accuracy": 1.0,
+    "tool_routing_accuracy": 1.0,
+    "argument_accuracy": 1.0,
+    "multiturn_accuracy": 1.0,
+    "failure_counts": {},
+    "observed_mismatch_counts": {}
+  },
+  "results": [
+    {
+      "id": "G01_deduplicate",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "what_it_tests": "Routes duplicate removal to the new tool."
+      },
+      "input": "Dùng công cụ loại trùng URL cho danh sách này, giữ bản đầu tiên: [{\"title\":\"A\",\"url\":\"https://example.com/a\"},{\"title\":\"A copy\",\"url\":\"https://example.com/a\"}]. Chỉ loại trùng, chưa định dạng.",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "deduplicate",
+            "args": {}
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "deduplicate",
+            "args": {
+              "items": [
+                {
+                  "title": "A",
+                  "url": "https://example.com/a"
+                },
+                {
+                  "title": "A copy",
+                  "url": "https://example.com/a"
+                }
+              ]
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "deduplicate",
+          "args": {
+            "items": [
+              {
+                "title": "A",
+                "url": "https://example.com/a"
+              },
+              {
+                "title": "A copy",
+                "url": "https://example.com/a"
+              }
+            ]
+          },
+          "result": {
+            "items": [
+              {
+                "title": "A",
+                "url": "https://example.com/a"
+              }
+            ],
+            "input_count": 2,
+            "item_count": 1,
+            "removed_count": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "G02_web_news",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "what_it_tests": "Extracts news category, timeframe and result count."
+      },
+      "input": "Tìm trên web 3 tin tức về năng lượng tái tạo trong tuần này.",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "topic": "news",
+              "timeframe": "week",
+              "max_results": 3
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "max_results": 3,
+              "query": "năng lượng tái tạo",
+              "timeframe": "week",
+              "topic": "news"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "lookup",
+          "args": {
+            "max_results": 3,
+            "query": "năng lượng tái tạo",
+            "timeframe": "week",
+            "topic": "news"
+          },
+          "result": {
+            "tool": "web_search",
+            "query": "năng lượng tái tạo",
+            "topic": "news",
+            "timeframe": "week",
+            "items": [
+              {
+                "title": "Hoàn thiện khung pháp lý cho năng lượng tái tạo, tháo gỡ điểm nghẽn truyền tải và phát triển điện gió ngoài khơi",
+                "url": "https://phaply.net.vn/hoan-thien-khung-phap-ly-cho-nang-luong-tai-tao-thao-go-diem-nghen-truyen-tai-va-phat-trien-dien-gio-ngoai-khoi-a262493.html",
+                "source": "phaply.net.vn",
+                "summary": "Về phát triển năng lượng tái tạo và điện gió ngoài khơi, Bộ trưởng Bộ Công Thương Lê Mạnh Hùng nêu rõ năng lượng tái tạo có ba tính chất rất quan trọng: thứ nhất là không liên tục; thứ hai là chi phí biên cơ bản bằng không; thứ ba là không có dự phòng quay. Do đó, tỷ trọng cũng như tiến độ phát triển năng lượng tái tạo bắt buộc phải đồng bộ với việc hoàn thiện và nng cấp hệ thống lưới thông minh. Chính vì thế, trong dự thảo luật cũng đã đưa ra các cơ chế cụ thể. [...] Mục lục\n\nPhó Chủ tịch Quốc hội Nguyễn Hồng Diên điều hành phiên họp\n\nBổ sung cơ chế đặc thù thúc đẩy phát triển năng lượng tái tạo từ phụ phẩm nông nghiệp [...] nông dn dù không được đốt rơm rạ nhưng vẫn đang tồn đọng một lượng lớn mà không có thị trường tiêu thụ.",
+                "score": 0.76826453
+              },
+              {
+                "title": "Dòng vốn hơn 130 nghìn tỷ đồng đổ vào năng lượng tái tạo ở Đắk Lắk",
+                "url": "https://vietnamfinance.vn/dong-von-hon-130-nghin-ty-dong-do-vao-nang-luong-tai-tao-o-dak-lak-d153175.html",
+                "source": "vietnamfinance.vn",
+                "summary": "Đáng chú ý, trong danh mục dự án thu hút đầu tư giai đoạn 2026-2030, Đắk Lắk xác định năng lượng tái tạo là một trong những lĩnh vực có quy mô vốn lớn. Toàn tỉnh có 54 dự án được kêu gọi đầu tư, với tổng vốn đăng ký khoảng 137.105 tỷ đồng.\n\nCụ thể, điện gió có 16 dự án với tổng vốn đầu tư hơn 37.000 tỷ đồng. Điện mặt trời chiếm tỷ trọng vốn lớn nhất với 25 dự án, tổng vốn khoảng 84.005 tỷ đồng. [...] Tháng 6/2026, T&T Group đã báo cáo kết quả khảo sát và đề xuất một số dự án trong lĩnh vực năng lượng tái tạo.\n\nTheo đó, T&T Group đang hoàn thiện thủ tục đầu tư các dự án năng lượng với tổng công suất khoảng 924MW tại địa phương. Trong đó, 4 dự án với tổng công suất khoảng 330MW đã nộp hồ sơ đề xuất và đang phối hợp hoàn thiện thủ tục pháp lý. Tập đoàn cũng được chấp thuận nghiên cứu 500MW điện gió, dự kiến đưa vào Quy hoạch điện VIII điều chỉnh giai đoạn 2026-2030. [...] Liên danh thực hiện gồm 5 doanh nghiệp: Công ty Cổ phần Ea Súp Solar, Công ty Cổ phần Năng lượng tái tạo Ea Súp, Công ty Cổ phần Ty Nguyên Solar, Công ty Cổ phần Ia Rvê Solar và Công ty TNHH Xun Thiện Đắk Lắk. Đy đều là những doanh nghiệp trong hệ sinh thái Tập đoàn Xun Thiện.",
+                "score": 0.69697046
+              },
+              {
+                "title": "Hà Tĩnh có 2 dự án quan trọng quốc gia, trọng điểm ngành năng lượng",
+                "url": "https://hatinh.gov.vn/vi/bai-viet/ha-tinh-co-2-du-an-quan-trong-quoc-gia-trong-diem-nganh-nang-luong",
+                "source": "hatinh.gov.vn",
+                "summary": "lớn); Dự án lọc hóa dầu (Dự án nng cấp, mở rộng Nhà máy Lọc dầu Dung Quất); 3 dự án trung tm công nghiệp, dịch vụ năng lượng tái tạo liên vùng Nam Trung Bộ - Nam Bộ (Nhà máy Sản xuất cáp ngầm cao thế (HVDC) phục vụ các dự án năng lượng tái tạo; Dự án Trung tm công nghiệp, dịch vụ năng lượng tái tạo tại TP Hồ Chí Minh; Trung tm Công nghiệp, dịch vụ năng lượng tái tạo Khánh Hòa).",
+                "score": 0.50915486
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "G03_read_url",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "what_it_tests": "Reads the supplied URL instead of searching."
+      },
+      "input": "Đọc nội dung trang https://example.com rồi tóm tắt giúp tôi.",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "fetch",
+            "args": {
+              "url": "https://example.com"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "fetch",
+            "args": {
+              "url": "https://example.com"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "fetch",
+          "args": {
+            "url": "https://example.com"
+          },
+          "result": {
+            "tool": "read_url",
+            "url": "https://example.com",
+            "items": [
+              {
+                "title": "Example Domain",
+                "url": "https://example.com",
+                "source": "example.com",
+                "summary": "This domain is for use in documentation examples without needing permission. This is not a service; avoid relying on it for testing and monitoring purposes.\n\nهذا النطاق مُخصص للاستخدام في أمثلة التوثيق دون الحاجة إلى إذن. هذه ليست خدمة، يُرجى تجنب الاعتماد عليها لأغراض الاختبار والمراقبة.\n\n该域名仅用于文档示例，无需获得许可。这并非一项服务，请勿将其用于测试和监控目的。\n\nL’usage de ce domaine est réservé à des exemples de documentation, sans autorisation préalable. Il ne s’agit pas d’un service ; son utilisation à des fins de test ou de surveillance est à éviter.\n\nДанный домен предназначен для использования в примерах документации без необходимости получения предварительного разрешения. Это не сервис; не рекомендуется его использование для тестирования и мониторинга.\n\nEste dominio está destinado al uso en ejemplos de documentación sin necesidad de permiso. Esto no es un servicio; evitar utilizarlo para realizar pruebas o monitoreos.\n\n [Learn more](https://iana.org/help/example-domains)"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "G04_missing_url",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "what_it_tests": "Asks for a missing article URL."
+      },
+      "input": "Đọc và tóm tắt bài báo này giúp tôi.",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "text"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "question": "Bạn có thể cung cấp URL của bài báo mà bạn muốn tôi đọc và tóm tắt không?",
+              "response_type": "text"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "missing_info",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "clarify",
+          "args": {
+            "question": "Bạn có thể cung cấp URL của bài báo mà bạn muốn tôi đọc và tóm tắt không?",
+            "response_type": "text"
+          },
+          "result": {
+            "tool": "ask_user",
+            "question": "Bạn có thể cung cấp URL của bài báo mà bạn muốn tôi đọc và tóm tắt không?",
+            "response_type": "text",
+            "options": [],
+            "awaiting_user": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "G05_capabilities",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "what_it_tests": "Explains capabilities without calling tools."
+      },
+      "input": "Bạn có thể hỗ trợ tôi nghiên cứu thông tin như thế nào?",
+      "expect": {
+        "no_tool": true,
+        "behavior": "answer_without_tool"
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [],
+        "actual_text": "Chắc chắn rồi! Tôi có thể hỗ trợ bạn trong quá trình nghiên cứu thông tin theo nhiều cách khác nhau, bao gồm:\n\n| **Chức năng** | **Mô tả** | **Khi nào dùng** |\n|---|---|---|\n| **Tra cứu (lookup)** | Tìm kiếm trên internet dựa trên từ khóa, chủ đề, thời gian và số lượng kết quả mong muốn. | Khi bạn cần các nguồn tin tổng quan, tin tức, hoặc tài liệu chung. |\n| **Tìm kiếm trên mạng xã hội (social_search)** | Tìm các bài đăng, tweet, hoặc nội dung trên các nền tảng xã hội theo từ khóa, sắp xếp theo “Mới nhất” hoặc “Hot”. | Khi bạn muốn biết xu hướng, phản hồi cộng đồng hoặc các cuộc thảo luận hiện thời. |\n| **Lấy timeline** | Lấy các bài đăng gần đây của một tài khoản cụ thể trên mạng xã hội. | Khi bạn cần theo dõi hoạt động của một người hoặc tổ chức nào đó. |\n| **Tìm bài báo khoa học (papers)** | Tìm kiếm các bài báo học thuật trên các cơ sở dữ liệu như arXiv, PubMed, … | Khi bạn cần tài liệu nghiên cứu chuyên sâu, các công trình học thuật. |\n| **Lấy nội dung bài báo (paper_text)** | Trích xuất nội dung (văn bản) của một bài báo khoa học đã có URL hoặc ID. | Khi bạn muốn đọc phần tóm tắt, kết quả, hoặc toàn bộ nội dung của một bài báo. |\n| **Fetch** | Lấy nội dung trang web từ một URL cụ thể. | Khi bạn đã có địa chỉ trang và muốn xem nội dung chi tiết. |\n| **Deduplicate** | Loại bỏ các mục trùng lặp trong danh sách kết quả (dựa trên URL). | Khi bạn muốn danh sách kết quả sạch sẽ, không lặp lại. |\n| **Format** | Định dạng lại danh sách kết quả thành các mẫu văn bản (bullet, sections, brief, …). | Khi bạn cần báo cáo, bản tóm tắt, hoặc trình bày dữ liệu cho người đọc. |\n| **Send** | Gửi một đoạn văn bản đã được xác nhận tới một đích (ví dụ: email, tin nhắn). | Khi bạn muốn chia sẻ nhanh nội dung đã chuẩn bị. |\n| **Clarify** | Đặt câu hỏi để làm rõ yêu cầu của bạn (về từ khóa, thời gian, nguồn, …). | Khi thông tin yêu cầu chưa đủ chi tiết để thực hiện. |\n| **Policy** | Kiểm tra các chính sách nội bộ (ví dụ: về bảo mật dữ liệu, trích dẫn nguồn). | Khi bạn cần chắc chắn rằng một hành động tuân thủ quy định. |\n\n### Quy trình làm việc thường gặp\n1. **Bạn mô tả nhu cầu** – ví dụ: “Tôi muốn biết các xu hướng AI trong năm 2024” hoặc “Tôi cần 5 bài báo về mạng nơ-ron sâu”.\n2. **Nếu cần, tôi sẽ hỏi làm rõ** – dùng `clarify` để chắc chắn rằng tôi hiểu đúng từ khóa, thời gian, số lượng, nguồn…\n3. **Thực hiện tìm kiếm** – dùng `lookup`, `social_search`, `papers`, … tùy vào loại thông tin.\n4. **Xử lý kết quả** – loại bỏ trùng lặp (`deduplicate`), tóm tắt, định dạng (`format`).\n5. **Cung cấp cho bạn** – dưới dạng danh sách, bản tóm tắt, hoặc báo cáo chi tiết.\n6. **Nếu bạn muốn chia sẻ** – tôi sẽ hỏi xác nhận và dùng `send` để gửi nội dung tới đích bạn chỉ định.\n\n### Lưu ý quan trọng\n- **Luôn hỏi xác nhận** trước khi gửi hoặc xuất bản bất kỳ nội dung nào.\n- **Không tự ý tạo URL hoặc nội dung** nếu chưa có thông tin rõ ràng từ bạn.\n- **Giữ nguyên các ràng buộc** (chủ đề, thời gian, số lượng) nếu bạn chỉ thay đổi một phần của yêu cầu.\n\nBạn muốn bắt đầu với một chủ đề cụ thể nào không? Hãy cho tôi biết chi tiết (từ khóa, thời gian, số lượng kết quả, nguồn mong muốn…) để tôi có thể hỗ trợ ngay.",
+        "case_failure_type": "unnecessary_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": []
+    },
+    {
+      "id": "G06_url_after_clarification",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "what_it_tests": "Uses the URL supplied after clarification."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tóm tắt bài viết này giúp tôi."
+        },
+        {
+          "role": "assistant",
+          "content": "Bạn gửi URL bài viết nhé."
+        },
+        {
+          "role": "user",
+          "content": "https://example.com"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "fetch",
+            "args": {
+              "url": "https://example.com"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "fetch",
+            "args": {
+              "url": "https://example.com"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "missing_info",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "fetch",
+          "args": {
+            "url": "https://example.com"
+          },
+          "result": {
+            "tool": "read_url",
+            "url": "https://example.com",
+            "items": [
+              {
+                "title": "Example Domain",
+                "url": "https://example.com",
+                "source": "example.com",
+                "summary": "This domain is for use in documentation examples without needing permission. This is not a service; avoid relying on it for testing and monitoring purposes.\n\nهذا النطاق مُخصص للاستخدام في أمثلة التوثيق دون الحاجة إلى إذن. هذه ليست خدمة، يُرجى تجنب الاعتماد عليها لأغراض الاختبار والمراقبة.\n\n该域名仅用于文档示例，无需获得许可。这并非一项服务，请勿将其用于测试和监控目的。\n\nL’usage de ce domaine est réservé à des exemples de documentation, sans autorisation préalable. Il ne s’agit pas d’un service ; son utilisation à des fins de test ou de surveillance est à éviter.\n\nДанный домен предназначен для использования в примерах документации без необходимости получения предварительного разрешения. Это не сервис; не рекомендуется его использование для тестирования и мониторинга.\n\nEste dominio está destinado al uso en ejemplos de documentación sin necesidad de permiso. Esto no es un servicio; evitar utilizarlo para realizar pruebas o monitoreos.\n\n [Learn more](https://iana.org/help/example-domains)"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "G07_correct_result_count",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "what_it_tests": "Applies the latest count while keeping prior constraints."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tìm trên web 8 tin tức về pin mặt trời trong tháng này."
+        },
+        {
+          "role": "user",
+          "content": "Đổi thành 2 kết quả thôi, các yêu cầu khác giữ nguyên."
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "topic": "news",
+              "timeframe": "month",
+              "max_results": 2
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "max_results": 2,
+              "query": "pin mặt trời",
+              "timeframe": "month",
+              "topic": "news"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "lookup",
+          "args": {
+            "max_results": 2,
+            "query": "pin mặt trời",
+            "timeframe": "month",
+            "topic": "news"
+          },
+          "result": {
+            "tool": "web_search",
+            "query": "pin mặt trời",
+            "topic": "news",
+            "timeframe": "month",
+            "items": [
+              {
+                "title": "Pin mặt trời dẻo, nhẹ như tấm phim, mở rộng khả năng ứng dụng trên bề mặt cong",
+                "url": "https://vietnamnet.vn/pin-mat-troi-deo-nhe-nhu-tam-phim-mo-rong-kha-nang-ung-dung-tren-be-mat-cong-2569884.html",
+                "source": "vietnamnet.vn",
+                "summary": "Pin mặt trời phát điện ở độ su 10m dưới biển, hiệu suất gấp đôi trên cạnTRUNG QUỐC - Tưởng chừng khó khả thi vì cường độ ánh sáng mặt trời suy giảm mạnh khi xuyên qua nước, nhóm khoa học Trung Quốc chứng minh điều ngược lại: pin mặt trời perovskite có thể hoạt động ở độ su 10m, hiệu suất gấp đôi đặt trên cạn. [...] Với hiệu suất gần 27% ở tế bào nhỏ và trên 20% ở module lớn, pin perovskite dẻo đang tiến gần hơn đến ngưỡng có thể cạnh tranh với pin silicon truyền thống trong một số ứng dụng đặc thù.\n\nNếu được thương mại hóa thành công, công nghệ này có thể mở rộng phạm vi ứng dụng của năng lượng mặt trời, từ mái ô tô, ba lô, thiết bị di động đến các công trình có bề mặt cong hoặc tạm thời. Đó là viễn cảnh mà nhiều công ty năng lượng và nhà đầu tư đang chờ đợi. [...] Pin perovskite dẻo được xem là một trong những hướng đi triển vọng nhất của ngành năng lượng mặt trời. Vật liệu perovskite có khả năng hấp thụ ánh sáng mạnh, chi phí sản xuất thấp hơn silicon, có thể in lên bề mặt dẻo. Tuy nhiên, độ ổn định và tuổi thọ vẫn là bài toán lớn.\n\nNghiên cứu mới của Đại học Đông Nam và Đại học Tô Chu không giải quyết tất cả vấn đề, nhưng nó cho thấy rào cản về hiệu suất và độ bền đang dần được thu hẹp.",
+                "score": 0.735737
+              },
+              {
+                "title": "Phát triển điện mặt trời trong nông nghiệp: Bài học từ châu Âu",
+                "url": "https://www.evn.com.vn/d/vi-VN/news/Phat-trien-dien-mat-troi-trong-nong-nghiep-Bai-hoc-tu-chau-Au-60-2020-509946",
+                "source": "evn.com.vn",
+                "summary": "Tại Murcia, Tây Ban Nha, các tấm pin mặt trời được lắp đặt phía trên hoặc giữa những khu vực trồng ớt chuông, nho và thanh long, vừa sản xuất điện, vừa tạo bóng râm cho cây trồng. Khu vực này đang nghiên cứu khả năng kết hợp nông nghiệp với năng lượng mặt trời nhằm giảm cạnh tranh về đất đai giữa hai lĩnh vực.",
+                "score": 0.65676886
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "G08_correct_url",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "what_it_tests": "Uses the corrected URL and does not read the old URL."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Đọc https://example.com/old"
+        },
+        {
+          "role": "user",
+          "content": "Tôi gửi nhầm. Chỉ đọc https://example.com/new"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "fetch",
+            "args": {
+              "url": "https://example.com/new"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "fetch",
+            "args": {
+              "url": "https://example.com/new"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "fetch",
+          "args": {
+            "url": "https://example.com/new"
+          },
+          "result": {
+            "tool": "read_url",
+            "url": "https://example.com/new",
+            "items": [
+              {
+                "title": "Example Domain",
+                "url": "https://example.com/new",
+                "source": "example.com",
+                "summary": "This domain is for use in documentation examples without needing permission. This is not a service; avoid relying on it for testing and monitoring purposes.\n\nهذا النطاق مُخصص للاستخدام في أمثلة التوثيق دون الحاجة إلى إذن. هذه ليست خدمة، يُرجى تجنب الاعتماد عليها لأغراض الاختبار والمراقبة.\n\n该域名仅用于文档示例，无需获得许可。这并非一项服务，请勿将其用于测试和监控目的。\n\nL’usage de ce domaine est réservé à des exemples de documentation, sans autorisation préalable. Il ne s’agit pas d’un service ; son utilisation à des fins de test ou de surveillance est à éviter.\n\nДанный домен предназначен для использования в примерах документации без необходимости получения предварительного разрешения. Это не сервис; не рекомендуется его использование для тестирования и мониторинга.\n\nEste dominio está destinado al uso en ejemplos de documentación sin necesidad de permiso. Esto no es un servicio; evitar utilizarlo para realizar pruebas o monitoreos.\n\n [Learn more](https://iana.org/help/example-domains)"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "G09_deduplicate_history",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "what_it_tests": "Routes to the new tool using items from conversation history."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tôi có danh sách: [{\"title\":\"A\",\"url\":\"https://example.com/a\"},{\"title\":\"B\",\"url\":\"https://example.com/b\"},{\"title\":\"A copy\",\"url\":\"https://example.com/a\"}]."
+        },
+        {
+          "role": "user",
+          "content": "Dùng công cụ loại trùng URL cho danh sách tôi vừa gửi, giữ bản đầu tiên. Chưa cần định dạng."
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "deduplicate",
+            "args": {}
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "deduplicate",
+            "args": {
+              "items": [
+                {
+                  "title": "A",
+                  "url": "https://example.com/a"
+                },
+                {
+                  "title": "B",
+                  "url": "https://example.com/b"
+                },
+                {
+                  "title": "A copy",
+                  "url": "https://example.com/a"
+                }
+              ]
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "deduplicate",
+          "args": {
+            "items": [
+              {
+                "title": "A",
+                "url": "https://example.com/a"
+              },
+              {
+                "title": "B",
+                "url": "https://example.com/b"
+              },
+              {
+                "title": "A copy",
+                "url": "https://example.com/a"
+              }
+            ]
+          },
+          "result": {
+            "items": [
+              {
+                "title": "A",
+                "url": "https://example.com/a"
+              },
+              {
+                "title": "B",
+                "url": "https://example.com/b"
+              }
+            ],
+            "input_count": 3,
+            "item_count": 2,
+            "removed_count": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "G10_switch_to_url",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "what_it_tests": "Switches from search to reading a URL after correction."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tìm tin tức về robot trên web."
+        },
+        {
+          "role": "user",
+          "content": "Không tìm kiếm nữa. Chỉ đọc và tóm tắt https://example.com"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "fetch",
+            "args": {
+              "url": "https://example.com"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "fetch",
+            "args": {
+              "url": "https://example.com"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "fetch",
+          "args": {
+            "url": "https://example.com"
+          },
+          "result": {
+            "tool": "read_url",
+            "url": "https://example.com",
+            "items": [
+              {
+                "title": "Example Domain",
+                "url": "https://example.com",
+                "source": "example.com",
+                "summary": "This domain is for use in documentation examples without needing permission. This is not a service; avoid relying on it for testing and monitoring purposes.\n\nهذا النطاق مُخصص للاستخدام في أمثلة التوثيق دون الحاجة إلى إذن. هذه ليست خدمة، يُرجى تجنب الاعتماد عليها لأغراض الاختبار والمراقبة.\n\n该域名仅用于文档示例，无需获得许可。这并非一项服务，请勿将其用于测试和监控目的。\n\nL’usage de ce domaine est réservé à des exemples de documentation, sans autorisation préalable. Il ne s’agit pas d’un service ; son utilisation à des fins de test ou de surveillance est à éviter.\n\nДанный домен предназначен для использования в примерах документации без необходимости получения предварительного разрешения. Это не сервис; не рекомендуется его использование для тестирования и мониторинга.\n\nEste dominio está destinado al uso en ejemplos de documentación sin necesidad de permiso. Esto no es un servicio; evitar utilizarlo para realizar pruebas o monitoreos.\n\n [Learn more](https://iana.org/help/example-domains)"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

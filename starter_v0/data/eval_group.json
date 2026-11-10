@@ -1,7 +1,232 @@
 {
-  "dataset_id": "day04_v2_research_group",
+  "dataset_id": "lab3_group_research",
   "dataset_role": "group",
-  "description": "Case do NHÓM tự viết thêm để cover thêm trường hợp. Mỗi case cần: id, phase='B', query HOẶC turns, failure_type (thuộc allowed_failure_types), và expect (tool_calls[...] hoặc no_tool=true). Nên kèm metadata.what_it_tests.",
-  "allowed_failure_types": ["wrong_tool", "wrong_arg_value", "wrong_boundary", "unnecessary_tool", "out_of_scope", "missing_info"],
-  "cases": []
+  "description": "10 group cases: 5 single-turn and 5 multi-turn.",
+  "allowed_failure_types": [
+    "wrong_tool",
+    "wrong_arg_value",
+    "wrong_boundary",
+    "unnecessary_tool",
+    "out_of_scope",
+    "missing_info"
+  ],
+  "cases": [
+    {
+      "id": "G01_deduplicate",
+      "phase": "B",
+      "query": "Dùng công cụ loại trùng URL cho danh sách này, giữ bản đầu tiên: [{\"title\":\"A\",\"url\":\"https://example.com/a\"},{\"title\":\"A copy\",\"url\":\"https://example.com/a\"}]. Chỉ loại trùng, chưa định dạng.",
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {"name": "deduplicate", "args": {}}
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Routes duplicate removal to the new tool."
+      }
+    },
+    {
+      "id": "G02_web_news",
+      "phase": "B",
+      "query": "Tìm trên web 3 tin tức về năng lượng tái tạo trong tuần này.",
+      "failure_type": "wrong_arg_value",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "topic": "news",
+              "timeframe": "week",
+              "max_results": 3
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Extracts news category, timeframe and result count."
+      }
+    },
+    {
+      "id": "G03_read_url",
+      "phase": "B",
+      "query": "Đọc nội dung trang https://example.com rồi tóm tắt giúp tôi.",
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "fetch",
+            "args": {"url": "https://example.com"}
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Reads the supplied URL instead of searching."
+      }
+    },
+    {
+      "id": "G04_missing_url",
+      "phase": "B",
+      "query": "Đọc và tóm tắt bài báo này giúp tôi.",
+      "failure_type": "missing_info",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {"response_type": "text"}
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Asks for a missing article URL."
+      }
+    },
+    {
+      "id": "G05_capabilities",
+      "phase": "B",
+      "query": "Bạn có thể hỗ trợ tôi nghiên cứu thông tin như thế nào?",
+      "failure_type": "unnecessary_tool",
+      "expect": {
+        "no_tool": true,
+        "behavior": "answer_without_tool"
+      },
+      "metadata": {
+        "what_it_tests": "Explains capabilities without calling tools."
+      }
+    },
+    {
+      "id": "G06_url_after_clarification",
+      "phase": "B",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Tóm tắt bài viết này giúp tôi."
+        },
+        {
+          "role": "assistant",
+          "content": "Bạn gửi URL bài viết nhé."
+        },
+        {
+          "role": "user",
+          "content": "https://example.com"
+        }
+      ],
+      "failure_type": "missing_info",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "fetch",
+            "args": {"url": "https://example.com"}
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Uses the URL supplied after clarification."
+      }
+    },
+    {
+      "id": "G07_correct_result_count",
+      "phase": "B",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Tìm trên web 8 tin tức về pin mặt trời trong tháng này."
+        },
+        {
+          "role": "user",
+          "content": "Đổi thành 2 kết quả thôi, các yêu cầu khác giữ nguyên."
+        }
+      ],
+      "failure_type": "wrong_arg_value",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "topic": "news",
+              "timeframe": "month",
+              "max_results": 2
+            }
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Applies the latest count while keeping prior constraints."
+      }
+    },
+    {
+      "id": "G08_correct_url",
+      "phase": "B",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Đọc https://example.com/old"
+        },
+        {
+          "role": "user",
+          "content": "Tôi gửi nhầm. Chỉ đọc https://example.com/new"
+        }
+      ],
+      "failure_type": "wrong_arg_value",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "fetch",
+            "args": {"url": "https://example.com/new"}
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Uses the corrected URL and does not read the old URL."
+      }
+    },
+    {
+      "id": "G09_deduplicate_history",
+      "phase": "B",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Tôi có danh sách: [{\"title\":\"A\",\"url\":\"https://example.com/a\"},{\"title\":\"B\",\"url\":\"https://example.com/b\"},{\"title\":\"A copy\",\"url\":\"https://example.com/a\"}]."
+        },
+        {
+          "role": "user",
+          "content": "Dùng công cụ loại trùng URL cho danh sách tôi vừa gửi, giữ bản đầu tiên. Chưa cần định dạng."
+        }
+      ],
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {"name": "deduplicate", "args": {}}
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Routes to the new tool using items from conversation history."
+      }
+    },
+    {
+      "id": "G10_switch_to_url",
+      "phase": "B",
+      "turns": [
+        {
+          "role": "user",
+          "content": "Tìm tin tức về robot trên web."
+        },
+        {
+          "role": "user",
+          "content": "Không tìm kiếm nữa. Chỉ đọc và tóm tắt https://example.com"
+        }
+      ],
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "fetch",
+            "args": {"url": "https://example.com"}
+          }
+        ]
+      },
+      "metadata": {
+        "what_it_tests": "Switches from search to reading a URL after correction."
+      }
+    }
+  ]
 }

@@ -1,0 +1,139 @@
+{
+  "version": "v5-all-tools",
+  "prompt_hash": "7db63a606f6911cdc3f847f07590bfe842ce9845e1aff3720bac6ea060a28d0d",
+  "tools_hash": "9601ebed9134fb38c14978ad658868c20fbf3a0eb38dd278ee7552d416aea7a0",
+  "runtime_hash": "5a5009820c707b596e9be877e46ee1b27783c088189b6f60a5255e71a58ee33d",
+  "app_hash": "098ae79ac69fe6f2c88301d98648fe7614ae9e07dfe338476d478f105318dbc4",
+  "checked_at": "2026-11-10T12:38:41.917116+07:00",
+  "tool_count": 11,
+  "configuration_status_not_live_verification": [
+    {
+      "name": "clarify",
+      "title": "Hỏi lại",
+      "description": "Hỏi khi thiếu thông tin cần thiết.",
+      "ready": true,
+      "status": "Sẵn sàng · local",
+      "missing_env": []
+    },
+    {
+      "name": "timeline",
+      "title": "Bài đăng tài khoản",
+      "description": "Lấy bài đăng X/Twitter theo handle.",
+      "ready": false,
+      "status": "Thiếu RAPIDAPI_KEY",
+      "missing_env": [
+        "RAPIDAPI_KEY"
+      ]
+    },
+    {
+      "name": "social_search",
+      "title": "Tìm trên X/Twitter",
+      "description": "Tìm theo chủ đề, mới nhất hoặc phổ biến.",
+      "ready": false,
+      "status": "Thiếu RAPIDAPI_KEY",
+      "missing_env": [
+        "RAPIDAPI_KEY"
+      ]
+    },
+    {
+      "name": "lookup",
+      "title": "Tìm kiếm web",
+      "description": "Tra cứu thông tin và tin tức bằng Tavily.",
+      "ready": true,
+      "status": "Đã cấu hình · cần kết nối mạng",
+      "missing_env": []
+    },
+    {
+      "name": "fetch",
+      "title": "Đọc URL",
+      "description": "Đọc trang web bằng Firecrawl.",
+      "ready": true,
+      "status": "Đã cấu hình · cần kết nối mạng",
+      "missing_env": []
+    },
+    {
+      "name": "format",
+      "title": "Tạo bản tin",
+      "description": "Định dạng kết quả thành Markdown.",
+      "ready": true,
+      "status": "Sẵn sàng · local",
+      "missing_env": []
+    },
+    {
+      "name": "send",
+      "title": "Gửi Telegram",
+      "description": "Xem bản nháp và xác nhận trước khi gửi.",
+      "ready": false,
+      "status": "Thiếu TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID",
+      "missing_env": [
+        "TELEGRAM_BOT_TOKEN",
+        "TELEGRAM_CHAT_ID"
+      ]
+    },
+    {
+      "name": "policy",
+      "title": "Chính sách nội bộ",
+      "description": "Tra cứu company_policy trên máy.",
+      "ready": true,
+      "status": "Sẵn sàng · kho nội bộ",
+      "missing_env": []
+    },
+    {
+      "name": "papers",
+      "title": "Tìm paper arXiv",
+      "description": "Tìm bài báo khoa học, không cần key.",
+      "ready": true,
+      "status": "Không cần key · cần kết nối arXiv",
+      "missing_env": []
+    },
+    {
+      "name": "paper_text",
+      "title": "Đọc paper arXiv",
+      "description": "Tải PDF, trích text vào arxiv_papers.",
+      "ready": true,
+      "status": "Không cần key · cần kết nối arXiv",
+      "missing_env": []
+    },
+    {
+      "name": "deduplicate",
+      "title": "Loại tin trùng",
+      "description": "Loại URL trùng, giữ bản đầu và thứ tự.",
+      "ready": true,
+      "status": "Sẵn sàng · local",
+      "missing_env": []
+    }
+  ],
+  "verification": {
+    "offline_suite": {
+      "passed": 99,
+      "skipped": 17,
+      "failed": 0,
+      "evidence": "artifacts/test_results_v5.txt"
+    },
+    "new_runtime_and_ui_tests": 24,
+    "real_model_eval_v5": "not_run",
+    "real_telegram_send": "not_performed",
+    "live_checks": [
+      {
+        "tool": "policy",
+        "status": "local_search_success",
+        "query": "citation",
+        "policy_area": "source_citation"
+      },
+      {
+        "tool": "papers",
+        "status": "ReadTimeout",
+        "endpoint": "https://export.arxiv.org/api/query",
+        "query": "retrieval augmented generation",
+        "max_results": 1
+      },
+      {
+        "tool": "paper_text",
+        "status": "success",
+        "arxiv_id": "1706.03762",
+        "pages_read": 1,
+        "chars_returned": 1000
+      }
+    ]
+  }
+}

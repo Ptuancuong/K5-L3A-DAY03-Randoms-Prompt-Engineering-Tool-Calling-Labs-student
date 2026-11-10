@@ -1,0 +1,709 @@
+{
+  "run_id": "v3-deduplicate_B_group_openrouter_20261110T112936850502",
+  "version": "v3-deduplicate",
+  "artifact_version": "v3-deduplicate+p1a07d9cebce8+taf94849ae081",
+  "prompt_hash": "1a07d9cebce877586600959d94de536307620d27291e3d8787c66f09036af736",
+  "tools_hash": "af94849ae081e440b26e2efd8bb6b5a8c89e085f247dc18950116a4680e26e09",
+  "phase": "B",
+  "suite": "group",
+  "provider": "openrouter",
+  "model": "openai/gpt-oss-120b",
+  "system_prompt": "D:\\lab3\\K5-L3A-DAY03-Randoms-Prompt-Function-Calling-Tool-Design-MCP-\\starter_v0\\artifacts\\system_prompt.md",
+  "tools": "D:\\lab3\\K5-L3A-DAY03-Randoms-Prompt-Function-Calling-Tool-Design-MCP-\\starter_v0\\artifacts\\tools.yaml",
+  "eval_cases": "data\\eval_group.json",
+  "dataset_id": "lab3_group_research",
+  "dataset_role": "group",
+  "description": "10 group cases: 5 single-turn and 5 multi-turn.",
+  "generated_at": "2026-11-10T11:29:36",
+  "summary": {
+    "total_cases": 10,
+    "measured_cases": 10,
+    "provider_error_cases": 0,
+    "passed_cases": 9,
+    "case_accuracy": 0.9,
+    "tool_routing_accuracy": 0.9,
+    "argument_accuracy": 0.9,
+    "multiturn_accuracy": 0.8,
+    "failure_counts": {
+      "wrong_arg_value": 1
+    },
+    "observed_mismatch_counts": {
+      "missing_tool_call": 1
+    }
+  },
+  "results": [
+    {
+      "id": "G01_deduplicate",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "what_it_tests": "Routes duplicate removal to the new tool."
+      },
+      "input": "Dùng công cụ loại trùng URL cho danh sách này, giữ bản đầu tiên: [{\"title\":\"A\",\"url\":\"https://example.com/a\"},{\"title\":\"A copy\",\"url\":\"https://example.com/a\"}]. Chỉ loại trùng, chưa định dạng.",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "deduplicate",
+            "args": {}
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "deduplicate",
+            "args": {
+              "items": [
+                {
+                  "title": "A",
+                  "url": "https://example.com/a"
+                },
+                {
+                  "title": "A copy",
+                  "url": "https://example.com/a"
+                }
+              ]
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "deduplicate",
+          "args": {
+            "items": [
+              {
+                "title": "A",
+                "url": "https://example.com/a"
+              },
+              {
+                "title": "A copy",
+                "url": "https://example.com/a"
+              }
+            ]
+          },
+          "result": {
+            "items": [
+              {
+                "title": "A",
+                "url": "https://example.com/a"
+              }
+            ],
+            "input_count": 2,
+            "item_count": 1,
+            "removed_count": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "G02_web_news",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "what_it_tests": "Extracts news category, timeframe and result count."
+      },
+      "input": "Tìm trên web 3 tin tức về năng lượng tái tạo trong tuần này.",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "topic": "news",
+              "timeframe": "week",
+              "max_results": 3
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "max_results": 3,
+              "query": "renewable energy",
+              "timeframe": "week",
+              "topic": "news"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "lookup",
+          "args": {
+            "max_results": 3,
+            "query": "renewable energy",
+            "timeframe": "week",
+            "topic": "news"
+          },
+          "result": {
+            "tool": "web_search",
+            "query": "renewable energy",
+            "topic": "news",
+            "timeframe": "week",
+            "items": [
+              {
+                "title": "What midterm blue wave rebuke of Trump means for renewable energy",
+                "url": "https://www.cnbc.com/2026/11/07/midterm-election-blue-wave-trump-renewable-energy.html",
+                "source": "cnbc.com",
+                "summary": "grid upgrades that allow utility-scale solar and wind installations to tie into existing and proposed data centers. [...] The supply chain has amped up, too. By the third quarter of this year, manufacturing capacity for solar modules, wind blades and nacelles had expanded by roughly 50% from the first quarter of 2025, reflecting new facilities that have come online, the CIM reported in October. And over the past four quarters, $277 billion was invested across the country in the manufacture and deployment of renewable energy, non-fossil fuel vehicles, building electrification and carbon-management technology. [...] She pointed to the nation's growing electricity demand — partly tied to data centers — its aging and constrained grid infrastructure, the increasing need for energy storage, the effects of geopolitics on energy security and rising energy costs as major factors driving clean energy investing. Simultaneously, though, because of declining costs and continuing maturity of many clean technologies, \"we know that renewables are the lowest cost form of new-build generation, even on a fully unsubsidized",
+                "score": 0.65887916
+              },
+              {
+                "title": "SBU Researchers Aim to Make Renewable Energy More Affordable",
+                "url": "https://news.stonybrook.edu/university/researchers-strive-to-make-renewable-energy-more-affordable-boosting-charge-storage-in-redox-flow-batteries",
+                "source": "news.stonybrook.edu",
+                "summary": "“One of the biggest challenges with renewable energy is that we cannot always control when electricity is generated,” said Professor Nav Nidhi of the Department of Materials Science and Chemical Engineering at Stony Brook University. “Solar panels produce more power during sunny hours, while wind turbines generate electricity when the wind is available. But electricity demand continues even when the sun is not shining or the wind is not blowing. Redox flow batteries can help bridge this gap by [...] bridge this gap by storing excess renewable electricity and releasing it later when it is needed.”",
+                "score": 0.55072874
+              },
+              {
+                "title": "The renewable energy industry weighs in on the midterms",
+                "url": "https://www.solarpowerworldonline.com/2026/11/the-renewable-energy-industry-weighs-in-on-the-midterms",
+                "source": "solarpowerworldonline.com",
+                "summary": "affordable for American families and strengthen our energy security and industrial workforce. [...] Today, the clean power industry directly employs more than 400,000 Americans, and the U.S. has nearly 388 GW of clean power online, enough to power more than 83 million homes — but we’ll need a lot more than that to meet skyrocketing demand. Modernizing our outdated permitting process is key to unlocking over $800 billion in new infrastructure and 350-plus GW of new clean energy, keeping prices in check and the lights on at home for families and businesses across the country. [...] Solar Power World\n\n# The renewable energy industry weighs in on the midterms\n\nBy Billy Ludt |\n\nShare\n\nDemocratic legislators have wrested the majority of both the House and Senate from the Republicans’ grasp following a historic midterm election this week. The clean energy industry is clamoring for a sea change in federal support for renewables after the Trump administration razed incentives and funding since taking office in 2025.\n\nCredit: Ramaz Bluashvili/Pexels",
+                "score": 0.5194
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "G03_read_url",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "what_it_tests": "Reads the supplied URL instead of searching."
+      },
+      "input": "Đọc nội dung trang https://example.com rồi tóm tắt giúp tôi.",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "fetch",
+            "args": {
+              "url": "https://example.com"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "fetch",
+            "args": {
+              "url": "https://example.com"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "fetch",
+          "args": {
+            "url": "https://example.com"
+          },
+          "result": {
+            "tool": "read_url",
+            "url": "https://example.com",
+            "items": [
+              {
+                "title": "Example Domain",
+                "url": "https://example.com",
+                "source": "example.com",
+                "summary": "This domain is for use in documentation examples without needing permission. This is not a service; avoid relying on it for testing and monitoring purposes.\n\nهذا النطاق مُخصص للاستخدام في أمثلة التوثيق دون الحاجة إلى إذن. هذه ليست خدمة، يُرجى تجنب الاعتماد عليها لأغراض الاختبار والمراقبة.\n\n该域名仅用于文档示例，无需获得许可。这并非一项服务，请勿将其用于测试和监控目的。\n\nL’usage de ce domaine est réservé à des exemples de documentation, sans autorisation préalable. Il ne s’agit pas d’un service ; son utilisation à des fins de test ou de surveillance est à éviter.\n\nДанный домен предназначен для использования в примерах документации без необходимости получения предварительного разрешения. Это не сервис; не рекомендуется его использование для тестирования и мониторинга.\n\nEste dominio está destinado al uso en ejemplos de documentación sin necesidad de permiso. Esto no es un servicio; evitar utilizarlo para realizar pruebas o monitoreos.\n\n [Learn more](https://iana.org/help/example-domains)"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "G04_missing_url",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "what_it_tests": "Asks for a missing article URL."
+      },
+      "input": "Đọc và tóm tắt bài báo này giúp tôi.",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "text"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "question": "Bạn có thể cung cấp liên kết URL của bài báo mà bạn muốn tôi đọc và tóm tắt không?",
+              "response_type": "text"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "missing_info",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "clarify",
+          "args": {
+            "question": "Bạn có thể cung cấp liên kết URL của bài báo mà bạn muốn tôi đọc và tóm tắt không?",
+            "response_type": "text"
+          },
+          "result": {
+            "tool": "ask_user",
+            "question": "Bạn có thể cung cấp liên kết URL của bài báo mà bạn muốn tôi đọc và tóm tắt không?",
+            "response_type": "text",
+            "options": [],
+            "awaiting_user": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "G05_capabilities",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "what_it_tests": "Explains capabilities without calling tools."
+      },
+      "input": "Bạn có thể hỗ trợ tôi nghiên cứu thông tin như thế nào?",
+      "expect": {
+        "no_tool": true,
+        "behavior": "answer_without_tool"
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [],
+        "actual_text": "Chắc chắn rồi! Dưới đây là cách tôi có thể hỗ trợ bạn trong quá trình nghiên cứu thông tin:\n\n| **Chức năng** | **Mô tả** | **Khi nào dùng** |\n|----------------|-----------|-------------------|\n| **Tìm kiếm trên internet** (`lookup`) | Tra cứu thông tin, tin tức, dữ liệu thống kê, hoặc bất kỳ chủ đề nào trên web. | Khi bạn cần nguồn tin cập nhật, số liệu, hoặc tổng quan về một vấn đề. |\n| **Tìm kiếm bài báo khoa học** (`papers`) | Tìm các công trình nghiên cứu, bài báo học thuật, pre‑print trên arXiv, PubMed, … | Khi bạn cần tài liệu học thuật, trích dẫn, hoặc muốn khám phá các nghiên cứu mới nhất. |\n| **Lấy nội dung bài báo** (`paper_text`) | Trích xuất văn bản đầy đủ (hoặc một phần) của một bài báo khoa học. | Khi bạn muốn đọc chi tiết nội dung, tóm tắt, hoặc trích dẫn từ một bài báo cụ thể. |\n| **Tìm kiếm trên mạng xã hội** (`social_search`) | Tìm các bài đăng, xu hướng, hoặc phản hồi trên các nền tảng xã hội. | Khi bạn muốn hiểu quan điểm công chúng, xu hướng hiện tại, hoặc thu thập dữ liệu xã hội. |\n| **Lấy timeline tài khoản** (`timeline`) | Lấy các bài đăng gần đây của một tài khoản mạng xã hội. | Khi bạn cần theo dõi hoạt động của một người, tổ chức, hoặc thương hiệu. |\n| **Lấy nội dung từ URL** (`fetch`) | Tải nội dung trang web (bài viết, báo cáo, blog…) | Khi bạn đã có liên kết và muốn tôi đọc, tóm tắt hoặc trích xuất thông tin. |\n| **Định dạng và tóm tắt** (`format`) | Chuyển dữ liệu thô thành báo cáo, danh sách bullet, hoặc bản tóm tắt có cấu trúc. | Khi bạn muốn nhận kết quả dưới dạng dễ đọc, có tiêu đề, mục lục, hoặc dạng thread. |\n| **Loại bỏ trùng lặp** (`deduplicate`) | Xóa các mục có URL trùng nhau trong danh sách kết quả. | Khi bạn muốn danh sách kết quả sạch sẽ, không lặp lại. |\n| **Gửi nội dung** (`send`) | Gửi văn bản đã chuẩn bị tới một đích (ví dụ: email, tin nhắn). | Khi bạn đã hoàn thiện nội dung và muốn tôi thực hiện việc gửi (cần xác nhận cuối cùng). |\n| **Yêu cầu làm rõ** (`clarify`) | Khi thông tin còn thiếu (ví dụ: URL, tên tài khoản, nội dung cần gửi). | Đảm bảo tôi luôn có đủ dữ liệu để thực hiện yêu cầu một cách chính xác. |\n\n### Quy trình làm việc thường gặp\n1. **Bạn đưa ra yêu cầu** (ví dụ: “Tìm các nghiên cứu mới nhất về AI trong y tế”).  \n2. **Nếu cần thông tin bổ sung** (như thời gian, nguồn cụ thể), tôi sẽ hỏi bạn qua `clarify`.  \n3. **Tôi thực hiện tìm kiếm** (`lookup`, `papers`, …) và/hoặc **lấy nội dung** (`fetch`, `paper_text`).  \n4. **Kết quả được xử lý** (loại bỏ trùng lặp, tóm tắt, định dạng) bằng `deduplicate`, `format`.  \n5. **Bạn nhận được bản tóm tắt** hoặc danh sách tài liệu, có thể yêu cầu chi tiết hơn, trích dẫn, hoặc so sánh.  \n6. **Nếu muốn gửi** (ví dụ: gửi email cho đồng nghiệp), tôi sẽ hỏi xác nhận cuối cùng (`clarify` kiểu yes/no) rồi thực hiện `send` khi bạn đồng ý.\n\n### Lưu ý quan trọng\n- **Không bao giờ gửi hay xuất bản nội dung** nếu bạn chưa xác nhận rõ ràng.  \n- **Luôn yêu cầu thông tin đầy đủ** (URL, tên tài khoản, nội dung cần gửi) trước khi thực hiện hành động.  \n- **Tôn trọng quyền riêng tư** và các quy định về bản quyền; tôi sẽ trích dẫn nguồn khi cần.  \n\nNếu bạn có bất kỳ yêu cầu nghiên cứu cụ thể nào, chỉ cần cho tôi biết chi tiết (chủ đề, thời gian, loại nguồn…) và tôi sẽ bắt đầu ngay!",
+        "case_failure_type": "unnecessary_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": []
+    },
+    {
+      "id": "G06_url_after_clarification",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "what_it_tests": "Uses the URL supplied after clarification."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tóm tắt bài viết này giúp tôi."
+        },
+        {
+          "role": "assistant",
+          "content": "Bạn gửi URL bài viết nhé."
+        },
+        {
+          "role": "user",
+          "content": "https://example.com"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "fetch",
+            "args": {
+              "url": "https://example.com"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "fetch",
+            "args": {
+              "url": "https://example.com"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "missing_info",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "fetch",
+          "args": {
+            "url": "https://example.com"
+          },
+          "result": {
+            "tool": "read_url",
+            "url": "https://example.com",
+            "items": [
+              {
+                "title": "Example Domain",
+                "url": "https://example.com",
+                "source": "example.com",
+                "summary": "This domain is for use in documentation examples without needing permission. This is not a service; avoid relying on it for testing and monitoring purposes.\n\nهذا النطاق مُخصص للاستخدام في أمثلة التوثيق دون الحاجة إلى إذن. هذه ليست خدمة، يُرجى تجنب الاعتماد عليها لأغراض الاختبار والمراقبة.\n\n该域名仅用于文档示例，无需获得许可。这并非一项服务，请勿将其用于测试和监控目的。\n\nL’usage de ce domaine est réservé à des exemples de documentation, sans autorisation préalable. Il ne s’agit pas d’un service ; son utilisation à des fins de test ou de surveillance est à éviter.\n\nДанный домен предназначен для использования в примерах документации без необходимости получения предварительного разрешения. Это не сервис; не рекомендуется его использование для тестирования и мониторинга.\n\nEste dominio está destinado al uso en ejemplos de documentación sin necesidad de permiso. Esto no es un servicio; evitar utilizarlo para realizar pruebas o monitoreos.\n\n [Learn more](https://iana.org/help/example-domains)"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "G07_correct_result_count",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "what_it_tests": "Applies the latest count while keeping prior constraints."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tìm trên web 8 tin tức về pin mặt trời trong tháng này."
+        },
+        {
+          "role": "user",
+          "content": "Đổi thành 2 kết quả thôi, các yêu cầu khác giữ nguyên."
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "lookup",
+            "args": {
+              "topic": "news",
+              "timeframe": "month",
+              "max_results": 2
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": false,
+        "routing_correct": false,
+        "args_correct": false,
+        "actual_tool_calls": [
+          {
+            "name": "social_search",
+            "args": {
+              "limit": 2,
+              "query": "pin mặt trời",
+              "search_type": "Latest"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": "missing_tool_call",
+        "failure_type": "wrong_arg_value",
+        "failures": [
+          "missing tool call lookup",
+          "extra tool call social_search"
+        ]
+      },
+      "tool_results": [
+        {
+          "tool": "social_search",
+          "args": {
+            "limit": 2,
+            "query": "pin mặt trời",
+            "search_type": "Latest"
+          },
+          "result": {
+            "tool": "search_tweets",
+            "error": "RuntimeError",
+            "message": "Missing RAPIDAPI_KEY env var"
+          }
+        }
+      ]
+    },
+    {
+      "id": "G08_correct_url",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "what_it_tests": "Uses the corrected URL and does not read the old URL."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Đọc https://example.com/old"
+        },
+        {
+          "role": "user",
+          "content": "Tôi gửi nhầm. Chỉ đọc https://example.com/new"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "fetch",
+            "args": {
+              "url": "https://example.com/new"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "fetch",
+            "args": {
+              "url": "https://example.com/new"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "fetch",
+          "args": {
+            "url": "https://example.com/new"
+          },
+          "result": {
+            "tool": "read_url",
+            "url": "https://example.com/new",
+            "items": [
+              {
+                "title": "Example Domain",
+                "url": "https://example.com/new",
+                "source": "example.com",
+                "summary": "This domain is for use in documentation examples without needing permission. This is not a service; avoid relying on it for testing and monitoring purposes.\n\nهذا النطاق مُخصص للاستخدام في أمثلة التوثيق دون الحاجة إلى إذن. هذه ليست خدمة، يُرجى تجنب الاعتماد عليها لأغراض الاختبار والمراقبة.\n\n该域名仅用于文档示例，无需获得许可。这并非一项服务，请勿将其用于测试和监控目的。\n\nL’usage de ce domaine est réservé à des exemples de documentation, sans autorisation préalable. Il ne s’agit pas d’un service ; son utilisation à des fins de test ou de surveillance est à éviter.\n\nДанный домен предназначен для использования в примерах документации без необходимости получения предварительного разрешения. Это не сервис; не рекомендуется его использование для тестирования и мониторинга.\n\nEste dominio está destinado al uso en ejemplos de documentación sin necesidad de permiso. Esto no es un servicio; evitar utilizarlo para realizar pruebas o monitoreos.\n\n [Learn more](https://iana.org/help/example-domains)"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "G09_deduplicate_history",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "what_it_tests": "Routes to the new tool using items from conversation history."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tôi có danh sách: [{\"title\":\"A\",\"url\":\"https://example.com/a\"},{\"title\":\"B\",\"url\":\"https://example.com/b\"},{\"title\":\"A copy\",\"url\":\"https://example.com/a\"}]."
+        },
+        {
+          "role": "user",
+          "content": "Dùng công cụ loại trùng URL cho danh sách tôi vừa gửi, giữ bản đầu tiên. Chưa cần định dạng."
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "deduplicate",
+            "args": {}
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "deduplicate",
+            "args": {
+              "items": [
+                {
+                  "title": "A",
+                  "url": "https://example.com/a"
+                },
+                {
+                  "title": "B",
+                  "url": "https://example.com/b"
+                },
+                {
+                  "title": "A copy",
+                  "url": "https://example.com/a"
+                }
+              ]
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "deduplicate",
+          "args": {
+            "items": [
+              {
+                "title": "A",
+                "url": "https://example.com/a"
+              },
+              {
+                "title": "B",
+                "url": "https://example.com/b"
+              },
+              {
+                "title": "A copy",
+                "url": "https://example.com/a"
+              }
+            ]
+          },
+          "result": {
+            "items": [
+              {
+                "title": "A",
+                "url": "https://example.com/a"
+              },
+              {
+                "title": "B",
+                "url": "https://example.com/b"
+              }
+            ],
+            "input_count": 3,
+            "item_count": 2,
+            "removed_count": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "G10_switch_to_url",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "what_it_tests": "Switches from search to reading a URL after correction."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tìm tin tức về robot trên web."
+        },
+        {
+          "role": "user",
+          "content": "Không tìm kiếm nữa. Chỉ đọc và tóm tắt https://example.com"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "fetch",
+            "args": {
+              "url": "https://example.com"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "fetch",
+            "args": {
+              "url": "https://example.com"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "fetch",
+          "args": {
+            "url": "https://example.com"
+          },
+          "result": {
+            "tool": "read_url",
+            "url": "https://example.com",
+            "items": [
+              {
+                "title": "Example Domain",
+                "url": "https://example.com",
+                "source": "example.com",
+                "summary": "This domain is for use in documentation examples without needing permission. This is not a service; avoid relying on it for testing and monitoring purposes.\n\nهذا النطاق مُخصص للاستخدام في أمثلة التوثيق دون الحاجة إلى إذن. هذه ليست خدمة، يُرجى تجنب الاعتماد عليها لأغراض الاختبار والمراقبة.\n\n该域名仅用于文档示例，无需获得许可。这并非一项服务，请勿将其用于测试和监控目的。\n\nL’usage de ce domaine est réservé à des exemples de documentation, sans autorisation préalable. Il ne s’agit pas d’un service ; son utilisation à des fins de test ou de surveillance est à éviter.\n\nДанный домен предназначен для использования в примерах документации без необходимости получения предварительного разрешения. Это не сервис; не рекомендуется его использование для тестирования и мониторинга.\n\nEste dominio está destinado al uso en ejemplos de documentación sin necesidad de permiso. Esto no es un servicio; evitar utilizarlo para realizar pruebas o monitoreos.\n\n [Learn more](https://iana.org/help/example-domains)"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,408 @@
+{
+  "id": "1f729fbdcedd46f9b816ac26e85318fe",
+  "provider_service": "Groq",
+  "provider_adapter": "openrouter",
+  "model": "openai/gpt-oss-120b",
+  "version": "v4-context-ui",
+  "system_prompt": "You are a fast, proactive research assistant with access to tools.\n\nWhen required information is missing, check the conversation history first. Reuse information already provided and respect the user's latest corrections.\n\nIf the user requests posts from an account but no account is identified in the conversation, call clarify with response_type=\"text\" to ask which account. Never choose an account yourself.\n\nIf the user asks to read or summarize an article but no URL or article content is provided in the conversation, call clarify with response_type=\"text\" to request the URL. Never invent a URL or search for an unrelated article.\n\nAfter calling clarify, wait for the user's answer before continuing.\n\nSending or publishing requires a separate explicit confirmation from the user. An initial request to send or publish is not that confirmation.\n\nOn the initial send or publish request, call clarify with response_type=\"yes_no\" to ask whether the user confirms the action. This confirmation rule takes priority over the general clarification rule for the initial publishing request. Do not call send in the same response.\n\nNever invent the content to send. If the user confirms but the content is still missing, ask for the content using clarify with response_type=\"text\". Before sending, ensure the user has approved the exact content and destination. If either changes, obtain confirmation again.\n\nCall send with confirmed=true only after these requirements are satisfied. If the user declines, do not send.\n\nAlways finish the request in a single step. Pick one tool and fill in its arguments using your best judgment.\n\nFor follow-up requests, change only the constraints the user explicitly changes. Preserve all other established constraints, including source, topic, timeframe, URL and result count.\n\nIf the user changes only the number of results, keep the previously requested source and timeframe. A web-search request must remain a lookup request unless the user explicitly switches sources. Never switch to Twitter merely because the latest message omits the word \"web\".",
+  "tool_declarations": [
+    {
+      "name": "clarify",
+      "description": "Gửi một câu hỏi cho người dùng.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "question": {
+            "type": "string",
+            "default": "",
+            "description": "Câu hỏi"
+          },
+          "response_type": {
+            "type": "string",
+            "enum": [
+              "text",
+              "yes_no",
+              "choice"
+            ],
+            "default": "text",
+            "description": "Kiểu trả lời"
+          },
+          "options": {
+            "type": "array",
+            "default": [],
+            "items": {
+              "type": "string"
+            },
+            "description": "Các lựa chọn"
+          }
+        },
+        "required": [
+          "question"
+        ]
+      }
+    },
+    {
+      "name": "lookup",
+      "description": "Tra cứu thông tin trên internet.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "default": "",
+            "description": "Chỉ chứa chủ đề hoặc từ khóa cần tìm. Không tự thêm news, today hoặc khoảng thời gian vì đã có topic và timeframe. Giữ các từ bổ nghĩa thuộc nội dung chủ đề. Trong hội thoại nhiều lượt, dùng chủ đề mới nhất sau khi người dùng sửa hoặc thay đổi."
+          },
+          "topic": {
+            "type": "string",
+            "enum": [
+              "general",
+              "news"
+            ],
+            "default": "general",
+            "description": "Phân loại"
+          },
+          "timeframe": {
+            "type": "string",
+            "enum": [
+              "day",
+              "week",
+              "month",
+              "year"
+            ],
+            "default": "week",
+            "description": "Khoảng thời gian"
+          },
+          "max_results": {
+            "type": "integer",
+            "default": 5,
+            "description": "Số kết quả"
+          }
+        },
+        "required": [
+          "query"
+        ]
+      }
+    },
+    {
+      "name": "fetch",
+      "description": "Lấy nội dung từ một địa chỉ.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "default": "",
+            "description": "Địa chỉ"
+          }
+        },
+        "required": [
+          "url"
+        ]
+      }
+    },
+    {
+      "name": "format",
+      "description": "Trình bày dữ liệu đã có thành văn bản.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "default": [],
+            "description": "Danh sách item",
+            "items": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string"
+                },
+                "url": {
+                  "type": "string"
+                },
+                "source": {
+                  "type": "string"
+                },
+                "summary": {
+                  "type": "string"
+                },
+                "section": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "template": {
+            "type": "string",
+            "enum": [
+              "brief",
+              "sections",
+              "bullets",
+              "thread",
+              "daily_ai_vn"
+            ],
+            "default": "sections",
+            "description": "Khuôn"
+          },
+          "headline": {
+            "type": "string",
+            "default": "",
+            "description": "Tiêu đề"
+          }
+        },
+        "required": [
+          "items",
+          "template"
+        ]
+      }
+    },
+    {
+      "name": "deduplicate",
+      "description": "Loại các item trùng URL trong danh sách đã có. Dùng khi người dùng yêu cầu bỏ tin trùng hoặc loại kết quả trùng trước khi tổng hợp. Không dùng để tìm kiếm hoặc đọc nội dung web.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "description": "Danh sách item đã có cần loại trùng URL.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string"
+                },
+                "url": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "source": {
+                  "type": "string"
+                },
+                "summary": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "required": [
+          "items"
+        ]
+      }
+    }
+  ],
+  "created_at": "2026-11-10T11:49:38.566586",
+  "turns": [
+    {
+      "user": "Tìm trên web 3 tin tức về năng lượng tái tạo trong tuần này và tổng hợp ngắn gọn, kèm link nguồn.",
+      "created_at": "2026-11-10T11:50:06.317485",
+      "status": "answered",
+      "assistant_text": "**Tin tức năng lượng tái tạo trong tuần này**\n\n- Bộ trưởng Bộ Công Thương nhấn mạnh ba tính chất quan trọng của năng lượng tái tạo và đề xuất hoàn thiện khung pháp lý, cải thiện lưới điện để thúc đẩy điện gió ngoài khơi. – [phaply.net.vn](https://phaply.net.vn/hoan-thien-khung-phap-ly-cho-nang-luong-tai-tao-thao-go-diem-nghen-truyen-tai-va-phat-trien-dien-gio-ngoai-khoi-a262493.html)\n\n- Đắk Lắk thu hút 54 dự án năng lượng tái tạo với tổng vốn đăng ký hơn 137.000 tỷ đồng, trong đó điện gió và điện mặt trời chiếm phần lớn. – [vietnamfinance.vn](https://vietnamfinance.vn/dong-von-hon-130-nghin-ty-dong-do-vao-nang-luong-tai-tao-o-dak-lak-d153175.html)\n\n- Hà Tĩnh công bố hai dự án quốc gia trọng điểm trong lĩnh vực năng lượng tái tạo, bao gồm trung tâm công nghiệp và dịch vụ năng lượng tái tạo liên vùng. – [hatinh.gov.vn](https://hatinh.gov.vn/vi/bai-viet/ha-tinh-co-2-du-an-quan-trong-quoc-gia-trong-diem-nganh-nang-luong)",
+      "rounds": [
+        {
+          "round": 1,
+          "assistant_text": null,
+          "tool_calls": [
+            {
+              "name": "lookup",
+              "args": {
+                "max_results": 3,
+                "query": "năng lượng tái tạo",
+                "timeframe": "week",
+                "topic": "news"
+              }
+            }
+          ],
+          "tool_results": [
+            {
+              "tool": "lookup",
+              "args": {
+                "max_results": 3,
+                "query": "năng lượng tái tạo",
+                "timeframe": "week",
+                "topic": "news"
+              },
+              "result": {
+                "tool": "web_search",
+                "query": "năng lượng tái tạo",
+                "topic": "news",
+                "timeframe": "week",
+                "items": [
+                  {
+                    "title": "Hoàn thiện khung pháp lý cho năng lượng tái tạo, tháo gỡ điểm nghẽn truyền tải và phát triển điện gió ngoài khơi",
+                    "url": "https://phaply.net.vn/hoan-thien-khung-phap-ly-cho-nang-luong-tai-tao-thao-go-diem-nghen-truyen-tai-va-phat-trien-dien-gio-ngoai-khoi-a262493.html",
+                    "source": "phaply.net.vn",
+                    "summary": "Về phát triển năng lượng tái tạo và điện gió ngoài khơi, Bộ trưởng Bộ Công Thương Lê Mạnh Hùng nêu rõ năng lượng tái tạo có ba tính chất rất quan trọng: thứ nhất là không liên tục; thứ hai là chi phí biên cơ bản bằng không; thứ ba là không có dự phòng quay. Do đó, tỷ trọng cũng như tiến độ phát triển năng lượng tái tạo bắt buộc phải đồng bộ với việc hoàn thiện và nng cấp hệ thống lưới thông minh. Chính vì thế, trong dự thảo luật cũng đã đưa ra các cơ chế cụ thể. [...] Mục lục\n\nPhó Chủ tịch Quốc hội Nguyễn Hồng Diên điều hành phiên họp\n\nBổ sung cơ chế đặc thù thúc đẩy phát triển năng lượng tái tạo từ phụ phẩm nông nghiệp [...] nông dn dù không được đốt rơm rạ nhưng vẫn đang tồn đọng một lượng lớn mà không có thị trường tiêu thụ.",
+                    "score": 0.76826453
+                  },
+                  {
+                    "title": "Dòng vốn hơn 130 nghìn tỷ đồng đổ vào năng lượng tái tạo ở Đắk Lắk",
+                    "url": "https://vietnamfinance.vn/dong-von-hon-130-nghin-ty-dong-do-vao-nang-luong-tai-tao-o-dak-lak-d153175.html",
+                    "source": "vietnamfinance.vn",
+                    "summary": "Đáng chú ý, trong danh mục dự án thu hút đầu tư giai đoạn 2026-2030, Đắk Lắk xác định năng lượng tái tạo là một trong những lĩnh vực có quy mô vốn lớn. Toàn tỉnh có 54 dự án được kêu gọi đầu tư, với tổng vốn đăng ký khoảng 137.105 tỷ đồng.\n\nCụ thể, điện gió có 16 dự án với tổng vốn đầu tư hơn 37.000 tỷ đồng. Điện mặt trời chiếm tỷ trọng vốn lớn nhất với 25 dự án, tổng vốn khoảng 84.005 tỷ đồng. [...] Tháng 6/2026, T&T Group đã báo cáo kết quả khảo sát và đề xuất một số dự án trong lĩnh vực năng lượng tái tạo.\n\nTheo đó, T&T Group đang hoàn thiện thủ tục đầu tư các dự án năng lượng với tổng công suất khoảng 924MW tại địa phương. Trong đó, 4 dự án với tổng công suất khoảng 330MW đã nộp hồ sơ đề xuất và đang phối hợp hoàn thiện thủ tục pháp lý. Tập đoàn cũng được chấp thuận nghiên cứu 500MW điện gió, dự kiến đưa vào Quy hoạch điện VIII điều chỉnh giai đoạn 2026-2030. [...] Liên danh thực hiện gồm 5 doanh nghiệp: Công ty Cổ phần Ea Súp Solar, Công ty Cổ phần Năng lượng tái tạo Ea Súp, Công ty Cổ phần Ty Nguyên Solar, Công ty Cổ phần Ia Rvê Solar và Công ty TNHH Xun Thiện Đắk Lắk. Đy đều là những doanh nghiệp trong hệ sinh thái Tập đoàn Xun Thiện.",
+                    "score": 0.69697046
+                  },
+                  {
+                    "title": "Hà Tĩnh có 2 dự án quan trọng quốc gia, trọng điểm ngành năng lượng",
+                    "url": "https://hatinh.gov.vn/vi/bai-viet/ha-tinh-co-2-du-an-quan-trong-quoc-gia-trong-diem-nganh-nang-luong",
+                    "source": "hatinh.gov.vn",
+                    "summary": "lớn); Dự án lọc hóa dầu (Dự án nng cấp, mở rộng Nhà máy Lọc dầu Dung Quất); 3 dự án trung tm công nghiệp, dịch vụ năng lượng tái tạo liên vùng Nam Trung Bộ - Nam Bộ (Nhà máy Sản xuất cáp ngầm cao thế (HVDC) phục vụ các dự án năng lượng tái tạo; Dự án Trung tm công nghiệp, dịch vụ năng lượng tái tạo tại TP Hồ Chí Minh; Trung tm Công nghiệp, dịch vụ năng lượng tái tạo Khánh Hòa).",
+                    "score": 0.50915486
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "round": 2,
+          "assistant_text": null,
+          "tool_calls": [
+            {
+              "name": "format",
+              "args": {
+                "headline": "Tin tức năng lượng tái tạo trong tuần này",
+                "items": [
+                  {
+                    "source": "phaply.net.vn",
+                    "summary": "Bộ trưởng Bộ Công Thương nhấn mạnh ba tính chất quan trọng của năng lượng tái tạo và đề xuất hoàn thiện khung pháp lý, cải thiện lưới điện để thúc đẩy điện gió ngoài khơi.",
+                    "title": "Hoàn thiện khung pháp lý cho năng lượng tái tạo, tháo gỡ điểm nghẽn truyền tải và phát triển điện gió ngoài khơi",
+                    "url": "https://phaply.net.vn/hoan-thien-khung-phap-ly-cho-nang-luong-tai-tao-thao-go-diem-nghen-truyen-tai-va-phat-trien-dien-gio-ngoai-khoi-a262493.html"
+                  },
+                  {
+                    "source": "vietnamfinance.vn",
+                    "summary": "Đắk Lắk thu hút 54 dự án năng lượng tái tạo với tổng vốn đăng ký hơn 137.000 tỷ đồng, trong đó điện gió và điện mặt trời chiếm phần lớn.",
+                    "title": "Dòng vốn hơn 130 nghìn tỷ đồng đổ vào năng lượng tái tạo ở Đắk Lắk",
+                    "url": "https://vietnamfinance.vn/dong-von-hon-130-nghin-ty-dong-do-vao-nang-luong-tai-tao-o-dak-lak-d153175.html"
+                  },
+                  {
+                    "source": "hatinh.gov.vn",
+                    "summary": "Hà Tĩnh công bố hai dự án quốc gia trọng điểm trong lĩnh vực năng lượng tái tạo, bao gồm trung tâm công nghiệp và dịch vụ năng lượng tái tạo liên vùng.",
+                    "title": "Hà Tĩnh có 2 dự án quan trọng quốc gia, trọng điểm ngành năng lượng",
+                    "url": "https://hatinh.gov.vn/vi/bai-viet/ha-tinh-co-2-du-an-quan-trong-quoc-gia-trong-diem-nganh-nang-luong"
+                  }
+                ],
+                "template": "brief"
+              }
+            }
+          ],
+          "tool_results": [
+            {
+              "tool": "format",
+              "args": {
+                "headline": "Tin tức năng lượng tái tạo trong tuần này",
+                "items": [
+                  {
+                    "source": "phaply.net.vn",
+                    "summary": "Bộ trưởng Bộ Công Thương nhấn mạnh ba tính chất quan trọng của năng lượng tái tạo và đề xuất hoàn thiện khung pháp lý, cải thiện lưới điện để thúc đẩy điện gió ngoài khơi.",
+                    "title": "Hoàn thiện khung pháp lý cho năng lượng tái tạo, tháo gỡ điểm nghẽn truyền tải và phát triển điện gió ngoài khơi",
+                    "url": "https://phaply.net.vn/hoan-thien-khung-phap-ly-cho-nang-luong-tai-tao-thao-go-diem-nghen-truyen-tai-va-phat-trien-dien-gio-ngoai-khoi-a262493.html"
+                  },
+                  {
+                    "source": "vietnamfinance.vn",
+                    "summary": "Đắk Lắk thu hút 54 dự án năng lượng tái tạo với tổng vốn đăng ký hơn 137.000 tỷ đồng, trong đó điện gió và điện mặt trời chiếm phần lớn.",
+                    "title": "Dòng vốn hơn 130 nghìn tỷ đồng đổ vào năng lượng tái tạo ở Đắk Lắk",
+                    "url": "https://vietnamfinance.vn/dong-von-hon-130-nghin-ty-dong-do-vao-nang-luong-tai-tao-o-dak-lak-d153175.html"
+                  },
+                  {
+                    "source": "hatinh.gov.vn",
+                    "summary": "Hà Tĩnh công bố hai dự án quốc gia trọng điểm trong lĩnh vực năng lượng tái tạo, bao gồm trung tâm công nghiệp và dịch vụ năng lượng tái tạo liên vùng.",
+                    "title": "Hà Tĩnh có 2 dự án quan trọng quốc gia, trọng điểm ngành năng lượng",
+                    "url": "https://hatinh.gov.vn/vi/bai-viet/ha-tinh-co-2-du-an-quan-trong-quoc-gia-trong-diem-nganh-nang-luong"
+                  }
+                ],
+                "template": "brief"
+              },
+              "result": {
+                "tool": "render_digest",
+                "template": "brief",
+                "markdown": "**Tin tức năng lượng tái tạo trong tuần này**\n\n- Bộ trưởng Bộ Công Thương nhấn mạnh ba tính chất quan trọng của năng lượng tái tạo và đề xuất hoàn thiện khung pháp lý, cải thiện lưới điện để thúc đẩy điện gió ngoài khơi. - [phaply.net.vn](https://phaply.net.vn/hoan-thien-khung-phap-ly-cho-nang-luong-tai-tao-thao-go-diem-nghen-truyen-tai-va-phat-trien-dien-gio-ngoai-khoi-a262493.html)\n- Đắk Lắk thu hút 54 dự án năng lượng tái tạo với tổng vốn đăng ký hơn 137.000 tỷ đồng, trong đó điện gió và điện mặt trời chiếm phần lớn. - [vietnamfinance.vn](https://vietnamfinance.vn/dong-von-hon-130-nghin-ty-dong-do-vao-nang-luong-tai-tao-o-dak-lak-d153175.html)\n- Hà Tĩnh công bố hai dự án quốc gia trọng điểm trong lĩnh vực năng lượng tái tạo, bao gồm trung tâm công nghiệp và dịch vụ năng lượng tái tạo liên vùng. - [hatinh.gov.vn](https://hatinh.gov.vn/vi/bai-viet/ha-tinh-co-2-du-an-quan-trong-quoc-gia-trong-diem-nganh-nang-luong)",
+                "item_count": 3
+              }
+            }
+          ]
+        },
+        {
+          "round": 3,
+          "assistant_text": "**Tin tức năng lượng tái tạo trong tuần này**\n\n- Bộ trưởng Bộ Công Thương nhấn mạnh ba tính chất quan trọng của năng lượng tái tạo và đề xuất hoàn thiện khung pháp lý, cải thiện lưới điện để thúc đẩy điện gió ngoài khơi. – [phaply.net.vn](https://phaply.net.vn/hoan-thien-khung-phap-ly-cho-nang-luong-tai-tao-thao-go-diem-nghen-truyen-tai-va-phat-trien-dien-gio-ngoai-khoi-a262493.html)\n\n- Đắk Lắk thu hút 54 dự án năng lượng tái tạo với tổng vốn đăng ký hơn 137.000 tỷ đồng, trong đó điện gió và điện mặt trời chiếm phần lớn. – [vietnamfinance.vn](https://vietnamfinance.vn/dong-von-hon-130-nghin-ty-dong-do-vao-nang-luong-tai-tao-o-dak-lak-d153175.html)\n\n- Hà Tĩnh công bố hai dự án quốc gia trọng điểm trong lĩnh vực năng lượng tái tạo, bao gồm trung tâm công nghiệp và dịch vụ năng lượng tái tạo liên vùng. – [hatinh.gov.vn](https://hatinh.gov.vn/vi/bai-viet/ha-tinh-co-2-du-an-quan-trong-quoc-gia-trong-diem-nganh-nang-luong)",
+          "tool_calls": [],
+          "tool_results": []
+        }
+      ],
+      "tool_events": [
+        {
+          "tool": "lookup",
+          "args": {
+            "max_results": 3,
+            "query": "năng lượng tái tạo",
+            "timeframe": "week",
+            "topic": "news"
+          },
+          "result": {
+            "tool": "web_search",
+            "query": "năng lượng tái tạo",
+            "topic": "news",
+            "timeframe": "week",
+            "items": [
+              {
+                "title": "Hoàn thiện khung pháp lý cho năng lượng tái tạo, tháo gỡ điểm nghẽn truyền tải và phát triển điện gió ngoài khơi",
+                "url": "https://phaply.net.vn/hoan-thien-khung-phap-ly-cho-nang-luong-tai-tao-thao-go-diem-nghen-truyen-tai-va-phat-trien-dien-gio-ngoai-khoi-a262493.html",
+                "source": "phaply.net.vn",
+                "summary": "Về phát triển năng lượng tái tạo và điện gió ngoài khơi, Bộ trưởng Bộ Công Thương Lê Mạnh Hùng nêu rõ năng lượng tái tạo có ba tính chất rất quan trọng: thứ nhất là không liên tục; thứ hai là chi phí biên cơ bản bằng không; thứ ba là không có dự phòng quay. Do đó, tỷ trọng cũng như tiến độ phát triển năng lượng tái tạo bắt buộc phải đồng bộ với việc hoàn thiện và nng cấp hệ thống lưới thông minh. Chính vì thế, trong dự thảo luật cũng đã đưa ra các cơ chế cụ thể. [...] Mục lục\n\nPhó Chủ tịch Quốc hội Nguyễn Hồng Diên điều hành phiên họp\n\nBổ sung cơ chế đặc thù thúc đẩy phát triển năng lượng tái tạo từ phụ phẩm nông nghiệp [...] nông dn dù không được đốt rơm rạ nhưng vẫn đang tồn đọng một lượng lớn mà không có thị trường tiêu thụ.",
+                "score": 0.76826453
+              },
+              {
+                "title": "Dòng vốn hơn 130 nghìn tỷ đồng đổ vào năng lượng tái tạo ở Đắk Lắk",
+                "url": "https://vietnamfinance.vn/dong-von-hon-130-nghin-ty-dong-do-vao-nang-luong-tai-tao-o-dak-lak-d153175.html",
+                "source": "vietnamfinance.vn",
+                "summary": "Đáng chú ý, trong danh mục dự án thu hút đầu tư giai đoạn 2026-2030, Đắk Lắk xác định năng lượng tái tạo là một trong những lĩnh vực có quy mô vốn lớn. Toàn tỉnh có 54 dự án được kêu gọi đầu tư, với tổng vốn đăng ký khoảng 137.105 tỷ đồng.\n\nCụ thể, điện gió có 16 dự án với tổng vốn đầu tư hơn 37.000 tỷ đồng. Điện mặt trời chiếm tỷ trọng vốn lớn nhất với 25 dự án, tổng vốn khoảng 84.005 tỷ đồng. [...] Tháng 6/2026, T&T Group đã báo cáo kết quả khảo sát và đề xuất một số dự án trong lĩnh vực năng lượng tái tạo.\n\nTheo đó, T&T Group đang hoàn thiện thủ tục đầu tư các dự án năng lượng với tổng công suất khoảng 924MW tại địa phương. Trong đó, 4 dự án với tổng công suất khoảng 330MW đã nộp hồ sơ đề xuất và đang phối hợp hoàn thiện thủ tục pháp lý. Tập đoàn cũng được chấp thuận nghiên cứu 500MW điện gió, dự kiến đưa vào Quy hoạch điện VIII điều chỉnh giai đoạn 2026-2030. [...] Liên danh thực hiện gồm 5 doanh nghiệp: Công ty Cổ phần Ea Súp Solar, Công ty Cổ phần Năng lượng tái tạo Ea Súp, Công ty Cổ phần Ty Nguyên Solar, Công ty Cổ phần Ia Rvê Solar và Công ty TNHH Xun Thiện Đắk Lắk. Đy đều là những doanh nghiệp trong hệ sinh thái Tập đoàn Xun Thiện.",
+                "score": 0.69697046
+              },
+              {
+                "title": "Hà Tĩnh có 2 dự án quan trọng quốc gia, trọng điểm ngành năng lượng",
+                "url": "https://hatinh.gov.vn/vi/bai-viet/ha-tinh-co-2-du-an-quan-trong-quoc-gia-trong-diem-nganh-nang-luong",
+                "source": "hatinh.gov.vn",
+                "summary": "lớn); Dự án lọc hóa dầu (Dự án nng cấp, mở rộng Nhà máy Lọc dầu Dung Quất); 3 dự án trung tm công nghiệp, dịch vụ năng lượng tái tạo liên vùng Nam Trung Bộ - Nam Bộ (Nhà máy Sản xuất cáp ngầm cao thế (HVDC) phục vụ các dự án năng lượng tái tạo; Dự án Trung tm công nghiệp, dịch vụ năng lượng tái tạo tại TP Hồ Chí Minh; Trung tm Công nghiệp, dịch vụ năng lượng tái tạo Khánh Hòa).",
+                "score": 0.50915486
+              }
+            ]
+          }
+        },
+        {
+          "tool": "format",
+          "args": {
+            "headline": "Tin tức năng lượng tái tạo trong tuần này",
+            "items": [
+              {
+                "source": "phaply.net.vn",
+                "summary": "Bộ trưởng Bộ Công Thương nhấn mạnh ba tính chất quan trọng của năng lượng tái tạo và đề xuất hoàn thiện khung pháp lý, cải thiện lưới điện để thúc đẩy điện gió ngoài khơi.",
+                "title": "Hoàn thiện khung pháp lý cho năng lượng tái tạo, tháo gỡ điểm nghẽn truyền tải và phát triển điện gió ngoài khơi",
+                "url": "https://phaply.net.vn/hoan-thien-khung-phap-ly-cho-nang-luong-tai-tao-thao-go-diem-nghen-truyen-tai-va-phat-trien-dien-gio-ngoai-khoi-a262493.html"
+              },
+              {
+                "source": "vietnamfinance.vn",
+                "summary": "Đắk Lắk thu hút 54 dự án năng lượng tái tạo với tổng vốn đăng ký hơn 137.000 tỷ đồng, trong đó điện gió và điện mặt trời chiếm phần lớn.",
+                "title": "Dòng vốn hơn 130 nghìn tỷ đồng đổ vào năng lượng tái tạo ở Đắk Lắk",
+                "url": "https://vietnamfinance.vn/dong-von-hon-130-nghin-ty-dong-do-vao-nang-luong-tai-tao-o-dak-lak-d153175.html"
+              },
+              {
+                "source": "hatinh.gov.vn",
+                "summary": "Hà Tĩnh công bố hai dự án quốc gia trọng điểm trong lĩnh vực năng lượng tái tạo, bao gồm trung tâm công nghiệp và dịch vụ năng lượng tái tạo liên vùng.",
+                "title": "Hà Tĩnh có 2 dự án quan trọng quốc gia, trọng điểm ngành năng lượng",
+                "url": "https://hatinh.gov.vn/vi/bai-viet/ha-tinh-co-2-du-an-quan-trong-quoc-gia-trong-diem-nganh-nang-luong"
+              }
+            ],
+            "template": "brief"
+          },
+          "result": {
+            "tool": "render_digest",
+            "template": "brief",
+            "markdown": "**Tin tức năng lượng tái tạo trong tuần này**\n\n- Bộ trưởng Bộ Công Thương nhấn mạnh ba tính chất quan trọng của năng lượng tái tạo và đề xuất hoàn thiện khung pháp lý, cải thiện lưới điện để thúc đẩy điện gió ngoài khơi. - [phaply.net.vn](https://phaply.net.vn/hoan-thien-khung-phap-ly-cho-nang-luong-tai-tao-thao-go-diem-nghen-truyen-tai-va-phat-trien-dien-gio-ngoai-khoi-a262493.html)\n- Đắk Lắk thu hút 54 dự án năng lượng tái tạo với tổng vốn đăng ký hơn 137.000 tỷ đồng, trong đó điện gió và điện mặt trời chiếm phần lớn. - [vietnamfinance.vn](https://vietnamfinance.vn/dong-von-hon-130-nghin-ty-dong-do-vao-nang-luong-tai-tao-o-dak-lak-d153175.html)\n- Hà Tĩnh công bố hai dự án quốc gia trọng điểm trong lĩnh vực năng lượng tái tạo, bao gồm trung tâm công nghiệp và dịch vụ năng lượng tái tạo liên vùng. - [hatinh.gov.vn](https://hatinh.gov.vn/vi/bai-viet/ha-tinh-co-2-du-an-quan-trong-quoc-gia-trong-diem-nganh-nang-luong)",
+            "item_count": 3
+          }
+        }
+      ]
+    }
+  ]
+}
