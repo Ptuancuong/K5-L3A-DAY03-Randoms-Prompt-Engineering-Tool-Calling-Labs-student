@@ -69,7 +69,7 @@ Use actual failures from `results[*].result.failures`.
 | R10 | missing_info | timeline(screenname="sama") | Hệ thống tự đoán tài khoản Twitter là sama thay vì hỏi người dùng muốn xem tài khoản nào. | Fix |
 | R11 | missing_info | fetch(url="https://example.com/article") | Hệ thống tự đưa ra một URL mẫu thay vì yêu cầu người dùng cung cấp đường dẫn bài viết. | Fix |
 | R12 | wrong_boundary | send(text="Bản tin này") | Hệ thống gọi send khi chưa hỏi và nhận được xác nhận từ người dùng. | Fix |
-| R13 | wrong_arg_value | lookup(query="AI news", timeframe="day"); social_search(query="AI", search_type="Latest", limit=5) | SHệ thống chọn đúng hai công cụ nhưng truyền tham số cho lookup chưa chính xác: query phải là "AI" và còn thiếu topic="news". | Fix |
+| R13 | wrong_arg_value | lookup(query="AI news", timeframe="day"); social_search(query="AI", search_type="Latest", limit=5) | Hệ thống chọn đúng hai công cụ nhưng truyền tham số cho lookup chưa chính xác: query phải là "AI" và còn thiếu topic="news". | Fix |
 | R14 | out_of_scope | send | Người dùng yêu cầu viết hàm Python tính Fibonacci nhưng hệ thống vẫn gọi công cụ send, dù đây là yêu cầu có thể trả lời trực tiếp. | Fix |
 
 ## B3. Team Eval Cases
