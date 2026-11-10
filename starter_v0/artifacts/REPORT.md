@@ -90,16 +90,19 @@ Danh sách 10 test case do nhóm tự phát triển trong `data/eval_group.json`
 
 ## B4. Live Chat Evidence
 
-Chạy tương tác trực tiếp qua Streamlit UI (`transcripts/v3_openai_20261110T111225039491.transcript.json`):
+Bằng chứng hội thoại thực tế được lưu lại trực tiếp trong các file transcript (`transcripts/*.transcript.json`) qua giao diện Streamlit:
 
-| Turn | User Request | Tool Calls | Outcome |
-|---|---|---|---|
-| 1 | 300*2 | calculator(expression="300*2") | Gọi tool calculator thành công, trả lời: "300 * 2 = 600" |
-| 2 | Tóm tắt bài viết này giúp mình | clarify(response_type="text") | Nhận diện thiếu URL, hỏi lại người dùng để bổ sung link |
-| 3 | https://openai.com/research/ | fetch(url="https://openai.com/research/") | Nhận link từ lượt trước, gọi fetch đọc bài |
-| 4 | Đăng bản tin công nghệ này lên Telegram giúp mình ngay | clarify(response_type="yes_no") | Ràng buộc an toàn: hỏi xác nhận trước khi gửi |
-| 5 | tóm tắt https://en.wikipedia.org/wiki/Bánh_mì | fetch(url="https://...") | Đọc link và tóm tắt chi tiết bài viết Bánh mì |
-| 6 | Tuần này có tin tức gì nổi bật về công nghệ không bạn? | lookup(query="...", topic="news", timeframe="week") | Trích xuất đúng timeframe="week" và topic="news" |
+| Lượt | Câu hỏi của User (User Request) | Tool Calls & Arguments | Kết quả trả về thực tế (Actual Outcome) |
+|:---:|---|---|---|
+| **1** | `Giá Bitcoin hiện tại đang là bao nhiêu USD?` | `crypto_lookup(symbol="BTC", vs_currency="usd")` | Trả về dữ liệu CoinGecko live: Giá $74,782 USD, biến động 24h +0.36%, vốn hóa ~$1,503.88 tỷ USD |
+| **2** | `giá này có xu hướng tích cực hay tiêu cự` | *(Không gọi tool - Giữ ngữ cảnh)* | Phân tích logic đa lượt: Ngắn hạn sideway tích lũy (+0.36%), trung và dài hạn rất tích cực (Bullish quanh đỉnh ATH $75k) |
+| **3** | `Phân tích sắc thái nhận xét này giúp mình: "Mô hình AI mới là một bước đột phá tuyệt vời, rất xuất sắc và ấn tượng"` | `sentiment_analyzer(text="...")` | Xác định sắc thái: Rất tích cực (Positive), Polarity Score: +1.0 (mức tối đa), trích xuất từ khóa đột phá, tuyệt vời, xuất sắc |
+| **4** | `Tweet mới nhất của Sam Altman là gì? Lấy 2 bài đăng gần nhất của Elon Musk` | `timeline(screenname="sama", limit=1)`<br>`timeline(screenname="elonmusk", limit=2)` *(gọi song song)* | Cào trực tiếp từ X/Twitter qua RapidAPI: Sam Altman retweet GPT-6 Cyber; Elon Musk retweet SpaceX Memphis data center thuế $54M kèm link và views |
+| **5** | `tìm paper mới nhất về uav trong viễn thông` | `papers(query="uav viễn thông")` | Trích xuất 5 bài báo khoa học mới nhất trên arXiv (5G Aero, Line-of-Sight, UAV Path Planning...) kèm tóm tắt và link PDF |
+| **6** | `60% của 30 của 20/5 bằng mấy` | `calculator(expression="0.6 * 30 * (20 / 5)")` | Tính toán an toàn qua AST, giải thích từng bước và đưa ra đáp án chính xác: 72 |
+| **7** | `tóm tắt cho t bài này` *(câu thiếu URL)* | `clarify(response_type="text")` | Nhận diện thiếu URL, không đoán bừa mà hỏi lại: "Vui lòng cung cấp đường link URL của bài viết" |
+| **8** | `https://mia.vn/cam-nang-du-lich/quan-banh-mi-ha-noi-17777` | `fetch(url="https://mia.vn/...")` | Sử dụng Firecrawl cào toàn văn bài viết và tóm tắt chi tiết các quán Bánh mì Dân Tổ, Nguyên Sinh, Phượng |
+| **9** | `Đăng bản tin công nghệ này lên Telegram giúp mình ngay` | `clarify(response_type="yes_no")` | Guardrail an toàn: Hỏi xác nhận "Bạn có xác nhận muốn đăng bản tin này lên Telegram không?" trước khi gửi |
 
 ## B5. Bonus Evidence
 
